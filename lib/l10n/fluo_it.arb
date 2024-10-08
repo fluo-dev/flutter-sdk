@@ -1,0 +1,29 @@
+{
+  "@@locale": "it",
+  "acceptTerms": "Continuando, accetti i nostri <terms>termini e condizioni</terms> e la nostra <privacy>informativa sulla privacy</privacy>.",
+  "enterCode": "Inserisci il codice di verifica",
+  "enterCodeHelper": "Il codice è stato inviato a <email>{email}</email>. Se non hai ricevuto l'e-mail, controlla la cartella spam.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Inserisci il tuo indirizzo e-mail",
+  "enterEmailPlaceholder": "esempio@dominio.it",
+  "enterFirstName": "Inserisci il tuo nome",
+  "enterFirstNamePlaceholder": "Nome",
+  "enterLastName": "Inserisci il tuo cognome",
+  "enterLastNamePlaceholder": "Cognome",
+  "errorUnknown": "Si è verificato un errore durante l'elaborazione della tua richiesta.",
+  "errorCodeExpired": "Il codice è scaduto.",
+  "errorCodeInvalid": "Il codice non è valido.",
+  "errorInternal": "Si è verificato un errore interno del server.",
+  "errorNotFound": "La risorsa non è stata trovata.",
+  "errorParameterInvalid": "Il valore inviato non è valido.",
+  "errorParameterMissing": "Mancano dei parametri nella richiesta.",
+  "errorSessionRevoked": "La tua sessione è stata revocata.",
+  "errorUnauthorized": "Non hai i permessi necessari.",
+  "next": "Avanti"
+}

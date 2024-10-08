@@ -1,0 +1,29 @@
+{
+  "@@locale": "fr",
+  "acceptTerms": "En continuant, vous acceptez nos <terms>conditions générales</terms> et notre <privacy>politique de confidentialité</privacy>.",
+  "enterCode": "Entrez le code de vérification",
+  "enterCodeHelper": "Le code a été envoyé à <email>{email}</email>. Si vous n'avez pas reçu d'e-mail, vous pouvez vérifier votre dossier de spam.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Entrez votre adresse e-mail",
+  "enterEmailPlaceholder": "exemple@domaine.fr",
+  "enterFirstName": "Entrez votre prénom",
+  "enterFirstNamePlaceholder": "Prénom",
+  "enterLastName": "Entrez votre nom",
+  "enterLastNamePlaceholder": "Nom",
+  "errorUnknown": "Une erreur est survenue lors du traitement de votre demande.",
+  "errorCodeExpired": "Le code a expiré.",
+  "errorCodeInvalid": "Le code n'est pas valide.",
+  "errorInternal": "Une erreur interne au serveur est survenue.",
+  "errorNotFound": "La ressource est introuvable.",
+  "errorParameterInvalid": "La valeur envoyée n'est pas valide.",
+  "errorParameterMissing": "Des paramètres sont manquants dans la requête.",
+  "errorSessionRevoked": "Votre session n'est plus valide.",
+  "errorUnauthorized": "Vous n'avez pas les autorisations nécessaires.",
+  "next": "Suivant"
+}

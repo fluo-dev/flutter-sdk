@@ -1,0 +1,15 @@
+include: package:flutter_lints/flutter.yaml
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
+
+linter:
+  rules:
+    - file_names
+    - prefer_single_quotes
+    - sort_constructors_first
+    - directives_ordering
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore

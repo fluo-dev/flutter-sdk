@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+  "acceptTerms": "By continuing, you accept our <terms>terms & conditions</terms> and our <privacy>privacy policy</privacy>.",
+  "enterCode": "Enter the verification code",
+  "enterCodeHelper": "The code was sent to <email>{email}</email>. If you did not receive an email, you may check your spam folder.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Enter your e-mail address",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "Enter your first name",
+  "enterFirstNamePlaceholder": "First Name",
+  "enterLastName": "Enter your last name",
+  "enterLastNamePlaceholder": "Last Name",
+  "errorUnknown": "There was an error processing your request.",
+  "errorCodeExpired": "The code has expired.",
+  "errorCodeInvalid": "The code is not valid.",
+  "errorInternal": "There was an internal server error.",
+  "errorNotFound": "The resource could not be found.",
+  "errorParameterInvalid": "The value sent is not valid.",
+  "errorParameterMissing": "The request is missing parameters.",
+  "errorSessionRevoked": "Your session was revoked.",
+  "errorUnauthorized": "You do not have the right permissions.",
+  "next": "Next"
+}
