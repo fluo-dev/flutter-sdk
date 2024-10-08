@@ -15,7 +15,13 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureProvider(
       initialData: null,
-      create: (_) => Fluo.init(fluoApiKey),
+      create: (_) async {
+        final fluo = await Fluo.init(fluoApiKey);
+        // Uncomment to clear the session
+        // await fluo.clearSession();
+        return fluo;
+      },
+      catchError: (context, error) {},
       child: Consumer<Fluo?>(
         builder: (context, fluo, child) {
           if (fluo == null) {
@@ -30,8 +36,6 @@ class ExampleApp extends StatelessWidget {
             home: FutureBuilder(
               future: fluo.getAccessToken(forceRefresh: true),
               builder: (context, snapshot) {
-                // Uncomment here to clear the session
-                // fluo.clearSession();
                 final accessToken = snapshot.data;
                 if (accessToken == null) {
                   return const ConnectScreen();
