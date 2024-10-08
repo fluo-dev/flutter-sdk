@@ -5,3 +5,7 @@
 ## 0.1.1
 
 - Small modifications to look better on pub.dev
+
+## 0.1.2
+
+- Make userProfileComplete required on the session model
