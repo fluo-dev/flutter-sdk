@@ -12,7 +12,7 @@ _$SessionImpl _$$SessionImplFromJson(Map<String, dynamic> json) =>
       accessToken: json['accessToken'] as String,
       expiresAt: (json['expiresAt'] as num).toInt(),
       refreshToken: json['refreshToken'] as String,
-      userProfileComplete: json['userProfileComplete'] as bool? ?? false,
+      userProfileComplete: json['userProfileComplete'] as bool,
     );
 
 Map<String, dynamic> _$$SessionImplToJson(_$SessionImpl instance) =>
@@ -21,4 +21,5 @@ Map<String, dynamic> _$$SessionImplToJson(_$SessionImpl instance) =>
       'accessToken': instance.accessToken,
       'expiresAt': instance.expiresAt,
       'refreshToken': instance.refreshToken,
+      'userProfileComplete': instance.userProfileComplete,
     };

@@ -10,7 +10,7 @@ class Session with _$Session {
     required String accessToken,
     required int expiresAt,
     required String refreshToken,
-    @JsonKey(includeToJson: false) @Default(false) bool userProfileComplete,
+    required bool userProfileComplete,
   }) = _Session;
 
   factory Session.fromJson(Map<String, dynamic> json) => _$SessionFromJson(json);

@@ -24,7 +24,6 @@ mixin _$Session {
   String get accessToken => throw _privateConstructorUsedError;
   int get expiresAt => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
-  @JsonKey(includeToJson: false)
   bool get userProfileComplete => throw _privateConstructorUsedError;
 
   /// Serializes this Session to a JSON map.
@@ -46,7 +45,7 @@ abstract class $SessionCopyWith<$Res> {
       String accessToken,
       int expiresAt,
       String refreshToken,
-      @JsonKey(includeToJson: false) bool userProfileComplete});
+      bool userProfileComplete});
 }
 
 /// @nodoc
@@ -107,7 +106,7 @@ abstract class _$$SessionImplCopyWith<$Res> implements $SessionCopyWith<$Res> {
       String accessToken,
       int expiresAt,
       String refreshToken,
-      @JsonKey(includeToJson: false) bool userProfileComplete});
+      bool userProfileComplete});
 }
 
 /// @nodoc
@@ -162,7 +161,7 @@ class _$SessionImpl implements _Session {
       required this.accessToken,
       required this.expiresAt,
       required this.refreshToken,
-      @JsonKey(includeToJson: false) this.userProfileComplete = false});
+      required this.userProfileComplete});
 
   factory _$SessionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SessionImplFromJson(json);
@@ -176,7 +175,6 @@ class _$SessionImpl implements _Session {
   @override
   final String refreshToken;
   @override
-  @JsonKey(includeToJson: false)
   final bool userProfileComplete;
 
   @override
@@ -223,12 +221,11 @@ class _$SessionImpl implements _Session {
 
 abstract class _Session implements Session {
   const factory _Session(
-          {required final String id,
-          required final String accessToken,
-          required final int expiresAt,
-          required final String refreshToken,
-          @JsonKey(includeToJson: false) final bool userProfileComplete}) =
-      _$SessionImpl;
+      {required final String id,
+      required final String accessToken,
+      required final int expiresAt,
+      required final String refreshToken,
+      required final bool userProfileComplete}) = _$SessionImpl;
 
   factory _Session.fromJson(Map<String, dynamic> json) = _$SessionImpl.fromJson;
 
@@ -241,7 +238,6 @@ abstract class _Session implements Session {
   @override
   String get refreshToken;
   @override
-  @JsonKey(includeToJson: false)
   bool get userProfileComplete;
 
   /// Create a copy of Session
