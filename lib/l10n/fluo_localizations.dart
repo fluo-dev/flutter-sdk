@@ -64,7 +64,8 @@ import 'fluo_localizations_it.dart';
 /// be consistent with the languages listed in the FluoLocalizations.supportedLocales
 /// property.
 abstract class FluoLocalizations {
-  FluoLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  FluoLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,7 +73,8 @@ abstract class FluoLocalizations {
     return Localizations.of<FluoLocalizations>(context, FluoLocalizations);
   }
 
-  static const LocalizationsDelegate<FluoLocalizations> delegate = _FluoLocalizationsDelegate();
+  static const LocalizationsDelegate<FluoLocalizations> delegate =
+      _FluoLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,7 +86,8 @@ abstract class FluoLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -214,36 +217,40 @@ abstract class FluoLocalizations {
   String get next;
 }
 
-class _FluoLocalizationsDelegate extends LocalizationsDelegate<FluoLocalizations> {
+class _FluoLocalizationsDelegate
+    extends LocalizationsDelegate<FluoLocalizations> {
   const _FluoLocalizationsDelegate();
 
   @override
   Future<FluoLocalizations> load(Locale locale) {
-    return SynchronousFuture<FluoLocalizations>(lookupFluoLocalizations(locale));
+    return SynchronousFuture<FluoLocalizations>(
+        lookupFluoLocalizations(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'es', 'fr', 'it'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'es', 'fr', 'it'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_FluoLocalizationsDelegate old) => false;
 }
 
 FluoLocalizations lookupFluoLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return FluoLocalizationsEn();
-    case 'es': return FluoLocalizationsEs();
-    case 'fr': return FluoLocalizationsFr();
-    case 'it': return FluoLocalizationsIt();
+    case 'en':
+      return FluoLocalizationsEn();
+    case 'es':
+      return FluoLocalizationsEs();
+    case 'fr':
+      return FluoLocalizationsFr();
+    case 'it':
+      return FluoLocalizationsIt();
   }
 
   throw FlutterError(
-    'FluoLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'FluoLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -3,3 +3,4 @@ template-arb-file: fluo_en.arb
 output-localization-file: fluo_localizations.dart
 output-class: FluoLocalizations
 synthetic-package: false
+format: true

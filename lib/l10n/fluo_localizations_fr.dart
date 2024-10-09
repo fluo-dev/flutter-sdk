@@ -7,7 +7,8 @@ class FluoLocalizationsFr extends FluoLocalizations {
   FluoLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get acceptTerms => 'En continuant, vous acceptez nos <terms>conditions générales</terms> et notre <privacy>politique de confidentialité</privacy>.';
+  String get acceptTerms =>
+      'En continuant, vous acceptez nos <terms>conditions générales</terms> et notre <privacy>politique de confidentialité</privacy>.';
 
   @override
   String get enterCode => 'Entrez le code de vérification';
@@ -36,7 +37,8 @@ class FluoLocalizationsFr extends FluoLocalizations {
   String get enterLastNamePlaceholder => 'Nom';
 
   @override
-  String get errorUnknown => 'Une erreur est survenue lors du traitement de votre demande.';
+  String get errorUnknown =>
+      'Une erreur est survenue lors du traitement de votre demande.';
 
   @override
   String get errorCodeExpired => 'Le code a expiré.';
@@ -54,13 +56,15 @@ class FluoLocalizationsFr extends FluoLocalizations {
   String get errorParameterInvalid => 'La valeur envoyée n\'est pas valide.';
 
   @override
-  String get errorParameterMissing => 'Des paramètres sont manquants dans la requête.';
+  String get errorParameterMissing =>
+      'Des paramètres sont manquants dans la requête.';
 
   @override
   String get errorSessionRevoked => 'Votre session n\'est plus valide.';
 
   @override
-  String get errorUnauthorized => 'Vous n\'avez pas les autorisations nécessaires.';
+  String get errorUnauthorized =>
+      'Vous n\'avez pas les autorisations nécessaires.';
 
   @override
   String get next => 'Suivant';

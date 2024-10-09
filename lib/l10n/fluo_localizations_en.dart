@@ -7,7 +7,8 @@ class FluoLocalizationsEn extends FluoLocalizations {
   FluoLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get acceptTerms => 'By continuing, you accept our <terms>terms & conditions</terms> and our <privacy>privacy policy</privacy>.';
+  String get acceptTerms =>
+      'By continuing, you accept our <terms>terms & conditions</terms> and our <privacy>privacy policy</privacy>.';
 
   @override
   String get enterCode => 'Enter the verification code';

@@ -7,7 +7,8 @@ class FluoLocalizationsIt extends FluoLocalizations {
   FluoLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get acceptTerms => 'Continuando, accetti i nostri <terms>termini e condizioni</terms> e la nostra <privacy>informativa sulla privacy</privacy>.';
+  String get acceptTerms =>
+      'Continuando, accetti i nostri <terms>termini e condizioni</terms> e la nostra <privacy>informativa sulla privacy</privacy>.';
 
   @override
   String get enterCode => 'Inserisci il codice di verifica';
@@ -36,7 +37,8 @@ class FluoLocalizationsIt extends FluoLocalizations {
   String get enterLastNamePlaceholder => 'Cognome';
 
   @override
-  String get errorUnknown => 'Si è verificato un errore durante l\'elaborazione della tua richiesta.';
+  String get errorUnknown =>
+      'Si è verificato un errore durante l\'elaborazione della tua richiesta.';
 
   @override
   String get errorCodeExpired => 'Il codice è scaduto.';
