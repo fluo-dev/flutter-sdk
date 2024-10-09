@@ -10,5 +10,6 @@ class PartialSession with _$PartialSession {
     String? email,
   }) = _PartialSession;
 
-  factory PartialSession.fromJson(Map<String, dynamic> json) => _$PartialSessionFromJson(json);
+  factory PartialSession.fromJson(Map<String, dynamic> json) =>
+      _$PartialSessionFromJson(json);
 }

@@ -4,7 +4,10 @@ import 'package:example/theme.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+void main() {
+  runApp(const ExampleApp());
+}
 
 class ExampleApp extends StatelessWidget {
   const ExampleApp({super.key});
@@ -13,43 +16,42 @@ class ExampleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider(
-      initialData: null,
-      create: (_) async {
-        final fluo = await Fluo.init(fluoApiKey);
-        // Uncomment to clear the session
-        // await fluo.clearSession();
-        return fluo;
-      },
-      catchError: (context, error) {},
-      child: Consumer<Fluo?>(
-        builder: (context, fluo, child) {
-          if (fluo == null) {
-            return const CircularProgressIndicator();
-          }
+    return MaterialApp(
+      localizationsDelegates: FluoLocalizations.localizationsDelegates,
+      supportedLocales: FluoLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      theme: ExampleAppTheme.defaultTheme(context),
+      home: Scaffold(
+        body: FutureBuilder(
+          future: Fluo.init(fluoApiKey),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          return MaterialApp(
-            localizationsDelegates: FluoLocalizations.localizationsDelegates,
-            supportedLocales: FluoLocalizations.supportedLocales,
-            debugShowCheckedModeBanner: false,
-            theme: ExampleAppTheme.defaultTheme(context),
-            home: FutureBuilder(
-              future: fluo.getAccessToken(forceRefresh: true),
+            final fluo = snapshot.data!;
+            return FutureBuilder(
+              future: fluo.getAccessToken(),
               builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
                 final accessToken = snapshot.data;
                 if (accessToken == null) {
-                  return const ConnectScreen();
+                  return ConnectScreen(fluo: fluo);
                 }
+
                 return const HomeScreen();
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
-}
-
-void main() {
-  runApp(const ExampleApp());
 }

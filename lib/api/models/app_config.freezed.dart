@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'config.dart';
+part of 'app_config.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,43 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Config _$ConfigFromJson(Map<String, dynamic> json) {
-  return _Config.fromJson(json);
+AppConfig _$AppConfigFromJson(Map<String, dynamic> json) {
+  return _AppConfig.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Config {
+mixin _$AppConfig {
   String get termsUrl => throw _privateConstructorUsedError;
   String get privacyUrl => throw _privateConstructorUsedError;
 
-  /// Serializes this Config to a JSON map.
+  /// Serializes this AppConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Config
+  /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ConfigCopyWith<Config> get copyWith => throw _privateConstructorUsedError;
+  $AppConfigCopyWith<AppConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ConfigCopyWith<$Res> {
-  factory $ConfigCopyWith(Config value, $Res Function(Config) then) =
-      _$ConfigCopyWithImpl<$Res, Config>;
+abstract class $AppConfigCopyWith<$Res> {
+  factory $AppConfigCopyWith(AppConfig value, $Res Function(AppConfig) then) =
+      _$AppConfigCopyWithImpl<$Res, AppConfig>;
   @useResult
   $Res call({String termsUrl, String privacyUrl});
 }
 
 /// @nodoc
-class _$ConfigCopyWithImpl<$Res, $Val extends Config>
-    implements $ConfigCopyWith<$Res> {
-  _$ConfigCopyWithImpl(this._value, this._then);
+class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
+    implements $AppConfigCopyWith<$Res> {
+  _$AppConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Config
+  /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -72,24 +73,25 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
 }
 
 /// @nodoc
-abstract class _$$ConfigImplCopyWith<$Res> implements $ConfigCopyWith<$Res> {
-  factory _$$ConfigImplCopyWith(
-          _$ConfigImpl value, $Res Function(_$ConfigImpl) then) =
-      __$$ConfigImplCopyWithImpl<$Res>;
+abstract class _$$AppConfigImplCopyWith<$Res>
+    implements $AppConfigCopyWith<$Res> {
+  factory _$$AppConfigImplCopyWith(
+          _$AppConfigImpl value, $Res Function(_$AppConfigImpl) then) =
+      __$$AppConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String termsUrl, String privacyUrl});
 }
 
 /// @nodoc
-class __$$ConfigImplCopyWithImpl<$Res>
-    extends _$ConfigCopyWithImpl<$Res, _$ConfigImpl>
-    implements _$$ConfigImplCopyWith<$Res> {
-  __$$ConfigImplCopyWithImpl(
-      _$ConfigImpl _value, $Res Function(_$ConfigImpl) _then)
+class __$$AppConfigImplCopyWithImpl<$Res>
+    extends _$AppConfigCopyWithImpl<$Res, _$AppConfigImpl>
+    implements _$$AppConfigImplCopyWith<$Res> {
+  __$$AppConfigImplCopyWithImpl(
+      _$AppConfigImpl _value, $Res Function(_$AppConfigImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Config
+  /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -97,7 +99,7 @@ class __$$ConfigImplCopyWithImpl<$Res>
     Object? termsUrl = null,
     Object? privacyUrl = null,
   }) {
-    return _then(_$ConfigImpl(
+    return _then(_$AppConfigImpl(
       termsUrl: null == termsUrl
           ? _value.termsUrl
           : termsUrl // ignore: cast_nullable_to_non_nullable
@@ -112,11 +114,11 @@ class __$$ConfigImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ConfigImpl implements _Config {
-  const _$ConfigImpl({required this.termsUrl, required this.privacyUrl});
+class _$AppConfigImpl implements _AppConfig {
+  const _$AppConfigImpl({required this.termsUrl, required this.privacyUrl});
 
-  factory _$ConfigImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ConfigImplFromJson(json);
+  factory _$AppConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppConfigImplFromJson(json);
 
   @override
   final String termsUrl;
@@ -125,14 +127,14 @@ class _$ConfigImpl implements _Config {
 
   @override
   String toString() {
-    return 'Config(termsUrl: $termsUrl, privacyUrl: $privacyUrl)';
+    return 'AppConfig(termsUrl: $termsUrl, privacyUrl: $privacyUrl)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConfigImpl &&
+            other is _$AppConfigImpl &&
             (identical(other.termsUrl, termsUrl) ||
                 other.termsUrl == termsUrl) &&
             (identical(other.privacyUrl, privacyUrl) ||
@@ -143,38 +145,39 @@ class _$ConfigImpl implements _Config {
   @override
   int get hashCode => Object.hash(runtimeType, termsUrl, privacyUrl);
 
-  /// Create a copy of Config
+  /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ConfigImplCopyWith<_$ConfigImpl> get copyWith =>
-      __$$ConfigImplCopyWithImpl<_$ConfigImpl>(this, _$identity);
+  _$$AppConfigImplCopyWith<_$AppConfigImpl> get copyWith =>
+      __$$AppConfigImplCopyWithImpl<_$AppConfigImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ConfigImplToJson(
+    return _$$AppConfigImplToJson(
       this,
     );
   }
 }
 
-abstract class _Config implements Config {
-  const factory _Config(
+abstract class _AppConfig implements AppConfig {
+  const factory _AppConfig(
       {required final String termsUrl,
-      required final String privacyUrl}) = _$ConfigImpl;
+      required final String privacyUrl}) = _$AppConfigImpl;
 
-  factory _Config.fromJson(Map<String, dynamic> json) = _$ConfigImpl.fromJson;
+  factory _AppConfig.fromJson(Map<String, dynamic> json) =
+      _$AppConfigImpl.fromJson;
 
   @override
   String get termsUrl;
   @override
   String get privacyUrl;
 
-  /// Create a copy of Config
+  /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ConfigImplCopyWith<_$ConfigImpl> get copyWith =>
+  _$$AppConfigImplCopyWith<_$AppConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

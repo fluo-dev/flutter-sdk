@@ -9,3 +9,7 @@
 ## 0.1.2
 
 - Make userProfileComplete required on the session model
+
+## 0.1.3
+
+- Migrate to flutter_inappwebview to support more platforms

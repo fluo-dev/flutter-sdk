@@ -45,14 +45,14 @@ class SessionManager {
     _session = session;
   }
 
-  Future<void> clearSession() async {
+  static Future<void> clearSession() async {
     await _writeSession(null);
   }
 
   // Helpers
 
-  static bool _hasExpired(int expirationEpochInSeconds) {
-    return expirationEpochInSeconds < DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  static bool _hasExpired(int expEpochInSeconds) {
+    return expEpochInSeconds < DateTime.now().millisecondsSinceEpoch ~/ 1000;
   }
 
   // Secure storage for sensitive data
@@ -61,7 +61,10 @@ class SessionManager {
 
   static Future<void> _writeSession(Session? session) async {
     const secureStorage = FlutterSecureStorage();
-    await secureStorage.write(key: _sessionKey, value: session == null ? null : jsonEncode(session));
+    await secureStorage.write(
+      key: _sessionKey,
+      value: session == null ? null : jsonEncode(session),
+    );
   }
 
   static Future<Session?> _readSession() async {

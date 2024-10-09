@@ -73,7 +73,8 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       onNextButtonPressed: _onNext,
       nextButtonEnabled: _isCodeComplete,
       helperWidget: StyledText(
-        text: FluoLocalizations.of(context)!.enterCodeHelper(widget.partialSession.email!),
+        text: FluoLocalizations.of(context)!
+            .enterCodeHelper(widget.partialSession.email!),
         style: Theme.of(context).textTheme.bodyMedium,
         tags: {
           'email': StyledTextTag(
@@ -89,14 +90,18 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(context, listen: false);
+      final apiClient = Provider.of<ApiClient>(
+        context,
+        listen: false,
+      );
       final session = await apiClient.verifySession(
         partialSessionId: widget.partialSession.id,
         code: _codeController.text,
       );
       widget.onCodeVerified(session);
     } on ApiError catch (apiError) {
-      setState(() => _errorText = FluoLocalizedModels.localizedError(context, apiError.message));
+      setState(() => _errorText =
+          FluoLocalizedModels.localizedError(context, apiError.message));
     } catch (error) {
       setState(() => _errorText = FluoLocalizations.of(context)!.errorUnknown);
     } finally {

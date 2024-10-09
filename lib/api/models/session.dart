@@ -13,5 +13,6 @@ class Session with _$Session {
     required bool userProfileComplete,
   }) = _Session;
 
-  factory Session.fromJson(Map<String, dynamic> json) => _$SessionFromJson(json);
+  factory Session.fromJson(Map<String, dynamic> json) =>
+      _$SessionFromJson(json);
 }

@@ -30,6 +30,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_inappwebview: ^6.1.5
 
 dev_dependencies:
   build_runner: ^2.4.12

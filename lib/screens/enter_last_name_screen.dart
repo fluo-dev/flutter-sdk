@@ -81,8 +81,14 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(context, listen: false);
-      final sessionManager = Provider.of<SessionManager>(context, listen: false);
+      final apiClient = Provider.of<ApiClient>(
+        context,
+        listen: false,
+      );
+      final sessionManager = Provider.of<SessionManager>(
+        context,
+        listen: false,
+      );
       final session = await sessionManager.getSession(apiClient: apiClient);
       await apiClient.updateUser(
         accessToken: session!.accessToken,
@@ -90,7 +96,8 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
       );
       widget.onLastNameSubmitted();
     } on ApiError catch (apiError) {
-      setState(() => _errorText = FluoLocalizedModels.localizedError(context, apiError.message));
+      setState(() => _errorText =
+          FluoLocalizedModels.localizedError(context, apiError.message));
     } catch (error) {
       setState(() => _errorText = FluoLocalizations.of(context)!.errorUnknown);
     } finally {

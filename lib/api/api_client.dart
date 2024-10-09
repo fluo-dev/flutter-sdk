@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'models/api_error.dart';
-import 'models/config.dart';
+import 'models/app_config.dart';
 import 'models/partial_session.dart';
 import 'models/session.dart';
 
@@ -21,7 +21,7 @@ class ApiClient {
 
   // API requests
 
-  Future<Config> getConfig() async {
+  Future<AppConfig> getAppConfig() async {
     final response = await _get(
       path: '/config',
     );
@@ -32,7 +32,7 @@ class ApiClient {
       return Future.error(ApiError.fromJson(json));
     }
 
-    return Config.fromJson(json);
+    return AppConfig.fromJson(json);
   }
 
   Future<PartialSession> createSession({

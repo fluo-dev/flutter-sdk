@@ -4,7 +4,7 @@ import 'package:styled_text/styled_text.dart';
 
 import '../api/api_client.dart';
 import '../api/models/api_error.dart';
-import '../api/models/config.dart';
+import '../api/models/app_config.dart';
 import '../api/models/partial_session.dart';
 import '../l10n/fluo_localizations.dart';
 import '../l10n/fluo_localized_models.dart';
@@ -55,7 +55,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final config = Provider.of<Config>(context, listen: false);
+    final appConfig = Provider.of<AppConfig>(context, listen: false);
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
       inputWidget: TextField(
@@ -83,14 +83,14 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
         style: Theme.of(context).textTheme.bodyMedium,
         tags: {
           'terms': StyledTextActionTag(
-            (text, attrs) => showWebviewDialog(context, config.termsUrl),
+            (text, attrs) => showWebviewDialog(context, appConfig.termsUrl),
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.underline,
             ),
           ),
           'privacy': StyledTextActionTag(
-            (text, attrs) => showWebviewDialog(context, config.privacyUrl),
+            (text, attrs) => showWebviewDialog(context, appConfig.privacyUrl),
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.underline,
@@ -106,11 +106,17 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(context, listen: false);
-      final partialSession = await apiClient.createSession(email: _emailController.text);
+      final apiClient = Provider.of<ApiClient>(
+        context,
+        listen: false,
+      );
+      final partialSession = await apiClient.createSession(
+        email: _emailController.text,
+      );
       widget.onEmailSubmitted(partialSession);
     } on ApiError catch (apiError) {
-      setState(() => _errorText = FluoLocalizedModels.localizedError(context, apiError.message));
+      setState(() => _errorText =
+          FluoLocalizedModels.localizedError(context, apiError.message));
     } catch (error) {
       setState(() => _errorText = FluoLocalizations.of(context)!.errorUnknown);
     } finally {

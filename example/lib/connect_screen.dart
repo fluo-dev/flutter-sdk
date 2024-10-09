@@ -1,10 +1,14 @@
 import 'package:example/home_screen.dart';
 import 'package:fluo/fluo.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ConnectScreen extends StatelessWidget {
-  const ConnectScreen({super.key});
+  const ConnectScreen({
+    super.key,
+    required this.fluo,
+  });
+
+  final Fluo fluo;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +33,16 @@ class ConnectScreen extends StatelessWidget {
             const SizedBox(height: 60),
             FilledButton(
               onPressed: () {
-                // let's use fluo here to connect users
-                final fluo = Provider.of<Fluo>(context, listen: false);
                 fluo.showConnectFlow(
                   context: context,
                   onUserReady: () {
                     Navigator.of(context).pop();
-
                     Navigator.of(context).push(PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
                         return const HomeScreen();
                       },
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
                         return FadeTransition(
                           opacity: animation,
                           child: child,

@@ -50,7 +50,8 @@ class SingleInputScreen extends StatelessWidget {
                 if (errorText != null)
                   Text(
                     errorText!,
-                    style: theme.textTheme.bodyMedium!.apply(color: theme.colorScheme.error),
+                    style: theme.textTheme.bodyMedium!
+                        .apply(color: theme.colorScheme.error),
                   ),
                 if (errorText == null && helperWidget != null) ...{
                   helperWidget!

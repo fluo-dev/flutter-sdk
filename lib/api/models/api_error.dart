@@ -11,5 +11,6 @@ class ApiError with _$ApiError {
     required dynamic data,
   }) = _ApiError;
 
-  factory ApiError.fromJson(Map<String, dynamic> json) => _$ApiErrorFromJson(json);
+  factory ApiError.fromJson(Map<String, dynamic> json) =>
+      _$ApiErrorFromJson(json);
 }

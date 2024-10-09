@@ -6,7 +6,10 @@ class ClearButtonInputDecoration extends InputDecoration {
     required TextEditingController controller,
   }) : super(
           hintText: hintText,
-          suffixIconConstraints: const BoxConstraints(maxHeight: 32, maxWidth: 32 + 10 + 15),
+          suffixIconConstraints: const BoxConstraints(
+            maxHeight: 32,
+            maxWidth: 32 + 10 + 15,
+          ),
           suffixIcon: _ClearButton(controller: controller),
           isDense: true,
         );

@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'api/api_client.dart';
-import 'api/models/config.dart';
+import 'api/models/app_config.dart';
 import 'managers/session_manager.dart';
 import 'navigators/start_navigator.dart';
 
 class Fluo {
-  Fluo._(this._apiClient, this._sessionManager, this._config);
+  Fluo._(this._apiClient, this._sessionManager, this._appConfig);
 
   final ApiClient _apiClient;
 
   final SessionManager _sessionManager;
 
-  final Config _config;
+  final AppConfig _appConfig;
 
   /// [Fluo] is the class that provides the interface for managing the
   /// user session and showing onboarding flows. This method is async
@@ -30,8 +30,8 @@ class Fluo {
   static Future<Fluo> init(String apiKey) async {
     final apiClient = ApiClient(apiKey);
     final sessionManager = await SessionManager.init();
-    final config = await apiClient.getConfig();
-    return Fluo._(apiClient, sessionManager, config);
+    final appConfig = await apiClient.getAppConfig();
+    return Fluo._(apiClient, sessionManager, appConfig);
   }
 
   /// Returns the access token or null if there is no valid session.
@@ -67,8 +67,8 @@ class Fluo {
   /// and you want to force the start of a brand new session, for example
   /// after a migration.
   ///
-  Future<void> clearSession() async {
-    await _sessionManager.clearSession();
+  static Future<void> clearSession() async {
+    await SessionManager.clearSession();
   }
 
   /// Shows the connect flow.
@@ -88,7 +88,7 @@ class Fluo {
           providers: [
             Provider(create: (_) => _apiClient),
             Provider(create: (_) => _sessionManager),
-            Provider(create: (_) => _config),
+            Provider(create: (_) => _appConfig),
           ],
           child: StartNavigator(
             onExit: () => Navigator.of(context).pop(),

@@ -44,13 +44,17 @@ class _RoundButtonState extends State<RoundButton> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.onPressed != null ? _backgroundColor ?? bgColorNormal : Colors.transparent,
+          color: widget.onPressed != null
+              ? _backgroundColor ?? bgColorNormal
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(30),
         ),
         padding: const EdgeInsets.all(8.0),
         child: Icon(
           widget.iconData,
-          color: widget.onPressed != null ? theme.colorScheme.primary : Colors.transparent,
+          color: widget.onPressed != null
+              ? theme.colorScheme.primary
+              : Colors.transparent,
           size: 20.0,
         ),
       ),

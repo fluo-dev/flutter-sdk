@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'round_button.dart';
 
-class Webview extends StatefulWidget {
+class Webview extends StatelessWidget {
   const Webview({
     super.key,
     required this.url,
@@ -12,29 +12,6 @@ class Webview extends StatefulWidget {
 
   final String url;
   final Function() onClosePressed;
-
-  @override
-  State<Webview> createState() => _WebviewState();
-}
-
-class _WebviewState extends State<Webview> {
-  late WebViewController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(widget.url))
-      ..setBackgroundColor(Colors.white);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +23,21 @@ class _WebviewState extends State<Webview> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               RoundButton(
-                onPressed: widget.onClosePressed,
+                onPressed: onClosePressed,
                 iconData: Icons.close_rounded,
               ),
             ],
           ),
         ),
         Expanded(
-          child: WebViewWidget(controller: _controller),
+          child: InAppWebView(
+            initialSettings: InAppWebViewSettings(
+              transparentBackground: true,
+            ),
+            initialUrlRequest: URLRequest(
+              url: WebUri(url),
+            ),
+          ),
         ),
       ],
     );
