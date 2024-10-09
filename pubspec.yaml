@@ -1,6 +1,6 @@
 name: fluo
 description: Flutter SDK for Fluo, an elegant and easy to set up user onboarding flow.
-version: 0.1.3
+version: 0.1.4
 homepage: https://fluo.dev
 repository: https://github.com/fluo-dev/flutter-sdk
 

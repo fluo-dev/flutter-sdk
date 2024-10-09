@@ -1,3 +1,8 @@
+## 0.1.4
+
+- Send the language to the server to send emails in different languages
+- Ensure generated localization files are correctly formatted
+
 ## 0.1.3
 
 - Migrate to flutter_inappwebview to support more platforms
