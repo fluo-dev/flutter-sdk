@@ -80,6 +80,8 @@ class Fluo {
     required BuildContext context,
     required Function() onUserReady,
   }) {
+    _apiClient.language = Localizations.localeOf(context).toLanguageTag();
+
     showGeneralDialog(
       context: context,
       barrierColor: Theme.of(context).colorScheme.surface,

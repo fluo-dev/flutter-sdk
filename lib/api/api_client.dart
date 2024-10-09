@@ -13,11 +13,13 @@ final class Error {
 }
 
 class ApiClient {
-  const ApiClient(this.apiKey);
+  ApiClient(this.apiKey);
 
   static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
 
   final String apiKey;
+
+  String language = 'en_US';
 
   // API requests
 
@@ -167,6 +169,7 @@ class ApiClient {
 
   Map<String, String> _headers(String? accessToken) {
     final headers = {
+      'accept-language': language,
       'content-type': 'application/json; charset=UTF-8',
       'x-api-key': apiKey,
     };
