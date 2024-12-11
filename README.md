@@ -49,7 +49,7 @@ if (accessToken == null) {
 }
 ```
 
-Always use the `getAccessToken` method to get a fresh access token:
+Always use `getAccessToken` to get a _fresh_ access token:
 
 ```dart
 void _onUpdateFirstName(String firstName) async {
