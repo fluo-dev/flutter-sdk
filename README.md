@@ -2,18 +2,15 @@
 
 ## Getting started
 
-<ins>Step 1 :</ins>
-Get an api key by creating an account on the [Fluo dashboard](https://dashboard.fluo.dev/signup).
+**STEP 1** — Get an api key by creating an account on the [Fluo dashboard](https://dashboard.fluo.dev/signup).
 
-<ins>Step 2 :</ins>
-Add the package to your dependencies:
+**STEP 2** — Add the package to your dependencies:
 
 ```bash
 flutter pub add fluo
 ```
 
-<ins>Step 3 :</ins>
-Add the `FluoLocalizations.delegate` to your App:
+**STEP 3** — Add the `FluoLocalizations.delegate` to your App:
 
 ```dart
 import 'package:fluo/l10n/fluo_localizations.dart';
