@@ -2,13 +2,15 @@
 
 ## Installation
 
-Add the package to your dependencies:
+1. Get an api key by creating an account on the [Fluo dashboard](https://dashboard.fluo.dev/signup)
+
+2. Add the package to your dependencies:
 
 ```bash
 flutter pub add fluo
 ```
 
-Add the `FluoLocalizations.delegate` to your App:
+3. Add the `FluoLocalizations.delegate` to your App:
 
 ```dart
 import 'package:fluo/l10n/fluo_localizations.dart';
@@ -41,8 +43,16 @@ if (accessToken == null) {
 }
 ```
 
-> [!TIP]
-> You should never store the access token, but always retrieve it using the `getAccessToken` method because it takes care of refreshing it if it has expired. This is why this method is async.
+Always use the `getAccessToken` method to get a fresh access token:
+
+```dart
+void _onUpdateFirstName(String firstName) async {
+  final accessToken = await fluo.getAccessToken();
+  await apiClient.updateUser(accessToken, {
+    'firstName': firstName,
+  });
+}
+```
 
 Below is a more comprehensive example:
 
@@ -64,7 +74,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   @override
   void initState() {
     super.initState();
-    Fluo.init(fluoApiKey).then((fluo) async {
+    Fluo.init('your-api-key').then((fluo) async {
       final accessToken = await fluo.getAccessToken();
       setState(() {
         _fluo = fluo;
