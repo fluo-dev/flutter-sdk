@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ExampleAppTheme {
   static ThemeData defaultTheme(BuildContext context) {
     final colorScheme = ColorScheme.light(
-      surface: const Color.fromARGB(255, 252, 255, 161),
+      surface: Colors.white,
       onSurface: Colors.black,
       surfaceContainer: Colors.white24,
       primary: Colors.black,
@@ -14,7 +14,7 @@ class ExampleAppTheme {
     );
 
     final fluoTheme = FluoTheme.defaultTheme(context, colorScheme);
-    final copy = fluoTheme.copyWith(
+    final fluoExtended = fluoTheme.copyWith(
       colorScheme: colorScheme,
       textTheme: fluoTheme.textTheme.copyWith(
         headlineLarge: fluoTheme.textTheme.headlineLarge?.copyWith(
@@ -31,6 +31,6 @@ class ExampleAppTheme {
         ),
       ),
     );
-    return copy;
+    return fluoExtended;
   }
 }
