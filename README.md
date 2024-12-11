@@ -54,9 +54,10 @@ Always use `getAccessToken` to get a _fresh_ access token:
 ```dart
 void _onUpdateFirstName(String firstName) async {
   final accessToken = await fluo.getAccessToken();
-  await apiClient.updateUser(accessToken, {
-    'firstName': firstName,
-  });
+  await apiClient.updateUser(
+    accessToken: accessToken,
+    firstName: firstName,
+  );
 }
 ```
 
