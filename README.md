@@ -13,12 +13,12 @@ flutter pub add fluo
 **STEP 3** — Add the `FluoLocalizations.delegate` to your App:
 
 ```dart
-import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/l10n/fluo_localizations.dart';  // <= add this line
 
 MaterialApp(
   localizationsDelegates: const [
     // ...other delegates...
-    FluoLocalizations.delegate, // Add this line
+    FluoLocalizations.delegate, // <= add this line
   ],
 )
 ```
@@ -34,18 +34,18 @@ if (accessToken == null) {
   fluo.showConnectFlow(
     context: context,
     onUserReady: () async {
-      final accessToken = await fluo.getAccessToken();
-      // All good, you can pass 'accessToken' to your server requests
+      // user is authenticated
     },
   );
 } else {
-  // All good, you can pass 'accessToken' to your server requests
+  // user is authenticated
 }
 ```
 
 Always use `getAccessToken` to get a _fresh_ access token:
 
 ```dart
+// Example of a server request
 void _onUpdateFirstName(String firstName) async {
   final accessToken = await fluo.getAccessToken();
   await apiClient.updateUser(
