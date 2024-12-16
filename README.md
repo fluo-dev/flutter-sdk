@@ -70,16 +70,16 @@ class ConnectScreen extends StatefulWidget {
 
 class _ConnectScreenState extends State<ConnectScreen> {
   Fluo? _fluo;
-  String? _accessToken;
+  bool _isAuthenticated = false;
 
   @override
   void initState() {
     super.initState();
-    Fluo.init('your-api-key').then((fluo) async {
+    Fluo.init(fluoApiKey).then((fluo) async {
       final accessToken = await fluo.getAccessToken();
       setState(() {
         _fluo = fluo;
-        _accessToken = accessToken;
+        _isAuthenticated = accessToken != null;
       });
     });
   }
@@ -99,7 +99,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
       return const CircularProgressIndicator();
     }
 
-    if (_accessToken == null) {
+    if (!_isAuthenticated) {
       return FilledButton(
         onPressed: () => _onConnect(context),
         child: const Text('Connect'),
@@ -113,8 +113,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
     _fluo!.showConnectFlow(
       context: context,
       onUserReady: () async {
-        final accessToken = await _fluo!.getAccessToken();
-        setState(() => _accessToken = accessToken);
+        setState(() {
+          _isAuthenticated = true;
+        });
       },
     );
   }
