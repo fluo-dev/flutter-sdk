@@ -56,12 +56,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: _createContent(context),
+        child: _buildContent(context),
       ),
     );
   }
 
-  Widget _createContent(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     if (_fluo == null) {
       return const CircularProgressIndicator();
     }
