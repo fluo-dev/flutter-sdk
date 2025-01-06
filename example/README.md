@@ -2,7 +2,7 @@
 
 This is a playground project to showcase the Fluo SDK.
 
-## Usage
+## Run
 
 ```bash
 cd example
