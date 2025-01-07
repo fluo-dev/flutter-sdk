@@ -1,5 +1,9 @@
 # Fluo
 
+**User Onboarding for Flutter**
+
+![Fluo Screenshot](assets/images/screenshot.png "Fluo Onboarding")
+
 ## Getting started
 
 **STEP 1** — Get an api key from the [Fluo dashboard](https://dashboard.fluo.dev/signup).
@@ -12,7 +16,7 @@ flutter pub add fluo
 
 ## Usage
 
-Here is an example on how to use the `FluoOnboarding` component:
+Add the `FluoOnboarding` component at the root of your app:
 
 ```dart
 import 'package:fluo/fluo_onboarding.dart';
@@ -39,7 +43,8 @@ class ExampleApp extends StatelessWidget {
       home: FluoOnboarding(
         apiKey: 'your-api-key',
         onUserReady: (fluo) async {
-          // Use 'fluo' to get an access token as below:
+          // You're done! Persist the 'fluo' instance and use it to
+          // get an access token when needed:
           // final accessToken = await fluo.getAccessToken();
         },
         child: Center(
