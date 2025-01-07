@@ -65,4 +65,7 @@ class FluoLocalizationsEn extends FluoLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get continueWithEmail => 'Continue with e-mail';
 }

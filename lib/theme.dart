@@ -3,15 +3,17 @@ import 'package:pinput/pinput.dart';
 
 class FluoTheme {
   static ColorScheme lightColorScheme = ColorScheme.light(
-    surface: Colors.grey.shade200,
-    primary: Colors.grey.shade900,
-    secondary: Colors.grey.shade500,
+    surface: Colors.grey.shade100,
+    primary: Colors.black,
+    onPrimary: Colors.white,
+    secondary: Colors.grey.shade600,
     error: Colors.red.shade500,
   );
 
   static ColorScheme darkColorScheme = ColorScheme.dark(
     surface: Colors.grey.shade900,
     primary: Colors.white,
+    onPrimary: Colors.black,
     secondary: Colors.white54,
     error: Colors.red.shade500,
   );
@@ -47,7 +49,7 @@ class FluoTheme {
             fontWeight: FontWeight.w700,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),

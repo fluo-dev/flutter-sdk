@@ -25,5 +25,6 @@
   "errorParameterMissing": "Faltan parámetros en la solicitud.",
   "errorSessionRevoked": "Tu sesión ha sido revocada.",
   "errorUnauthorized": "No tienes los permisos necesarios.",
-  "next": "Siguiente"
+  "next": "Siguiente",
+  "continueWithEmail": "Continuar con correo"
 }

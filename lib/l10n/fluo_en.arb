@@ -25,5 +25,6 @@
   "errorParameterMissing": "The request is missing parameters.",
   "errorSessionRevoked": "Your session was revoked.",
   "errorUnauthorized": "You do not have the right permissions.",
-  "next": "Next"
+  "next": "Next",
+  "continueWithEmail": "Continue with e-mail"
 }

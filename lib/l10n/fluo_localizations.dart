@@ -215,6 +215,12 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
+
+  /// No description provided for @continueWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with e-mail'**
+  String get continueWithEmail;
 }
 
 class _FluoLocalizationsDelegate

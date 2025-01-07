@@ -1,6 +1,6 @@
-import 'package:example/theme.dart';
-import 'package:fluo/fluo.dart';
+import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,72 +18,20 @@ class ExampleApp extends StatelessWidget {
         FluoLocalizations.delegate,
       ],
       supportedLocales: FluoLocalizations.supportedLocales,
-      theme: ExampleAppTheme.defaultTheme(context),
-      home: const Scaffold(
-        body: ConnectScreen(),
+      theme: FluoTheme.defaultTheme(context, FluoTheme.lightColorScheme),
+      home: FluoOnboarding(
+        apiKey: 'your-api-key',
+        onUserReady: (fluo) async {
+          // Use 'fluo' to get an access token as below:
+          // final accessToken = await fluo.getAccessToken();
+        },
+        child: Center(
+          child: Text(
+            'Welcome',
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ),
       ),
-    );
-  }
-}
-
-const String fluoApiKey = 'your-api-key';
-
-class ConnectScreen extends StatefulWidget {
-  const ConnectScreen({super.key});
-
-  @override
-  State<ConnectScreen> createState() => _ConnectScreenState();
-}
-
-class _ConnectScreenState extends State<ConnectScreen> {
-  Fluo? _fluo;
-  bool _isAuthenticated = false;
-
-  @override
-  void initState() {
-    super.initState();
-    Fluo.init(fluoApiKey).then((fluo) async {
-      final accessToken = await fluo.getAccessToken();
-      setState(() {
-        _fluo = fluo;
-        _isAuthenticated = accessToken != null;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: _buildContent(context),
-      ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context) {
-    if (_fluo == null) {
-      return const CircularProgressIndicator();
-    }
-
-    if (!_isAuthenticated) {
-      return FilledButton(
-        onPressed: () => _onConnect(context),
-        child: const Text('Connect'),
-      );
-    }
-
-    return const Text('You are connected');
-  }
-
-  void _onConnect(BuildContext context) {
-    _fluo!.showConnectFlow(
-      context: context,
-      onUserReady: () async {
-        setState(() {
-          _isAuthenticated = true;
-        });
-      },
     );
   }
 }

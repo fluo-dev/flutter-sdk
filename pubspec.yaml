@@ -30,3 +30,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.5.7
   json_serializable: ^6.8.0
+
+flutter:
+  assets:
+    - assets/images/

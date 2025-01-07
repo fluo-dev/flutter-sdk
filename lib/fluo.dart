@@ -9,29 +9,32 @@ import 'managers/session_manager.dart';
 import 'navigators/start_navigator.dart';
 
 class Fluo {
-  Fluo._(this._apiClient, this._sessionManager, this._appConfig);
+  Fluo._(this._apiClient, this._sessionManager);
 
   final ApiClient _apiClient;
 
   final SessionManager _sessionManager;
 
-  final AppConfig _appConfig;
+  AppConfig? _appConfig;
 
   /// [Fluo] is the class that provides the interface for managing the
-  /// user session and showing onboarding flows. This method is async
-  /// because it tries to load a potential session object from the secure
-  /// storage. It also gets the remote config of your app from the Fluo
-  /// server.
+  /// user session. This method is async because it tries to load a potential
+  /// session object from the secure storage.
   ///
   /// Use it like this:
   ///
   ///     final fluo = await Fluo.init('yourApiKey');
   ///     final accessToken = await fluo.getAccessToken();
   static Future<Fluo> init(String apiKey) async {
-    final apiClient = ApiClient(apiKey);
     final sessionManager = await SessionManager.init();
-    final appConfig = await apiClient.getAppConfig();
-    return Fluo._(apiClient, sessionManager, appConfig);
+    return Fluo._(ApiClient(apiKey), sessionManager);
+  }
+
+  /// Loads the configuration that is required to adapt the user onboarding
+  /// flow to the preferences you chose in the dashboard (e.g. auth methods)
+  /// but also get specific app values (e.g. terms or privacy policy urls).
+  Future<void> loadAppConfig() async {
+    _appConfig = await _apiClient.getAppConfig();
   }
 
   /// Returns the access token or null if there is no valid session.
