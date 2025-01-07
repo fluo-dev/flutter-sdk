@@ -2,7 +2,7 @@
 
 **User Onboarding for Flutter**
 
-![Fluo Screenshot](assets/images/screenshot.png "Fluo Onboarding"){ width=300 }
+<img src="assets/images/screenshot.png" alt="Fluo Onboarding" width="200">
 
 ## Getting started
 
