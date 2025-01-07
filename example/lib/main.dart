@@ -26,10 +26,14 @@ class ExampleApp extends StatelessWidget {
           // Use 'fluo' to get an access token as below:
           // final accessToken = await fluo.getAccessToken();
         },
-        child: Center(
+        child: Container(
+          color: Colors.yellow.shade200,
+          width: double.infinity,
+          padding: const EdgeInsets.all(30.0),
+          alignment: Alignment.center,
           child: Text(
-            'Welcome',
-            style: Theme.of(context).textTheme.headlineLarge,
+            'You should use this container to introduce your app.',
+            style: Theme.of(context).textTheme.displaySmall,
           ),
         ),
       ),

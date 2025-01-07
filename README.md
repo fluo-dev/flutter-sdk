@@ -2,7 +2,7 @@
 
 **User Onboarding for Flutter**
 
-<img src="assets/images/screenshot.png" alt="Fluo Onboarding" width="200">
+<img src="assets/images/screenshot.png" alt="Fluo Onboarding" width="300">
 
 ## Getting started
 
