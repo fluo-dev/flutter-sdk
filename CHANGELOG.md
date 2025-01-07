@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Change the entrypoint with a much simpler approach: the FluoOnboarding component
+
 ## 0.1.4
 
 - Send the language to the server to send emails in different languages
