@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Update readme to use a remote url for the screenshot
+
 ## 0.2.0
 
 - Change the entrypoint with a much simpler approach: the FluoOnboarding component
