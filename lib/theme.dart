@@ -6,7 +6,7 @@ class FluoTheme {
     surface: Colors.grey.shade100,
     primary: Colors.black,
     onPrimary: Colors.white,
-    secondary: Colors.grey.shade600,
+    secondary: Colors.grey.shade500,
     error: Colors.red.shade500,
   );
 
@@ -59,7 +59,7 @@ class FluoTheme {
         hintStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: colorScheme.secondary.withAlpha(255 ~/ 4),
+          color: colorScheme.secondary.withAlpha(255 ~/ 2),
         ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 15.0,
@@ -93,12 +93,17 @@ class FluoTheme {
     return FluoTheme.defaultPinTheme(context).copyDecorationWith(
       border: Border.all(
         color: Theme.of(context).colorScheme.primary,
-        width: 1.5,
+        width: 2,
       ),
     );
   }
 
   static PinTheme followingPinTheme(BuildContext context) {
-    return FluoTheme.defaultPinTheme(context);
+    return FluoTheme.defaultPinTheme(context).copyDecorationWith(
+      border: Border.all(
+        color: Theme.of(context).colorScheme.secondary,
+        width: 1.5,
+      ),
+    );
   }
 }

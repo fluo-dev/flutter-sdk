@@ -59,7 +59,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       inputWidget: Pinput(
         length: 6,
         controller: _codeController,
-        showCursor: false,
+        showCursor: true,
         autofocus: true,
         enabled: !_loading,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

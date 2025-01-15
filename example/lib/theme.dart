@@ -8,7 +8,35 @@ class ExampleAppTheme {
       FluoTheme.lightColorScheme,
     );
     final fluoExtended = fluoTheme.copyWith(
+      filledButtonTheme: FilledButtonThemeData(
+        style: TextButton.styleFrom(
+          splashFactory: NoSplash.splashFactory,
+          minimumSize: const Size.fromHeight(54),
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
       textTheme: fluoTheme.textTheme.copyWith(
+        bodyMedium: TextStyle(
+          fontSize: 13,
+          letterSpacing: -0.1,
+          color: FluoTheme.lightColorScheme.secondary,
+        ),
+        titleMedium: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.4,
+        ),
+        titleLarge: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.4,
+        ),
         headlineLarge: fluoTheme.textTheme.headlineLarge?.copyWith(
           fontSize: 60,
           fontWeight: FontWeight.w700,
@@ -20,6 +48,11 @@ class ExampleAppTheme {
           fontWeight: FontWeight.w700,
           height: 1,
           letterSpacing: -1,
+        ),
+      ),
+      inputDecorationTheme: fluoTheme.inputDecorationTheme.copyWith(
+        hintStyle: fluoTheme.inputDecorationTheme.hintStyle!.copyWith(
+          fontSize: 16,
         ),
       ),
     );

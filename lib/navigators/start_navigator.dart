@@ -49,7 +49,7 @@ class _StartNavigatorState extends State<StartNavigator> {
         onUserAuthenticated: (session) {
           widget.onSessionReady(session);
           if (session.userProfileComplete) {
-            widget.onExit();
+            widget.onUserReady();
           } else {
             _navigator().popAndPushNamed(routeCreateProfile);
           }

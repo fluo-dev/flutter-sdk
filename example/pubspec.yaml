@@ -43,7 +43,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/images/arrow-up.png
+    - assets/images/
   fonts:
     - family: Caveat
       fonts:
