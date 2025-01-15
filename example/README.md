@@ -8,3 +8,9 @@ This is a playground project to showcase the Fluo SDK.
 cd example
 flutter run
 ```
+
+## Deploy demo to web
+
+```bash
+flutter build web --target=lib/main_demo.dart && netlify deploy --prod -d build/web
+```
