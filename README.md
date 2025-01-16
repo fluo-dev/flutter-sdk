@@ -1,9 +1,9 @@
 # Fluo
 
-- [Introduction](#introduction)
-- [Getting started](#getting-started)
-- [Usage](#usage)
-- [Theming](#theming)
+[Introduction](#introduction)
+[Getting started](#getting-started)
+[Usage](#usage)
+[Theming](#theming)
 
 ## Introduction
 
