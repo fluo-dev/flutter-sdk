@@ -1,8 +1,34 @@
 # Fluo
 
-**User Onboarding for Flutter**
+- [Introduction](#introduction)
+- [Getting started](#getting-started)
+- [Usage](#usage)
+- [Theming](#theming)
+
+## Introduction
+
+User onboarding for Flutter.
+
+Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and register your users.
 
 <img src="https://fluo.dev/img/fluo-onboarding-screenshot.png" alt="Fluo Onboarding" width="300">
+
+Great UX principles
+✔ Passwordless
+✔ Single input screens
+✔ Seamless authentication
+
+Auth methods
+✔ E-mail + code (code is sent by the Fluo backend)
+✔ Mobile + code (soon)
+✔ Google sign in (soon)
+✔ Apple sign in (soon)
+
+Registration
+✔ Smart "get or create user" logic
+✔ Collects first name and last name
+✔ Save users in firebase
+✔ Save users in supabase (soon)
 
 ## Getting started
 
@@ -16,7 +42,28 @@ flutter pub add fluo
 
 ## Usage
 
-Add the `FluoOnboarding` component at the root of your app:
+Add the `FluoOnboarding` component in your app:
+
+```dart
+FluoOnboarding(
+  apiKey: 'your-api-key',
+  onUserReady: (fluo) async {
+    // Sign the user in using firebase
+    final firebaseToken = fluo.getFirebaseToken();
+    await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  },
+  onInitError: (error) {
+    // Optional - Handle network or server error
+  }
+  introBuilder: (context, initializing, bottomContainerHeight) {
+    // Optional - Present your app on the connection screen
+    //   use 'initializing' if you want to show a loading indicator
+    //   use 'bottomContainerHeight' if you need to position content above the buttons
+  },
+)
+```
+
+Below is a more complete example:
 
 ```dart
 import 'package:fluo/fluo_onboarding.dart';
@@ -43,38 +90,25 @@ class ExampleApp extends StatelessWidget {
       home: FluoOnboarding(
         apiKey: 'your-api-key',
         onUserReady: (fluo) async {
-          // You're done! Persist the 'fluo' instance and use it to
-          // get an access token when needed:
-          // final accessToken = await fluo.getAccessToken();
+          // Sign the user in using firebase
+          final firebaseToken = fluo.getFirebaseToken();
+          await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
         },
-        child: Center(
-          child: Text(
-            'Welcome',
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-        ),
+        onInitError: (error) {
+          // Optional - Handle network or server error
+        }
+        introBuilder: (context, initializing, bottomContainerHeight) {
+          // Optional - Present your app on the connection screen
+          //   use 'initializing' if you want to show a loading indicator
+          //   use 'bottomContainerHeight' if you need to position content above the buttons
+        },
       ),
     );
   }
 }
 ```
 
-Always use `getAccessToken` to get a _fresh_ access token:
-
-```dart
-// Example of a server request
-void _onUpdateFirstName(String firstName) async {
-  final accessToken = await fluo.getAccessToken();
-  await apiClient.updateUser(
-    accessToken: accessToken,
-    firstName: firstName,
-  );
-}
-```
-
-## Advanced topics
-
-### Theming
+## Theming
 
 The `FluoTheme` can be extended as shown below:
 
