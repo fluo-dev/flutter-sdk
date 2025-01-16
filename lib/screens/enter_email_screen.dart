@@ -1,16 +1,15 @@
+import 'package:fluo/api/api_client.dart';
+import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/api/models/app_config.dart';
+import 'package:fluo/api/models/partial_session.dart';
+import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/l10n/fluo_localized_models.dart';
+import 'package:fluo/widgets/clear_button_input_decoration.dart';
+import 'package:fluo/widgets/single_input_screen.dart';
+import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
-
-import '../api/api_client.dart';
-import '../api/models/api_error.dart';
-import '../api/models/app_config.dart';
-import '../api/models/partial_session.dart';
-import '../l10n/fluo_localizations.dart';
-import '../l10n/fluo_localized_models.dart';
-import '../widgets/clear_button_input_decoration.dart';
-import '../widgets/single_input_screen.dart';
-import '../widgets/webview.dart';
 
 final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
 
@@ -55,7 +54,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appConfig = Provider.of<AppConfig>(context, listen: false);
+    final appConfig = context.read<AppConfig>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
       inputWidget: TextField(
@@ -106,10 +105,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(
-        context,
-        listen: false,
-      );
+      final apiClient = context.read<ApiClient>();
       final partialSession = await apiClient.createSession(
         email: _emailController.text,
       );

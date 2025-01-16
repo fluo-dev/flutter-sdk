@@ -1,28 +1,28 @@
+import 'package:fluo/api/models/partial_session.dart';
+import 'package:fluo/managers/session_manager.dart';
+import 'package:fluo/screens/enter_code_screen.dart';
+import 'package:fluo/screens/enter_email_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../api/models/partial_session.dart';
-import '../api/models/session.dart';
-import '../screens/enter_code_screen.dart';
-import '../screens/enter_email_screen.dart';
+import 'package:provider/provider.dart';
 
 const routeEnterEmail = '/';
 const routeEnterCode = '/enter-code';
 
-class AuthUserNavigator extends StatefulWidget {
-  const AuthUserNavigator({
+class AuthNavigator extends StatefulWidget {
+  const AuthNavigator({
     super.key,
     required this.onExit,
     required this.onUserAuthenticated,
   });
 
   final Function() onExit;
-  final Function(Session session) onUserAuthenticated;
+  final Function() onUserAuthenticated;
 
   @override
-  State<AuthUserNavigator> createState() => AuthUserNavigatorState();
+  State<AuthNavigator> createState() => AuthNavigatorState();
 }
 
-class AuthUserNavigatorState extends State<AuthUserNavigator> {
+class AuthNavigatorState extends State<AuthNavigator> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   PartialSession? _partialSession;
@@ -56,8 +56,9 @@ class AuthUserNavigatorState extends State<AuthUserNavigator> {
       page = EnterCodeScreen(
         partialSession: _partialSession!,
         onBackButtonPressed: _navigator().pop,
-        onCodeVerified: (session) {
-          widget.onUserAuthenticated(session);
+        onCodeVerified: (session) async {
+          await context.read<SessionManager>().setSession(session);
+          widget.onUserAuthenticated();
         },
       );
     }

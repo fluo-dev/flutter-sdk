@@ -1,16 +1,15 @@
+import 'package:fluo/api/api_client.dart';
+import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/api/models/partial_session.dart';
+import 'package:fluo/api/models/session.dart';
+import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/l10n/fluo_localized_models.dart';
+import 'package:fluo/theme.dart';
+import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
-
-import '../api/api_client.dart';
-import '../api/models/api_error.dart';
-import '../api/models/partial_session.dart';
-import '../api/models/session.dart';
-import '../l10n/fluo_localizations.dart';
-import '../l10n/fluo_localized_models.dart';
-import '../theme.dart';
-import '../widgets/single_input_screen.dart';
 
 class EnterCodeScreen extends StatefulWidget {
   const EnterCodeScreen({
@@ -90,10 +89,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(
-        context,
-        listen: false,
-      );
+      final apiClient = context.read<ApiClient>();
       final session = await apiClient.verifySession(
         partialSessionId: widget.partialSession.id,
         code: _codeController.text,

@@ -1,24 +1,23 @@
+import 'package:fluo/screens/enter_first_name_screen.dart';
+import 'package:fluo/screens/enter_last_name_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/enter_first_name_screen.dart';
-import '../screens/enter_last_name_screen.dart';
 
 const routeEnterFirstName = '/';
 const routeEnterLastName = '/enter-last-name';
 
-class CreateProfileNavigator extends StatefulWidget {
-  const CreateProfileNavigator({
+class RegisterNavigator extends StatefulWidget {
+  const RegisterNavigator({
     super.key,
-    required this.onProfileComplete,
+    required this.onUserReady,
   });
 
-  final Function() onProfileComplete;
+  final Function() onUserReady;
 
   @override
-  State<CreateProfileNavigator> createState() => CreateProfileNavigatorState();
+  State<RegisterNavigator> createState() => RegisterNavigatorState();
 }
 
-class CreateProfileNavigatorState extends State<CreateProfileNavigator> {
+class RegisterNavigatorState extends State<RegisterNavigator> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
@@ -48,7 +47,7 @@ class CreateProfileNavigatorState extends State<CreateProfileNavigator> {
         onBackButtonPressed: _navigator().pop,
         onLastNameSubmitted: () {
           FocusManager.instance.primaryFocus?.unfocus();
-          widget.onProfileComplete();
+          widget.onUserReady();
         },
       );
     }

@@ -1,139 +1,162 @@
 import 'package:fluo/fluo.dart';
+import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:flutter/material.dart';
-
-import 'l10n/fluo_localizations.dart';
 
 class FluoOnboarding extends StatefulWidget {
   const FluoOnboarding({
     super.key,
     required this.apiKey,
     required this.onUserReady,
-    this.child,
+    this.onInitError,
+    this.introBuilder,
   });
 
   final String apiKey;
   final Function(Fluo fluo) onUserReady;
-  final Widget? child;
+  final Function(Object? error)? onInitError;
+  final Widget Function(
+    BuildContext context,
+    bool initializing,
+    double bottomContainerHeight,
+  )? introBuilder;
 
   @override
   State<FluoOnboarding> createState() => _FluoOnboardingState();
 }
 
 class _FluoOnboardingState extends State<FluoOnboarding> {
-  Fluo? _fluo;
+  final GlobalKey _bottomContainerKey = GlobalKey();
+  double _bottomContainerHeight = 0.0;
+  late Future<Fluo?> _fluoInitFuture;
 
   @override
   void initState() {
     super.initState();
-    _initFluo();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    _fluoInitFuture = Fluo.init(widget.apiKey);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final context = _bottomContainerKey.currentContext!;
+      final renderBox = context.findRenderObject() as RenderBox;
+      final height = renderBox.size.height;
+      setState(() => _bottomContainerHeight = height);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: widget.child ?? Container(),
-            ),
-            Container(
-              constraints: const BoxConstraints(
-                minHeight: 280.0,
-                minWidth: double.infinity,
+      body: FutureBuilder<Fluo?>(
+        future: _fluoInitFuture, // ensures it's called once
+        builder: (context, snapshot) {
+          final fluo = snapshot.data;
+
+          if (snapshot.hasError && widget.onInitError != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              widget.onInitError!(snapshot.error);
+            });
+          }
+
+          if (fluo != null && fluo.hasSession()) {
+            if (fluo.isUserComplete()) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                widget.onUserReady(fluo);
+              });
+            } else {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                fluo.showRegisterFlow(
+                  context: context,
+                  onUserReady: () => widget.onUserReady(fluo),
+                );
+              });
+            }
+          }
+
+          Widget? introWidget;
+          if (widget.introBuilder != null) {
+            introWidget = widget.introBuilder!(
+              context,
+              fluo == null,
+              _bottomContainerHeight,
+            );
+          }
+
+          return Stack(
+            children: [
+              if (introWidget != null) introWidget,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: IntrinsicHeight(
+                  key: _bottomContainerKey,
+                  child: SafeArea(
+                    top: false,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 30.0,
+                      ),
+                      child: _connectButtons(fluo),
+                    ),
+                  ),
+                ),
               ),
-              padding: const EdgeInsets.all(20.0),
-              alignment: Alignment.center,
-              child: _connectButtonsContainer(),
-            ),
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  void _initFluo() async {
-    final fluo = await Fluo.init(widget.apiKey);
-
-    final accessToken = await fluo.getAccessToken();
-    if (accessToken != null) {
-      widget.onUserReady(fluo);
-      return;
-    }
-
-    // Here the user is not authenticated, so we need to load the app config to
-    // adapt the onboarding flow to your preferences.
-    await fluo.loadAppConfig();
-
-    setState(() {
-      _fluo = fluo;
-    });
-  }
-
-  Widget _connectButtonsContainer() {
-    if (_fluo == null) {
-      return const SizedBox(
-        width: 30.0,
-        height: 30.0,
-        child: CircularProgressIndicator(
-          strokeWidth: 3.0,
-        ),
-      );
-    }
-
-    final fluo = _fluo!;
-
-    return Column(
-      children: [
-        _connectButton(
-          icon: const Icon(
-            Icons.mail_outline_rounded,
-            color: Colors.black,
-            size: 20.0,
+  Widget _connectButtons(Fluo? fluo) {
+    return AnimatedOpacity(
+      opacity: fluo == null ? 0.0 : 1.0,
+      duration: const Duration(seconds: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _connectButton(
+            icon: const Icon(
+              Icons.mail_outline_rounded,
+              color: Colors.black,
+              size: 20.0,
+            ),
+            title: FluoLocalizations.of(context)!.continueWithEmail,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            onPressed: () {
+              fluo!.showConnectFlow(
+                context: context,
+                onUserReady: () {
+                  widget.onUserReady(fluo);
+                },
+              );
+            },
           ),
-          title: FluoLocalizations.of(context)!.continueWithEmail,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          onPressed: () {
-            fluo.showConnectFlow(
-              context: context,
-              onUserReady: () {
-                widget.onUserReady(fluo);
-              },
-            );
-          },
-        ),
-        /*
-        const SizedBox(height: 15.0),
-        _connectButton(
-          icon: Image.asset(
-            'packages/fluo/assets/images/google.png',
-            width: 20.0,
+          /*
+          const SizedBox(height: 15.0),
+          _connectButton(
+            icon: Image.asset(
+              'packages/fluo/assets/images/google.png',
+              width: 20.0,
+            ),
+            title: 'Continue with Google',
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            onPressed: () => {},
           ),
-          title: 'Continue with Google',
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          onPressed: () => {},
-        ),
-        const SizedBox(height: 15.0),
-        _connectButton(
-          icon: Image.asset(
-            'packages/fluo/assets/images/apple.png',
-            width: 20.0,
+          const SizedBox(height: 15.0),
+          _connectButton(
+            icon: Image.asset(
+              'packages/fluo/assets/images/apple.png',
+              width: 20.0,
+            ),
+            title: 'Continue with Apple',
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            onPressed: () => {},
           ),
-          title: 'Continue with Apple',
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
-          onPressed: () => {},
-        ),
-        */
-      ],
+          */
+        ],
+      ),
     );
   }
 
@@ -150,8 +173,8 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       foregroundColor: WidgetStatePropertyAll(foregroundColor),
       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: foregroundColor,
+        side: const BorderSide(
+          color: Colors.black,
           width: 1.5,
         ),
       )),

@@ -1,6 +1,5 @@
+import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:flutter/material.dart';
-
-import '../l10n/fluo_localizations.dart';
 
 class NextButton extends StatelessWidget {
   const NextButton({

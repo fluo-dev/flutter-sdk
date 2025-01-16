@@ -22,20 +22,14 @@ class ExampleAppTheme {
         ),
       ),
       textTheme: fluoTheme.textTheme.copyWith(
-        bodyMedium: TextStyle(
+        bodyMedium: fluoTheme.textTheme.bodyMedium?.copyWith(
           fontSize: 13,
-          letterSpacing: -0.1,
-          color: FluoTheme.lightColorScheme.secondary,
         ),
-        titleMedium: const TextStyle(
+        titleMedium: fluoTheme.textTheme.titleMedium?.copyWith(
           fontSize: 16,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.4,
         ),
-        titleLarge: const TextStyle(
+        titleLarge: fluoTheme.textTheme.titleLarge?.copyWith(
           fontSize: 18,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.4,
         ),
         headlineLarge: fluoTheme.textTheme.headlineLarge?.copyWith(
           fontSize: 60,

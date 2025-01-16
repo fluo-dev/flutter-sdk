@@ -1,40 +1,62 @@
 library fluo;
 
+import 'package:fluo/api/api_client.dart';
+import 'package:fluo/api/models/app_config.dart';
+import 'package:fluo/managers/session_manager.dart';
+import 'package:fluo/navigators/register_navigator.dart';
+import 'package:fluo/navigators/start_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'api/api_client.dart';
-import 'api/models/app_config.dart';
-import 'managers/session_manager.dart';
-import 'navigators/start_navigator.dart';
-
 class Fluo {
-  Fluo._(this._apiClient, this._sessionManager);
+  Fluo._(this._apiClient, this._sessionManager, this._appConfig);
 
   final ApiClient _apiClient;
 
   final SessionManager _sessionManager;
 
-  AppConfig? _appConfig;
+  final AppConfig _appConfig;
 
   /// [Fluo] is the class that provides the interface for managing the
   /// user session. This method is async because it tries to load a potential
-  /// session object from the secure storage.
-  ///
-  /// Use it like this:
-  ///
-  ///     final fluo = await Fluo.init('yourApiKey');
-  ///     final accessToken = await fluo.getAccessToken();
+  /// session object from the secure storage and load the app configuration.
   static Future<Fluo> init(String apiKey) async {
+    final apiClient = ApiClient(apiKey);
     final sessionManager = await SessionManager.init();
-    return Fluo._(ApiClient(apiKey), sessionManager);
+    await sessionManager.getSession(
+      apiClient: apiClient,
+      forceRefresh: true,
+    );
+    final appConfig = await apiClient.getAppConfig();
+    return Fluo._(apiClient, sessionManager, appConfig);
   }
 
-  /// Loads the configuration that is required to adapt the user onboarding
-  /// flow to the preferences you chose in the dashboard (e.g. auth methods)
-  /// but also get specific app values (e.g. terms or privacy policy urls).
-  Future<void> loadAppConfig() async {
-    _appConfig = await _apiClient.getAppConfig();
+  /// Returns whether a current session exists.
+  bool hasSession() {
+    return _sessionManager.session != null;
+  }
+
+  /// Refreshes the current session.
+  Future<void> refreshSession() async {
+    await _sessionManager.getSession(
+      apiClient: _apiClient,
+      forceRefresh: true,
+    );
+  }
+
+  /// Clears the session saved in secure storage.
+  ///
+  /// This method can be useful if the user is stuck on an old session
+  /// and you want to force the start of a brand new session, for example
+  /// after a migration.
+  ///
+  Future<void> clearSession() async {
+    await _sessionManager.clearSession();
+  }
+
+  /// Returns whether the current user is complete.
+  bool isUserComplete() {
+    return _sessionManager.isUserComplete();
   }
 
   /// Returns the access token or null if there is no valid session.
@@ -64,14 +86,21 @@ class Fluo {
     return session?.accessToken;
   }
 
-  /// Clears the session saved in secure storage.
+  /// Returns a firebase custom token or null if there is no valid session.
   ///
-  /// This method can be useful if the user is stuck on an old session
-  /// and you want to force the start of a brand new session, for example
-  /// after a migration.
+  /// Use it like this:
   ///
-  static Future<void> clearSession() async {
-    await SessionManager.clearSession();
+  ///     final firebaseToken = fluo.getFirebaseToken()!;
+  ///     await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  ///
+  /// For more information, visit: [Firebase custom tokens documentation](https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients)
+  String? getFirebaseToken() {
+    return _sessionManager.session?.firebaseToken;
+  }
+
+  /// Returns a supabase custom token or null if there is no valid session.
+  String? getSupabaseToken() {
+    return _sessionManager.session?.supabaseToken;
   }
 
   /// Shows the connect flow.
@@ -82,6 +111,36 @@ class Fluo {
   void showConnectFlow({
     required BuildContext context,
     required Function() onUserReady,
+  }) {
+    _showNavigator(
+      context: context,
+      navigator: StartNavigator(
+        onExit: () => Navigator.of(context).pop(),
+        onUserReady: onUserReady,
+      ),
+    );
+  }
+
+  /// Shows the register flow.
+  ///
+  /// This is a modal dialog which takes care of registering an already
+  /// authenticated user.
+  ///
+  void showRegisterFlow({
+    required BuildContext context,
+    required Function() onUserReady,
+  }) {
+    _showNavigator(
+      context: context,
+      navigator: RegisterNavigator(
+        onUserReady: onUserReady,
+      ),
+    );
+  }
+
+  void _showNavigator({
+    required BuildContext context,
+    required Widget navigator,
   }) {
     _apiClient.language = Localizations.localeOf(context).toLanguageTag();
 
@@ -95,13 +154,7 @@ class Fluo {
             Provider(create: (_) => _sessionManager),
             Provider(create: (_) => _appConfig),
           ],
-          child: StartNavigator(
-            onExit: () => Navigator.of(context).pop(),
-            onSessionReady: (session) async {
-              await _sessionManager.setSession(session);
-            },
-            onUserReady: onUserReady,
-          ),
+          child: navigator,
         );
       },
       transitionDuration: const Duration(milliseconds: 300),

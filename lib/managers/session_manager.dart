@@ -1,14 +1,16 @@
 import 'dart:convert';
 
+import 'package:fluo/api/api_client.dart';
+import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/api/models/session.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../api/api_client.dart';
-import '../api/models/session.dart';
 
 class SessionManager {
   SessionManager._(Session? session) : _session = session;
 
   Session? _session;
+
+  Session? get session => _session;
 
   static Future<SessionManager> init() async {
     final session = await _readSession();
@@ -28,10 +30,15 @@ class SessionManager {
       return session;
     }
 
-    session = await apiClient.refreshToken(
-      sessionId: session.id,
-      refreshToken: session.refreshToken,
-    );
+    try {
+      session = await apiClient.refreshSession(
+        sessionId: session.id,
+        refreshToken: session.refreshToken,
+      );
+    } on ApiError catch (_) {
+      await clearSession();
+      return null;
+    }
 
     await _writeSession(session);
 
@@ -45,8 +52,28 @@ class SessionManager {
     _session = session;
   }
 
-  static Future<void> clearSession() async {
+  Future<void> clearSession() async {
     await _writeSession(null);
+    _session = null;
+  }
+
+  bool isUserComplete() {
+    final session = _session;
+    if (session == null) {
+      return false;
+    }
+
+    final firstName = session.user.firstName;
+    if (firstName == null || firstName.length < 2) {
+      return false;
+    }
+
+    final lastName = session.user.lastName;
+    if (lastName == null || lastName.length < 2) {
+      return false;
+    }
+
+    return true;
   }
 
   // Helpers

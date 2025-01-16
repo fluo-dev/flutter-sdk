@@ -1,3 +1,4 @@
+import 'package:fluo/api/models/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'session.freezed.dart';
@@ -10,7 +11,9 @@ class Session with _$Session {
     required String accessToken,
     required int expiresAt,
     required String refreshToken,
-    required bool userProfileComplete,
+    required String firebaseToken,
+    required String supabaseToken,
+    required User user,
   }) = _Session;
 
   factory Session.fromJson(Map<String, dynamic> json) =>

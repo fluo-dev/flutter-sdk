@@ -1,13 +1,12 @@
+import 'package:fluo/api/api_client.dart';
+import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/l10n/fluo_localized_models.dart';
+import 'package:fluo/managers/session_manager.dart';
+import 'package:fluo/widgets/clear_button_input_decoration.dart';
+import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../api/api_client.dart';
-import '../api/models/api_error.dart';
-import '../l10n/fluo_localizations.dart';
-import '../l10n/fluo_localized_models.dart';
-import '../managers/session_manager.dart';
-import '../widgets/clear_button_input_decoration.dart';
-import '../widgets/single_input_screen.dart';
 
 class EnterLastNameScreen extends StatefulWidget {
   const EnterLastNameScreen({
@@ -32,6 +31,14 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
   @override
   void initState() {
     super.initState();
+
+    final session = context.read<SessionManager>().session;
+    if (session != null) {
+      final lastName = session.user.lastName;
+      if (lastName != null) {
+        _lastNameController.text = lastName;
+      }
+    }
 
     _lastNameController.addListener(() {
       setState(() {
@@ -81,14 +88,8 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
   void _onNext() async {
     try {
       setState(() => _loading = true);
-      final apiClient = Provider.of<ApiClient>(
-        context,
-        listen: false,
-      );
-      final sessionManager = Provider.of<SessionManager>(
-        context,
-        listen: false,
-      );
+      final apiClient = context.read<ApiClient>();
+      final sessionManager = context.read<SessionManager>();
       final session = await sessionManager.getSession(apiClient: apiClient);
       await apiClient.updateUser(
         accessToken: session!.accessToken,

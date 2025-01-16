@@ -9,8 +9,8 @@ cd example
 flutter run
 ```
 
-## Deploy demo to web
+## Deploy to web
 
 ```bash
-flutter build web --target=lib/main_demo.dart && netlify deploy --prod -d build/web
+flutter build web && netlify deploy --prod -d build/web
 ```

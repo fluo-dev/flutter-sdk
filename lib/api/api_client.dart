@@ -1,11 +1,10 @@
 import 'dart:convert';
 
+import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/api/models/app_config.dart';
+import 'package:fluo/api/models/partial_session.dart';
+import 'package:fluo/api/models/session.dart';
 import 'package:http/http.dart' as http;
-
-import 'models/api_error.dart';
-import 'models/app_config.dart';
-import 'models/partial_session.dart';
-import 'models/session.dart';
 
 final class Error {
   static int unauthorized = 401;
@@ -80,7 +79,7 @@ class ApiClient {
     return Session.fromJson(json);
   }
 
-  Future<Session> refreshToken({
+  Future<Session> refreshSession({
     required String sessionId,
     required String refreshToken,
   }) async {
@@ -127,8 +126,6 @@ class ApiClient {
       final json = jsonDecode(response.body);
       return Future.error(ApiError.fromJson(json));
     }
-
-    return;
   }
 
   // Request helpers

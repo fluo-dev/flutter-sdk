@@ -12,7 +12,9 @@ _$SessionImpl _$$SessionImplFromJson(Map<String, dynamic> json) =>
       accessToken: json['accessToken'] as String,
       expiresAt: (json['expiresAt'] as num).toInt(),
       refreshToken: json['refreshToken'] as String,
-      userProfileComplete: json['userProfileComplete'] as bool,
+      firebaseToken: json['firebaseToken'] as String,
+      supabaseToken: json['supabaseToken'] as String,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SessionImplToJson(_$SessionImpl instance) =>
@@ -21,5 +23,7 @@ Map<String, dynamic> _$$SessionImplToJson(_$SessionImpl instance) =>
       'accessToken': instance.accessToken,
       'expiresAt': instance.expiresAt,
       'refreshToken': instance.refreshToken,
-      'userProfileComplete': instance.userProfileComplete,
+      'firebaseToken': instance.firebaseToken,
+      'supabaseToken': instance.supabaseToken,
+      'user': instance.user,
     };

@@ -1,7 +1,6 @@
+import 'package:fluo/widgets/next_button.dart';
+import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/material.dart';
-
-import 'next_button.dart';
-import 'round_button.dart';
 
 class SingleInputScreen extends StatelessWidget {
   const SingleInputScreen({

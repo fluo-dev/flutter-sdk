@@ -1,8 +1,8 @@
+import 'package:fluo/managers/session_manager.dart';
+import 'package:fluo/navigators/auth_navigator.dart';
+import 'package:fluo/navigators/register_navigator.dart';
 import 'package:flutter/material.dart';
-
-import '../api/models/session.dart';
-import 'auth_user_navigator.dart';
-import 'create_profile_navigator.dart';
+import 'package:provider/provider.dart';
 
 const routeAuthUser = '/';
 const routeCreateProfile = '/create-profile';
@@ -11,12 +11,10 @@ class StartNavigator extends StatefulWidget {
   const StartNavigator({
     super.key,
     required this.onExit,
-    required this.onSessionReady,
     required this.onUserReady,
   });
 
   final Function() onExit;
-  final Function(Session session) onSessionReady;
   final Function() onUserReady;
 
   @override
@@ -42,13 +40,12 @@ class _StartNavigatorState extends State<StartNavigator> {
     late Widget page;
 
     if (settings.name == routeAuthUser) {
-      page = AuthUserNavigator(
+      page = AuthNavigator(
         onExit: () {
           widget.onExit();
         },
-        onUserAuthenticated: (session) {
-          widget.onSessionReady(session);
-          if (session.userProfileComplete) {
+        onUserAuthenticated: () {
+          if (context.read<SessionManager>().isUserComplete()) {
             widget.onUserReady();
           } else {
             _navigator().popAndPushNamed(routeCreateProfile);
@@ -56,10 +53,8 @@ class _StartNavigatorState extends State<StartNavigator> {
         },
       );
     } else if (settings.name == routeCreateProfile) {
-      page = CreateProfileNavigator(
-        onProfileComplete: () {
-          widget.onUserReady();
-        },
+      page = RegisterNavigator(
+        onUserReady: widget.onUserReady,
       );
     }
 
