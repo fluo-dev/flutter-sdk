@@ -1,3 +1,9 @@
+## 0.3.0
+
+- Breaking change: you have to use this version now
+- Resume user registration if not complete
+- Add `introBuilder` and `onInitError` in `FluoOnboarding`
+
 ## 0.2.1
 
 - Update readme to use a remote url for the screenshot
