@@ -19,12 +19,16 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 - Single input screens
 - Seamless authentication
 
+---
+
 **Auth methods**
 
 - E-mail + code (code is sent by the Fluo backend)
 - Mobile + code (soon)
 - Google sign in (soon)
 - Apple sign in (soon)
+
+---
 
 **Registration**
 
