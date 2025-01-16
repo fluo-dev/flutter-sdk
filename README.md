@@ -1,9 +1,9 @@
 # Fluo
 
-[Introduction](#introduction)
-[Getting started](#getting-started)
-[Usage](#usage)
-[Theming](#theming)
+- [Introduction](#introduction)
+- [Getting started](#getting-started)
+- [Usage](#usage)
+- [Theming](#theming)
 
 ## Introduction
 
@@ -14,21 +14,24 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 <img src="https://fluo.dev/img/fluo-onboarding-screenshot.png" alt="Fluo Onboarding" width="300">
 
 Great UX principles
-✔ Passwordless
-✔ Single input screens
-✔ Seamless authentication
+
+- Passwordless
+- Single input screens
+- Seamless authentication
 
 Auth methods
-✔ E-mail + code (code is sent by the Fluo backend)
-✔ Mobile + code (soon)
-✔ Google sign in (soon)
-✔ Apple sign in (soon)
+
+- E-mail + code (code is sent by the Fluo backend)
+- Mobile + code (soon)
+- Google sign in (soon)
+- Apple sign in (soon)
 
 Registration
-✔ Smart "get or create user" logic
-✔ Collects first name and last name
-✔ Save users in firebase
-✔ Save users in supabase (soon)
+
+- Smart "get or create user" logic
+- Collect first name and last name
+- Save users in firebase
+- Save users in supabase (soon)
 
 ## Getting started
 
