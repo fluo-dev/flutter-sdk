@@ -3,6 +3,9 @@
 - [Introduction](#introduction)
 - [Getting started](#getting-started)
 - [Usage](#usage)
+- - [Firebase integration](#firebase-integration)
+- - [Supabase integration](#supabase-integration)
+- - [Complete example](#complete-example)
 - [Theming](#theming)
 
 ## Introduction
@@ -139,7 +142,7 @@ class ExampleApp extends StatelessWidget {
 
 ## Theming
 
-The `FluoTheme` can be extended as shown below:
+The whole theming will soon be redone. Until then, you can extend the `FluoTheme` as shown below:
 
 ```dart
 import 'package:fluo/theme.dart';
