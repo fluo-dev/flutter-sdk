@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Add `fluo.supabaseSession` to set the session on the supabase flutter client
+
 ## 0.3.0
 
 - Breaking change: you have to use this version now
