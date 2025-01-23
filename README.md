@@ -3,9 +3,9 @@
 - [Introduction](#introduction)
 - [Getting started](#getting-started)
 - [Usage](#usage)
-- - [Firebase integration](#firebase-integration)
-- - [Supabase integration](#supabase-integration)
-- - [Complete example](#complete-example)
+  - [Firebase integration](#firebase-integration)
+  - [Supabase integration](#supabase-integration)
+  - [Complete example](#complete-example)
 - [Theming](#theming)
 
 ## Introduction
