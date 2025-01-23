@@ -86,22 +86,22 @@ class Fluo {
     return session?.accessToken;
   }
 
-  /// Returns a firebase custom token or null if there is no valid session.
+  /// Returns a firebase custom token or null if there is none.
   ///
   /// Use it like this:
   ///
-  ///     final firebaseToken = fluo.getFirebaseToken()!;
-  ///     await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  ///     await FirebaseAuth.instance.signInWithCustomToken(fluo.firebaseToken!);
   ///
   /// For more information, visit: [Firebase custom tokens documentation](https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients)
-  String? getFirebaseToken() {
-    return _sessionManager.session?.firebaseToken;
-  }
+  String? get firebaseToken => _sessionManager.session?.firebaseToken;
 
-  /// Returns a supabase custom token or null if there is no valid session.
-  String? getSupabaseToken() {
-    return _sessionManager.session?.supabaseToken;
-  }
+  /// Returns a supabase session string or null if there is none.
+  ///
+  /// Use it like this:
+  ///
+  ///     await Supabase.instance.client.auth.recoverSession(fluo.supabaseSession!);
+  ///
+  String? get supabaseSession => _sessionManager.session?.supabaseSession;
 
   /// Shows the connect flow.
   ///

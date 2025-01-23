@@ -11,8 +11,9 @@ class Session with _$Session {
     required String accessToken,
     required int expiresAt,
     required String refreshToken,
-    required String firebaseToken,
-    required String supabaseToken,
+    String? firebaseToken,
+    String? supabaseToken,
+    String? supabaseSession,
     required User user,
   }) = _Session;
 

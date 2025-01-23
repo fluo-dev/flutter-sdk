@@ -24,8 +24,9 @@ mixin _$Session {
   String get accessToken => throw _privateConstructorUsedError;
   int get expiresAt => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
-  String get firebaseToken => throw _privateConstructorUsedError;
-  String get supabaseToken => throw _privateConstructorUsedError;
+  String? get firebaseToken => throw _privateConstructorUsedError;
+  String? get supabaseToken => throw _privateConstructorUsedError;
+  String? get supabaseSession => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
 
   /// Serializes this Session to a JSON map.
@@ -47,8 +48,9 @@ abstract class $SessionCopyWith<$Res> {
       String accessToken,
       int expiresAt,
       String refreshToken,
-      String firebaseToken,
-      String supabaseToken,
+      String? firebaseToken,
+      String? supabaseToken,
+      String? supabaseSession,
       User user});
 
   $UserCopyWith<$Res> get user;
@@ -73,8 +75,9 @@ class _$SessionCopyWithImpl<$Res, $Val extends Session>
     Object? accessToken = null,
     Object? expiresAt = null,
     Object? refreshToken = null,
-    Object? firebaseToken = null,
-    Object? supabaseToken = null,
+    Object? firebaseToken = freezed,
+    Object? supabaseToken = freezed,
+    Object? supabaseSession = freezed,
     Object? user = null,
   }) {
     return _then(_value.copyWith(
@@ -94,14 +97,18 @@ class _$SessionCopyWithImpl<$Res, $Val extends Session>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      firebaseToken: null == firebaseToken
+      firebaseToken: freezed == firebaseToken
           ? _value.firebaseToken
           : firebaseToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      supabaseToken: null == supabaseToken
+              as String?,
+      supabaseToken: freezed == supabaseToken
           ? _value.supabaseToken
           : supabaseToken // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      supabaseSession: freezed == supabaseSession
+          ? _value.supabaseSession
+          : supabaseSession // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -132,8 +139,9 @@ abstract class _$$SessionImplCopyWith<$Res> implements $SessionCopyWith<$Res> {
       String accessToken,
       int expiresAt,
       String refreshToken,
-      String firebaseToken,
-      String supabaseToken,
+      String? firebaseToken,
+      String? supabaseToken,
+      String? supabaseSession,
       User user});
 
   @override
@@ -157,8 +165,9 @@ class __$$SessionImplCopyWithImpl<$Res>
     Object? accessToken = null,
     Object? expiresAt = null,
     Object? refreshToken = null,
-    Object? firebaseToken = null,
-    Object? supabaseToken = null,
+    Object? firebaseToken = freezed,
+    Object? supabaseToken = freezed,
+    Object? supabaseSession = freezed,
     Object? user = null,
   }) {
     return _then(_$SessionImpl(
@@ -178,14 +187,18 @@ class __$$SessionImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      firebaseToken: null == firebaseToken
+      firebaseToken: freezed == firebaseToken
           ? _value.firebaseToken
           : firebaseToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      supabaseToken: null == supabaseToken
+              as String?,
+      supabaseToken: freezed == supabaseToken
           ? _value.supabaseToken
           : supabaseToken // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      supabaseSession: freezed == supabaseSession
+          ? _value.supabaseSession
+          : supabaseSession // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -202,8 +215,9 @@ class _$SessionImpl implements _Session {
       required this.accessToken,
       required this.expiresAt,
       required this.refreshToken,
-      required this.firebaseToken,
-      required this.supabaseToken,
+      this.firebaseToken,
+      this.supabaseToken,
+      this.supabaseSession,
       required this.user});
 
   factory _$SessionImpl.fromJson(Map<String, dynamic> json) =>
@@ -218,15 +232,17 @@ class _$SessionImpl implements _Session {
   @override
   final String refreshToken;
   @override
-  final String firebaseToken;
+  final String? firebaseToken;
   @override
-  final String supabaseToken;
+  final String? supabaseToken;
+  @override
+  final String? supabaseSession;
   @override
   final User user;
 
   @override
   String toString() {
-    return 'Session(id: $id, accessToken: $accessToken, expiresAt: $expiresAt, refreshToken: $refreshToken, firebaseToken: $firebaseToken, supabaseToken: $supabaseToken, user: $user)';
+    return 'Session(id: $id, accessToken: $accessToken, expiresAt: $expiresAt, refreshToken: $refreshToken, firebaseToken: $firebaseToken, supabaseToken: $supabaseToken, supabaseSession: $supabaseSession, user: $user)';
   }
 
   @override
@@ -245,13 +261,15 @@ class _$SessionImpl implements _Session {
                 other.firebaseToken == firebaseToken) &&
             (identical(other.supabaseToken, supabaseToken) ||
                 other.supabaseToken == supabaseToken) &&
+            (identical(other.supabaseSession, supabaseSession) ||
+                other.supabaseSession == supabaseSession) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, accessToken, expiresAt,
-      refreshToken, firebaseToken, supabaseToken, user);
+      refreshToken, firebaseToken, supabaseToken, supabaseSession, user);
 
   /// Create a copy of Session
   /// with the given fields replaced by the non-null parameter values.
@@ -275,8 +293,9 @@ abstract class _Session implements Session {
       required final String accessToken,
       required final int expiresAt,
       required final String refreshToken,
-      required final String firebaseToken,
-      required final String supabaseToken,
+      final String? firebaseToken,
+      final String? supabaseToken,
+      final String? supabaseSession,
       required final User user}) = _$SessionImpl;
 
   factory _Session.fromJson(Map<String, dynamic> json) = _$SessionImpl.fromJson;
@@ -290,9 +309,11 @@ abstract class _Session implements Session {
   @override
   String get refreshToken;
   @override
-  String get firebaseToken;
+  String? get firebaseToken;
   @override
-  String get supabaseToken;
+  String? get supabaseToken;
+  @override
+  String? get supabaseSession;
   @override
   User get user;
 
