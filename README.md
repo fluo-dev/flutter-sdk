@@ -13,7 +13,7 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 <img src="https://fluo.dev/img/fluo-onboarding-screenshot.png" alt="Fluo Onboarding" width="300">
 
-**Great UX principles**
+**UX principles**
 
 - Passwordless
 - Single input screens
@@ -30,8 +30,8 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 - Smart "get or create user" logic
 - Collect first name and last name
-- Save users in firebase
-- Save users in supabase (soon)
+- Integration with Firebase
+- Integration with Supabase
 
 ## Getting started
 
@@ -50,10 +50,8 @@ Add the `FluoOnboarding` component in your app:
 ```dart
 FluoOnboarding(
   apiKey: 'your-api-key',
-  onUserReady: (fluo) async {
-    // Sign the user in using firebase
-    final firebaseToken = fluo.getFirebaseToken();
-    await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  onUserReady: (fluo) {
+    // Do your own things!
   },
   onInitError: (error) {
     // Optional - Handle network or server error
@@ -66,7 +64,37 @@ FluoOnboarding(
 )
 ```
 
-Below is a more complete example:
+### Firebase integration
+
+Use the `fluo.firebaseToken` as below:
+
+```dart
+FluoOnboarding(
+  apiKey: 'your-api-key',
+  onUserReady: (fluo) async {
+    // Initialize the Firebase client, then use 'signInWithCustomToken' here
+    await FirebaseAuth.instance.signInWithCustomToken(fluo.firebaseToken!);
+  },
+)
+```
+
+### Supabase integration
+
+Use the `fluo.supabaseSession` as below:
+
+```dart
+FluoOnboarding(
+  apiKey: 'your-api-key',
+  onUserReady: (fluo) async {
+    // Initialize the Supabase client, then use 'recoverSession' here
+    await Supabase.instance.client.auth.recoverSession(fluo.supabaseSession!);
+  },
+)
+```
+
+### Complete example
+
+A more complete example below:
 
 ```dart
 import 'package:fluo/fluo_onboarding.dart';
@@ -92,10 +120,8 @@ class ExampleApp extends StatelessWidget {
       theme: FluoTheme.defaultTheme(context, FluoTheme.lightColorScheme),
       home: FluoOnboarding(
         apiKey: 'your-api-key',
-        onUserReady: (fluo) async {
-          // Sign the user in using firebase
-          final firebaseToken = fluo.getFirebaseToken();
-          await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+        onUserReady: (fluo) {
+          // Do your own things!
         },
         onInitError: (error) {
           // Optional - Handle network or server error
