@@ -123,7 +123,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             onPressed: () {
-              fluo!.showConnectFlow(
+              fluo!.showConnectWithEmailFlow(
                 context: context,
                 onUserReady: () {
                   widget.onUserReady(fluo);

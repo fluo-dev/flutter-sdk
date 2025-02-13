@@ -15,7 +15,7 @@ class EnterLastNameScreen extends StatefulWidget {
     required this.onLastNameSubmitted,
   });
 
-  final Function() onBackButtonPressed;
+  final Function()? onBackButtonPressed;
   final Function() onLastNameSubmitted;
 
   @override

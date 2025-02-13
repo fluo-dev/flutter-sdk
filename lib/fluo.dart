@@ -3,8 +3,8 @@ library fluo;
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/managers/session_manager.dart';
-import 'package:fluo/navigators/register_navigator.dart';
-import 'package:fluo/navigators/start_navigator.dart';
+import 'package:fluo/presentation/auth/auth_navigator.dart';
+import 'package:fluo/presentation/register/register_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +56,29 @@ class Fluo {
 
   /// Returns whether the current user is complete.
   bool isUserComplete() {
-    return _sessionManager.isUserComplete();
+    final session = _sessionManager.session;
+    if (session == null) {
+      return false;
+    }
+
+    final steps = _appConfig.registrationSteps;
+    for (var i = 0; i < steps.length; ++i) {
+      final step = steps[i];
+      if (step.fieldKey == 'firstName') {
+        final firstName = session.user.firstName;
+        if (firstName == null || firstName.length < 2) {
+          return false;
+        }
+      }
+      if (step.fieldKey == 'lastName') {
+        final lastName = session.user.lastName;
+        if (lastName == null || lastName.length < 2) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   /// Returns the access token or null if there is no valid session.
@@ -103,20 +125,30 @@ class Fluo {
   ///
   String? get supabaseSession => _sessionManager.session?.supabaseSession;
 
-  /// Shows the connect flow.
+  /// Shows the connect with email flow.
   ///
-  /// This is a modal dialog which takes care of everything to get
-  /// a valid user session.
+  /// This is a modal dialog which takes care of collecting the user's email,
+  /// sending an otp, and validating the session.
   ///
-  void showConnectFlow({
+  void showConnectWithEmailFlow({
     required BuildContext context,
     required Function() onUserReady,
   }) {
     _showNavigator(
       context: context,
-      navigator: StartNavigator(
+      navigator: AuthNavigator(
         onExit: () => Navigator.of(context).pop(),
-        onUserReady: onUserReady,
+        onUserAuthenticated: () {
+          Navigator.of(context).pop();
+          if (isUserComplete()) {
+            onUserReady();
+          } else {
+            showRegisterFlow(
+              context: context,
+              onUserReady: onUserReady,
+            );
+          }
+        },
       ),
     );
   }

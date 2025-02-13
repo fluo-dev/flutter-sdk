@@ -57,25 +57,6 @@ class SessionManager {
     _session = null;
   }
 
-  bool isUserComplete() {
-    final session = _session;
-    if (session == null) {
-      return false;
-    }
-
-    final firstName = session.user.firstName;
-    if (firstName == null || firstName.length < 2) {
-      return false;
-    }
-
-    final lastName = session.user.lastName;
-    if (lastName == null || lastName.length < 2) {
-      return false;
-    }
-
-    return true;
-  }
-
   // Helpers
 
   static bool _hasExpired(int expEpochInSeconds) {

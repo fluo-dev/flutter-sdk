@@ -22,6 +22,8 @@ AppConfig _$AppConfigFromJson(Map<String, dynamic> json) {
 mixin _$AppConfig {
   String get termsUrl => throw _privateConstructorUsedError;
   String get privacyUrl => throw _privateConstructorUsedError;
+  List<RegistrationStep> get registrationSteps =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this AppConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +40,10 @@ abstract class $AppConfigCopyWith<$Res> {
   factory $AppConfigCopyWith(AppConfig value, $Res Function(AppConfig) then) =
       _$AppConfigCopyWithImpl<$Res, AppConfig>;
   @useResult
-  $Res call({String termsUrl, String privacyUrl});
+  $Res call(
+      {String termsUrl,
+      String privacyUrl,
+      List<RegistrationStep> registrationSteps});
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
   $Res call({
     Object? termsUrl = null,
     Object? privacyUrl = null,
+    Object? registrationSteps = null,
   }) {
     return _then(_value.copyWith(
       termsUrl: null == termsUrl
@@ -68,6 +74,10 @@ class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
           ? _value.privacyUrl
           : privacyUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      registrationSteps: null == registrationSteps
+          ? _value.registrationSteps
+          : registrationSteps // ignore: cast_nullable_to_non_nullable
+              as List<RegistrationStep>,
     ) as $Val);
   }
 }
@@ -80,7 +90,10 @@ abstract class _$$AppConfigImplCopyWith<$Res>
       __$$AppConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String termsUrl, String privacyUrl});
+  $Res call(
+      {String termsUrl,
+      String privacyUrl,
+      List<RegistrationStep> registrationSteps});
 }
 
 /// @nodoc
@@ -98,6 +111,7 @@ class __$$AppConfigImplCopyWithImpl<$Res>
   $Res call({
     Object? termsUrl = null,
     Object? privacyUrl = null,
+    Object? registrationSteps = null,
   }) {
     return _then(_$AppConfigImpl(
       termsUrl: null == termsUrl
@@ -108,6 +122,10 @@ class __$$AppConfigImplCopyWithImpl<$Res>
           ? _value.privacyUrl
           : privacyUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      registrationSteps: null == registrationSteps
+          ? _value._registrationSteps
+          : registrationSteps // ignore: cast_nullable_to_non_nullable
+              as List<RegistrationStep>,
     ));
   }
 }
@@ -115,7 +133,11 @@ class __$$AppConfigImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AppConfigImpl implements _AppConfig {
-  const _$AppConfigImpl({required this.termsUrl, required this.privacyUrl});
+  const _$AppConfigImpl(
+      {required this.termsUrl,
+      required this.privacyUrl,
+      required final List<RegistrationStep> registrationSteps})
+      : _registrationSteps = registrationSteps;
 
   factory _$AppConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppConfigImplFromJson(json);
@@ -124,10 +146,18 @@ class _$AppConfigImpl implements _AppConfig {
   final String termsUrl;
   @override
   final String privacyUrl;
+  final List<RegistrationStep> _registrationSteps;
+  @override
+  List<RegistrationStep> get registrationSteps {
+    if (_registrationSteps is EqualUnmodifiableListView)
+      return _registrationSteps;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_registrationSteps);
+  }
 
   @override
   String toString() {
-    return 'AppConfig(termsUrl: $termsUrl, privacyUrl: $privacyUrl)';
+    return 'AppConfig(termsUrl: $termsUrl, privacyUrl: $privacyUrl, registrationSteps: $registrationSteps)';
   }
 
   @override
@@ -138,12 +168,15 @@ class _$AppConfigImpl implements _AppConfig {
             (identical(other.termsUrl, termsUrl) ||
                 other.termsUrl == termsUrl) &&
             (identical(other.privacyUrl, privacyUrl) ||
-                other.privacyUrl == privacyUrl));
+                other.privacyUrl == privacyUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._registrationSteps, _registrationSteps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, termsUrl, privacyUrl);
+  int get hashCode => Object.hash(runtimeType, termsUrl, privacyUrl,
+      const DeepCollectionEquality().hash(_registrationSteps));
 
   /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -163,8 +196,10 @@ class _$AppConfigImpl implements _AppConfig {
 
 abstract class _AppConfig implements AppConfig {
   const factory _AppConfig(
-      {required final String termsUrl,
-      required final String privacyUrl}) = _$AppConfigImpl;
+          {required final String termsUrl,
+          required final String privacyUrl,
+          required final List<RegistrationStep> registrationSteps}) =
+      _$AppConfigImpl;
 
   factory _AppConfig.fromJson(Map<String, dynamic> json) =
       _$AppConfigImpl.fromJson;
@@ -173,6 +208,8 @@ abstract class _AppConfig implements AppConfig {
   String get termsUrl;
   @override
   String get privacyUrl;
+  @override
+  List<RegistrationStep> get registrationSteps;
 
   /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.

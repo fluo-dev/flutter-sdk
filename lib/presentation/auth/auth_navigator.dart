@@ -1,7 +1,7 @@
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/managers/session_manager.dart';
-import 'package:fluo/screens/enter_code_screen.dart';
-import 'package:fluo/screens/enter_email_screen.dart';
+import 'package:fluo/presentation/auth/enter_code_screen.dart';
+import 'package:fluo/presentation/auth/enter_email_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
