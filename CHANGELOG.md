@@ -1,3 +1,8 @@
+## 0.4.0
+
+- Don't need the user's last name? This version introduces "dynamic registration steps" allowing you to choose which registration steps you want
+- Folder structure has been reviewed to organize screens in flows, structurally speaking
+
 ## 0.3.1
 
 - Add `fluo.supabaseSession` to set the session on the supabase flutter client
