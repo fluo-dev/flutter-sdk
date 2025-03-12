@@ -26,5 +26,7 @@
   "errorSessionRevoked": "Your session was revoked.",
   "errorUnauthorized": "You do not have the right permissions.",
   "next": "Next",
-  "continueWithEmail": "Continue with e-mail"
+  "continueWithEmail": "Continue with e-mail",
+  "termsAndConditions": "Terms and conditions",
+  "privacyPolicy": "Privacy policy"
 }

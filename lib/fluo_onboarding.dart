@@ -1,15 +1,19 @@
 import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/theme.dart';
+import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/material.dart';
+import 'package:styled_text/styled_text.dart';
 
 class FluoOnboarding extends StatefulWidget {
-  const FluoOnboarding({
+  FluoOnboarding({
     super.key,
     required this.apiKey,
     required this.onUserReady,
     this.onInitError,
     this.introBuilder,
-  });
+    FluoTheme? theme,
+  }) : theme = theme ?? FluoTheme.light();
 
   final String apiKey;
   final Function(Fluo fluo) onUserReady;
@@ -19,6 +23,7 @@ class FluoOnboarding extends StatefulWidget {
     bool initializing,
     double bottomContainerHeight,
   )? introBuilder;
+  final FluoTheme theme;
 
   @override
   State<FluoOnboarding> createState() => _FluoOnboardingState();
@@ -44,7 +49,6 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: FutureBuilder<Fluo?>(
         future: _fluoInitFuture, // ensures it's called once
         builder: (context, snapshot) {
@@ -65,6 +69,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 fluo.showRegisterFlow(
                   context: context,
+                  theme: widget.theme,
                   onUserReady: () => widget.onUserReady(fluo),
                 );
               });
@@ -90,10 +95,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   child: SafeArea(
                     top: false,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 30.0,
-                      ),
+                      padding: widget.theme.screenPadding,
                       child: _connectButtons(fluo),
                     ),
                   ),
@@ -114,17 +116,18 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _connectButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.mail_outline_rounded,
-              color: Colors.black,
+              color: widget.theme.connectButtonTextStyle.color,
               size: 20.0,
             ),
             title: FluoLocalizations.of(context)!.continueWithEmail,
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            buttonStyle: widget.theme.connectButtonStyle,
+            textStyle: widget.theme.connectButtonTextStyle,
             onPressed: () {
               fluo!.showConnectWithEmailFlow(
                 context: context,
+                theme: widget.theme,
                 onUserReady: () {
                   widget.onUserReady(fluo);
                 },
@@ -139,10 +142,11 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               width: 20.0,
             ),
             title: 'Continue with Google',
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            buttonStyle: widget.theme.connectButtonStyle,
+            textStyle: widget.theme.connectButtonTextStyle,
             onPressed: () => {},
           ),
+         
           const SizedBox(height: 15.0),
           _connectButton(
             icon: Image.asset(
@@ -150,11 +154,44 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               width: 20.0,
             ),
             title: 'Continue with Apple',
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.white,
+            style: widget.theme.connectButtonStyle,
             onPressed: () => {},
           ),
           */
+          Padding(
+            padding: widget.theme.legalTextPadding,
+            child: StyledText(
+              text: FluoLocalizations.of(context)!.acceptTerms,
+              textAlign: TextAlign.center,
+              style: widget.theme.legalTextStyle,
+              tags: {
+                'terms': StyledTextActionTag(
+                  (text, attrs) => showWebviewDialog(
+                    context: context,
+                    theme: widget.theme,
+                    title: FluoLocalizations.of(context)!.termsAndConditions,
+                    url: fluo!.appConfig.termsUrl,
+                  ),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                'privacy': StyledTextActionTag(
+                  (text, attrs) => showWebviewDialog(
+                    context: context,
+                    theme: widget.theme,
+                    title: FluoLocalizations.of(context)!.privacyPolicy,
+                    url: fluo!.appConfig.privacyUrl,
+                  ),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              },
+            ),
+          )
         ],
       ),
     );
@@ -163,32 +200,22 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   Widget _connectButton({
     required Widget icon,
     required String title,
-    required Color backgroundColor,
-    required Color foregroundColor,
+    required ButtonStyle buttonStyle,
+    required TextStyle textStyle,
     required Function() onPressed,
   }) {
-    final theme = Theme.of(context);
-    final connectButtonStyle = theme.filledButtonTheme.style!.copyWith(
-      backgroundColor: WidgetStatePropertyAll(backgroundColor),
-      foregroundColor: WidgetStatePropertyAll(foregroundColor),
-      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(
-          color: Colors.black,
-          width: 1.5,
-        ),
-      )),
-    );
-
     return FilledButton(
       onPressed: onPressed,
-      style: connectButtonStyle,
+      style: buttonStyle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           icon,
           const SizedBox(width: 10.0),
-          Text(title),
+          Text(
+            title,
+            style: textStyle,
+          ),
         ],
       ),
     );

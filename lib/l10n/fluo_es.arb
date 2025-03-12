@@ -26,5 +26,7 @@
   "errorSessionRevoked": "Tu sesión ha sido revocada.",
   "errorUnauthorized": "No tienes los permisos necesarios.",
   "next": "Siguiente",
-  "continueWithEmail": "Continuar con correo"
+  "continueWithEmail": "Continuar con correo",
+  "termsAndConditions": "Términos y condiciones",
+  "privacyPolicy": "Política de privacidad"
 }

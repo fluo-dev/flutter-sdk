@@ -221,6 +221,18 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'Continue with e-mail'**
   String get continueWithEmail;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyPolicy;
 }
 
 class _FluoLocalizationsDelegate

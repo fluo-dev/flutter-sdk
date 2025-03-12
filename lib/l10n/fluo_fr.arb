@@ -26,5 +26,7 @@
   "errorSessionRevoked": "Votre session n'est plus valide.",
   "errorUnauthorized": "Vous n'avez pas les autorisations nécessaires.",
   "next": "Suivant",
-  "continueWithEmail": "Continuer avec l'e-mail"
+  "continueWithEmail": "Continuer avec l'e-mail",
+  "termsAndConditions": "Conditions générales",
+  "privacyPolicy": "Politique de confidentialité"
 }

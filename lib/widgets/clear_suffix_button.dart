@@ -1,32 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ClearButtonInputDecoration extends InputDecoration {
-  ClearButtonInputDecoration({
-    required String hintText,
-    required TextEditingController controller,
-  }) : super(
-          hintText: hintText,
-          suffixIconConstraints: const BoxConstraints(
-            maxHeight: 32,
-            maxWidth: 32 + 10 + 15,
-          ),
-          suffixIcon: _ClearButton(controller: controller),
-          isDense: true,
-        );
-}
-
-class _ClearButton extends StatefulWidget {
-  const _ClearButton({
+class ClearSuffixButton extends StatefulWidget {
+  const ClearSuffixButton({
+    super.key,
     required this.controller,
   });
 
   final TextEditingController controller;
 
   @override
-  State<_ClearButton> createState() => _ClearButtonState();
+  State<ClearSuffixButton> createState() => _ClearSuffixButtonState();
 }
 
-class _ClearButtonState extends State<_ClearButton> {
+class _ClearSuffixButtonState extends State<ClearSuffixButton> {
   bool _isEmpty = true;
 
   @override

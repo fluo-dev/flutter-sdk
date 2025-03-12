@@ -53,6 +53,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterCode,
       inputWidget: Pinput(
@@ -62,9 +63,12 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
         autofocus: true,
         enabled: !_loading,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        defaultPinTheme: FluoTheme.defaultPinTheme(context),
-        focusedPinTheme: FluoTheme.focusedPinTheme(context),
-        followingPinTheme: FluoTheme.followingPinTheme(context),
+        defaultPinTheme: theme.codeInputThemeDefault,
+        focusedPinTheme: theme.codeInputThemeFocused,
+        submittedPinTheme: theme.codeInputThemeSubmitted,
+        followingPinTheme: theme.codeInputThemeFollowing,
+        disabledPinTheme: theme.codeInputThemeDisabled,
+        errorPinTheme: theme.codeInputThemeError,
         // onTap: _clearIfHasError,
         onCompleted: (_) => _onNext(),
       ),

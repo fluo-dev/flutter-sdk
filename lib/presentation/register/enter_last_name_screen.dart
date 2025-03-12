@@ -3,7 +3,8 @@ import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/fluo_localized_models.dart';
 import 'package:fluo/managers/session_manager.dart';
-import 'package:fluo/widgets/clear_button_input_decoration.dart';
+import 'package:fluo/theme.dart';
+import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,16 +57,16 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterLastName,
       inputWidget: TextField(
         controller: _lastNameController,
-        style: theme.textTheme.titleMedium,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: ClearButtonInputDecoration(
+        style: theme.inputTextStyle,
+        textAlignVertical: theme.inputTextAlignVertical,
+        decoration: theme.inputDecoration.copyWith(
           hintText: FluoLocalizations.of(context)!.enterLastNamePlaceholder,
-          controller: _lastNameController,
+          suffixIcon: ClearSuffixButton(controller: _lastNameController),
         ),
         onSubmitted: (_) => _onNext(),
         autofocus: true,

@@ -5,6 +5,7 @@ import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/auth_navigator.dart';
 import 'package:fluo/presentation/register/register_navigator.dart';
+import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ class Fluo {
   final SessionManager _sessionManager;
 
   final AppConfig _appConfig;
+
+  AppConfig get appConfig => _appConfig;
 
   /// [Fluo] is the class that provides the interface for managing the
   /// user session. This method is async because it tries to load a potential
@@ -132,10 +135,12 @@ class Fluo {
   ///
   void showConnectWithEmailFlow({
     required BuildContext context,
+    required FluoTheme theme,
     required Function() onUserReady,
   }) {
     _showNavigator(
       context: context,
+      theme: theme,
       navigator: AuthNavigator(
         onExit: () => Navigator.of(context).pop(),
         onUserAuthenticated: () {
@@ -145,6 +150,7 @@ class Fluo {
           } else {
             showRegisterFlow(
               context: context,
+              theme: theme,
               onUserReady: onUserReady,
             );
           }
@@ -160,10 +166,12 @@ class Fluo {
   ///
   void showRegisterFlow({
     required BuildContext context,
+    required FluoTheme theme,
     required Function() onUserReady,
   }) {
     _showNavigator(
       context: context,
+      theme: theme,
       navigator: RegisterNavigator(
         onUserReady: onUserReady,
       ),
@@ -172,19 +180,20 @@ class Fluo {
 
   void _showNavigator({
     required BuildContext context,
+    required FluoTheme theme,
     required Widget navigator,
   }) {
     _apiClient.language = Localizations.localeOf(context).toLanguageTag();
 
     showGeneralDialog(
       context: context,
-      barrierColor: Theme.of(context).colorScheme.surface,
       pageBuilder: (context, animation, secondaryAnimation) {
         return MultiProvider(
           providers: [
             Provider(create: (_) => _apiClient),
             Provider(create: (_) => _sessionManager),
             Provider(create: (_) => _appConfig),
+            Provider(create: (_) => theme),
           ],
           child: navigator,
         );

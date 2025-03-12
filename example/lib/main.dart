@@ -1,4 +1,3 @@
-import 'package:example/theme.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
@@ -20,9 +19,8 @@ class ExampleApp extends StatelessWidget {
       navigatorKey: _navigatorKey,
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
-      theme: ExampleAppTheme.defaultTheme(context),
       home: FluoOnboarding(
-        apiKey: 'your-api-key',
+        apiKey: 'Fk9ZQOLr4QO009e4nRUPzLbPWO40wzak_oDZB-13DHE=',
         onUserReady: _onUserReady,
         onInitError: (error) => print(error ?? ''),
         introBuilder: (context, initializing, bottomContainerHeight) {

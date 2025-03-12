@@ -1,15 +1,13 @@
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
-import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/fluo_localized_models.dart';
-import 'package:fluo/widgets/clear_button_input_decoration.dart';
+import 'package:fluo/theme.dart';
+import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
-import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:styled_text/styled_text.dart';
 
 final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
 
@@ -53,17 +51,16 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final appConfig = context.read<AppConfig>();
+    final theme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
       inputWidget: TextField(
         controller: _emailController,
-        style: theme.textTheme.titleMedium,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: ClearButtonInputDecoration(
+        style: theme.inputTextStyle,
+        textAlignVertical: theme.inputTextAlignVertical,
+        decoration: theme.inputDecoration.copyWith(
           hintText: FluoLocalizations.of(context)!.enterEmailPlaceholder,
-          controller: _emailController,
+          suffixIcon: ClearSuffixButton(controller: _emailController),
         ),
         onSubmitted: (_) => _onNext(),
         autofocus: true,
@@ -77,26 +74,6 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
       nextButtonEnabled: _isEmailValid,
-      helperWidget: StyledText(
-        text: FluoLocalizations.of(context)!.acceptTerms,
-        style: Theme.of(context).textTheme.bodyMedium,
-        tags: {
-          'terms': StyledTextActionTag(
-            (text, attrs) => showWebviewDialog(context, appConfig.termsUrl),
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          'privacy': StyledTextActionTag(
-            (text, attrs) => showWebviewDialog(context, appConfig.privacyUrl),
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        },
-      ),
       errorText: _errorText,
       loading: _loading,
     );

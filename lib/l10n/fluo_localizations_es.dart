@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'fluo_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -68,4 +70,10 @@ class FluoLocalizationsEs extends FluoLocalizations {
 
   @override
   String get continueWithEmail => 'Continuar con correo';
+
+  @override
+  String get termsAndConditions => 'Términos y condiciones';
+
+  @override
+  String get privacyPolicy => 'Política de privacidad';
 }
