@@ -20,7 +20,7 @@ class ExampleApp extends StatelessWidget {
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
       home: FluoOnboarding(
-        apiKey: 'Fk9ZQOLr4QO009e4nRUPzLbPWO40wzak_oDZB-13DHE=',
+        apiKey: 'your-api-key',
         onUserReady: _onUserReady,
         onInitError: (error) => print(error ?? ''),
         introBuilder: (context, initializing, bottomContainerHeight) {

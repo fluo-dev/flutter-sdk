@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Introducing the FluoTheme: customize the look & feel of the fluo sdk.
+
 ## 0.4.0
 
 - Don't need the user's last name? This version introduces "dynamic registration steps" allowing you to choose which registration steps you want
