@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'fluo_localizations_en.dart';
 import 'fluo_localizations_es.dart';
+import 'fluo_localizations_fa.dart';
 import 'fluo_localizations_fr.dart';
 import 'fluo_localizations_it.dart';
 
@@ -98,6 +99,7 @@ abstract class FluoLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('es'),
+    Locale('fa'),
     Locale('fr'),
     Locale('it')
   ];
@@ -247,7 +249,7 @@ class _FluoLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'es', 'fr', 'it'].contains(locale.languageCode);
+      <String>['en', 'es', 'fa', 'fr', 'it'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_FluoLocalizationsDelegate old) => false;
@@ -260,6 +262,8 @@ FluoLocalizations lookupFluoLocalizations(Locale locale) {
       return FluoLocalizationsEn();
     case 'es':
       return FluoLocalizationsEs();
+    case 'fa':
+      return FluoLocalizationsFa();
     case 'fr':
       return FluoLocalizationsFr();
     case 'it':

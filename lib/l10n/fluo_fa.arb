@@ -1,0 +1,32 @@
+{
+  "@@locale": "fa",
+  "acceptTerms": "با ادامه، شما <terms>شرایط و ضوابط</terms> و <privacy>سیاست حریم خصوصی</privacy> ما را می‌پذیرید.",
+  "enterCode": "کد تأیید را وارد کنید",
+  "enterCodeHelper": "کد به <email>{email}</email> ارسال شد. اگر ایمیلی دریافت نکردید، پوشه اسپم خود را بررسی کنید.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "آدرس ایمیل خود را وارد کنید",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "نام خود را وارد کنید",
+  "enterFirstNamePlaceholder": "نام",
+  "enterLastName": "نام خانوادگی خود را وارد کنید",
+  "enterLastNamePlaceholder": "نام خانوادگی",
+  "errorUnknown": "خطایی در پردازش درخواست شما رخ داد.",
+  "errorCodeExpired": "کد منقضی شده است.",
+  "errorCodeInvalid": "کد معتبر نیست.",
+  "errorInternal": "خطای داخلی سرور رخ داده است.",
+  "errorNotFound": "منبع مورد نظر یافت نشد.",
+  "errorParameterInvalid": "مقدار ارسال‌ شده معتبر نیست.",
+  "errorParameterMissing": "درخواست شامل پارامترهای ناقص است.",
+  "errorSessionRevoked": "نشست شما لغو شده است.",
+  "errorUnauthorized": "شما مجوز لازم را ندارید.",
+  "next": "بعدی",
+  "continueWithEmail": "ادامه با ایمیل",
+  "termsAndConditions": "شرایط و ضوابط",
+  "privacyPolicy": "سیاست حریم خصوصی"
+}
