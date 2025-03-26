@@ -102,7 +102,7 @@ class ExampleApp extends StatelessWidget {
 
 ## Integrating Firebase
 
-1. Open the dashboard and select the [Backend tab'](https://dashboard.fluo.dev/backend)
+1. Open the dashboard and select the [Backend tab](https://dashboard.fluo.dev/backend)
 2. Click "Set up your backend now" and select "Firebase"
 
 Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
@@ -122,7 +122,7 @@ FluoOnboarding(
 
 ## Integrating Supabase
 
-1. Open the dashboard and select the [Backend tab'](https://dashboard.fluo.dev/backend)
+1. Open the dashboard and select the [Backend tab](https://dashboard.fluo.dev/backend)
 2. Click "Set up your backend now" and select "Supabase"
 
 Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup in the Fluo dashboard (don't worry, it's a simple copy-paste).
