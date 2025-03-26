@@ -1,3 +1,4 @@
+import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
@@ -109,55 +110,79 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   }
 
   Widget _connectButtons(Fluo? fluo) {
+    bool showEmailButton = false;
+    bool showGoogleButton = false;
+    bool showAppleButton = false;
+
+    if (fluo != null) {
+      for (final method in fluo.appConfig.authMethods) {
+        if (method.id == AuthMethodId.email) {
+          showEmailButton = method.selected;
+        } else if (method.id == AuthMethodId.google) {
+          showGoogleButton = method.selected;
+        } else if (method.id == AuthMethodId.apple) {
+          showAppleButton = method.selected;
+        }
+      }
+    }
+
     return AnimatedOpacity(
       opacity: fluo == null ? 0.0 : 1.0,
       duration: const Duration(seconds: 2),
       child: Column(
+        spacing: 15.0,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _connectButton(
-            icon: Icon(
-              Icons.mail_outline_rounded,
-              color: widget.theme.connectButtonTextStyle.color,
-              size: 20.0,
+          if (showEmailButton)
+            _connectButton(
+              icon: Icon(
+                Icons.mail_outline_rounded,
+                color: widget.theme.connectButtonTextStyle.color,
+                size: 20.0,
+              ),
+              title: FluoLocalizations.of(context)!.continueWithEmail,
+              buttonStyle: widget.theme.connectButtonStyle,
+              textStyle: widget.theme.connectButtonTextStyle,
+              onPressed: () {
+                fluo!.showConnectWithEmailFlow(
+                  context: context,
+                  theme: widget.theme,
+                  onUserReady: () {
+                    widget.onUserReady(fluo);
+                  },
+                );
+              },
             ),
-            title: FluoLocalizations.of(context)!.continueWithEmail,
-            buttonStyle: widget.theme.connectButtonStyle,
-            textStyle: widget.theme.connectButtonTextStyle,
-            onPressed: () {
-              fluo!.showConnectWithEmailFlow(
-                context: context,
-                theme: widget.theme,
-                onUserReady: () {
-                  widget.onUserReady(fluo);
-                },
-              );
-            },
-          ),
-          /*
-          const SizedBox(height: 15.0),
-          _connectButton(
-            icon: Image.asset(
-              'packages/fluo/assets/images/google.png',
-              width: 20.0,
+          if (showGoogleButton)
+            _connectButton(
+              icon: Image.asset(
+                'packages/fluo/assets/images/google.png',
+                width: 20.0,
+              ),
+              title: 'Continue with Google',
+              buttonStyle: widget.theme.connectButtonStyle,
+              textStyle: widget.theme.connectButtonTextStyle,
+              onPressed: () {
+                fluo!.showConnectWithGoogleFlow(
+                  context: context,
+                  theme: widget.theme,
+                  onUserReady: () {
+                    widget.onUserReady(fluo);
+                  },
+                );
+              },
             ),
-            title: 'Continue with Google',
-            buttonStyle: widget.theme.connectButtonStyle,
-            textStyle: widget.theme.connectButtonTextStyle,
-            onPressed: () => {},
-          ),
-         
-          const SizedBox(height: 15.0),
-          _connectButton(
-            icon: Image.asset(
-              'packages/fluo/assets/images/apple.png',
-              width: 20.0,
+          if (showAppleButton)
+            _connectButton(
+              icon: Image.asset(
+                'packages/fluo/assets/images/apple.png',
+                width: 20.0,
+              ),
+              title: 'Continue with Apple',
+              buttonStyle: widget.theme.connectButtonStyle,
+              textStyle: widget.theme.connectButtonTextStyle,
+              onPressed: () => {},
             ),
-            title: 'Continue with Apple',
-            style: widget.theme.connectButtonStyle,
-            onPressed: () => {},
-          ),
-          */
           Padding(
             padding: widget.theme.legalTextPadding,
             child: StyledText(
