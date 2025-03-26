@@ -24,6 +24,8 @@ mixin _$AppConfig {
   String get privacyUrl => throw _privateConstructorUsedError;
   List<RegistrationStep> get registrationSteps =>
       throw _privateConstructorUsedError;
+  List<AuthenticationMethod> get authMethods =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this AppConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +45,8 @@ abstract class $AppConfigCopyWith<$Res> {
   $Res call(
       {String termsUrl,
       String privacyUrl,
-      List<RegistrationStep> registrationSteps});
+      List<RegistrationStep> registrationSteps,
+      List<AuthenticationMethod> authMethods});
 }
 
 /// @nodoc
@@ -64,6 +67,7 @@ class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
     Object? termsUrl = null,
     Object? privacyUrl = null,
     Object? registrationSteps = null,
+    Object? authMethods = null,
   }) {
     return _then(_value.copyWith(
       termsUrl: null == termsUrl
@@ -78,6 +82,10 @@ class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
           ? _value.registrationSteps
           : registrationSteps // ignore: cast_nullable_to_non_nullable
               as List<RegistrationStep>,
+      authMethods: null == authMethods
+          ? _value.authMethods
+          : authMethods // ignore: cast_nullable_to_non_nullable
+              as List<AuthenticationMethod>,
     ) as $Val);
   }
 }
@@ -93,7 +101,8 @@ abstract class _$$AppConfigImplCopyWith<$Res>
   $Res call(
       {String termsUrl,
       String privacyUrl,
-      List<RegistrationStep> registrationSteps});
+      List<RegistrationStep> registrationSteps,
+      List<AuthenticationMethod> authMethods});
 }
 
 /// @nodoc
@@ -112,6 +121,7 @@ class __$$AppConfigImplCopyWithImpl<$Res>
     Object? termsUrl = null,
     Object? privacyUrl = null,
     Object? registrationSteps = null,
+    Object? authMethods = null,
   }) {
     return _then(_$AppConfigImpl(
       termsUrl: null == termsUrl
@@ -126,6 +136,10 @@ class __$$AppConfigImplCopyWithImpl<$Res>
           ? _value._registrationSteps
           : registrationSteps // ignore: cast_nullable_to_non_nullable
               as List<RegistrationStep>,
+      authMethods: null == authMethods
+          ? _value._authMethods
+          : authMethods // ignore: cast_nullable_to_non_nullable
+              as List<AuthenticationMethod>,
     ));
   }
 }
@@ -136,8 +150,10 @@ class _$AppConfigImpl implements _AppConfig {
   const _$AppConfigImpl(
       {required this.termsUrl,
       required this.privacyUrl,
-      required final List<RegistrationStep> registrationSteps})
-      : _registrationSteps = registrationSteps;
+      required final List<RegistrationStep> registrationSteps,
+      required final List<AuthenticationMethod> authMethods})
+      : _registrationSteps = registrationSteps,
+        _authMethods = authMethods;
 
   factory _$AppConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppConfigImplFromJson(json);
@@ -155,9 +171,17 @@ class _$AppConfigImpl implements _AppConfig {
     return EqualUnmodifiableListView(_registrationSteps);
   }
 
+  final List<AuthenticationMethod> _authMethods;
+  @override
+  List<AuthenticationMethod> get authMethods {
+    if (_authMethods is EqualUnmodifiableListView) return _authMethods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_authMethods);
+  }
+
   @override
   String toString() {
-    return 'AppConfig(termsUrl: $termsUrl, privacyUrl: $privacyUrl, registrationSteps: $registrationSteps)';
+    return 'AppConfig(termsUrl: $termsUrl, privacyUrl: $privacyUrl, registrationSteps: $registrationSteps, authMethods: $authMethods)';
   }
 
   @override
@@ -170,13 +194,19 @@ class _$AppConfigImpl implements _AppConfig {
             (identical(other.privacyUrl, privacyUrl) ||
                 other.privacyUrl == privacyUrl) &&
             const DeepCollectionEquality()
-                .equals(other._registrationSteps, _registrationSteps));
+                .equals(other._registrationSteps, _registrationSteps) &&
+            const DeepCollectionEquality()
+                .equals(other._authMethods, _authMethods));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, termsUrl, privacyUrl,
-      const DeepCollectionEquality().hash(_registrationSteps));
+  int get hashCode => Object.hash(
+      runtimeType,
+      termsUrl,
+      privacyUrl,
+      const DeepCollectionEquality().hash(_registrationSteps),
+      const DeepCollectionEquality().hash(_authMethods));
 
   /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -196,10 +226,10 @@ class _$AppConfigImpl implements _AppConfig {
 
 abstract class _AppConfig implements AppConfig {
   const factory _AppConfig(
-          {required final String termsUrl,
-          required final String privacyUrl,
-          required final List<RegistrationStep> registrationSteps}) =
-      _$AppConfigImpl;
+      {required final String termsUrl,
+      required final String privacyUrl,
+      required final List<RegistrationStep> registrationSteps,
+      required final List<AuthenticationMethod> authMethods}) = _$AppConfigImpl;
 
   factory _AppConfig.fromJson(Map<String, dynamic> json) =
       _$AppConfigImpl.fromJson;
@@ -210,6 +240,8 @@ abstract class _AppConfig implements AppConfig {
   String get privacyUrl;
   @override
   List<RegistrationStep> get registrationSteps;
+  @override
+  List<AuthenticationMethod> get authMethods;
 
   /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.

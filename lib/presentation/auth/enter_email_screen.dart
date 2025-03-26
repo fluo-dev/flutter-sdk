@@ -83,7 +83,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();
-      final partialSession = await apiClient.createSession(
+      final partialSession = await apiClient.createPartialSession(
         email: _emailController.text,
       );
       widget.onEmailSubmitted(partialSession);

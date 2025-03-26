@@ -94,7 +94,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();
-      final session = await apiClient.verifySession(
+      final session = await apiClient.verifyPartialSession(
         partialSessionId: widget.partialSession.id,
         code: _codeController.text,
       );

@@ -36,12 +36,14 @@ class ApiClient {
     return AppConfig.fromJson(json);
   }
 
-  Future<PartialSession> createSession({
+  Future<PartialSession> createPartialSession({
     String? email,
   }) async {
-    final body = <String, dynamic>{
-      'email': email,
-    };
+    final body = <String, dynamic>{};
+
+    if (email != null) {
+      body['email'] = email;
+    }
 
     final response = await _post(
       path: '/sessions',
@@ -57,7 +59,7 @@ class ApiClient {
     return PartialSession.fromJson(json);
   }
 
-  Future<Session> verifySession({
+  Future<Session> verifyPartialSession({
     required String partialSessionId,
     required String code,
   }) async {
@@ -67,6 +69,29 @@ class ApiClient {
 
     final response = await _post(
       path: '/sessions/$partialSessionId/verify',
+      body: body,
+    );
+
+    final json = jsonDecode(response.body);
+
+    if (response.statusCode >= 400) {
+      return Future.error(ApiError.fromJson(json));
+    }
+
+    return Session.fromJson(json);
+  }
+
+  Future<Session> createSession({
+    String? googleIdToken,
+  }) async {
+    final body = <String, dynamic>{};
+
+    if (googleIdToken != null) {
+      body['googleIdToken'] = googleIdToken;
+    }
+
+    final response = await _post(
+      path: '/sessions',
       body: body,
     );
 
