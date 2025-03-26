@@ -14,7 +14,7 @@ _$AppConfigImpl _$$AppConfigImplFromJson(Map<String, dynamic> json) =>
           .map((e) => RegistrationStep.fromJson(e as Map<String, dynamic>))
           .toList(),
       authMethods: (json['authMethods'] as List<dynamic>)
-          .map((e) => AuthenticationMethod.fromJson(e as Map<String, dynamic>))
+          .map((e) => AuthMethod.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

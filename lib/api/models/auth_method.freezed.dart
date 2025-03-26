@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'authentication_method.dart';
+part of 'auth_method.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,31 +14,31 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AuthenticationMethod _$AuthenticationMethodFromJson(Map<String, dynamic> json) {
-  return _AuthenticationMethod.fromJson(json);
+AuthMethod _$AuthMethodFromJson(Map<String, dynamic> json) {
+  return _AuthMethod.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AuthenticationMethod {
+mixin _$AuthMethod {
   String get id => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
   GoogleClientId? get googleClientId => throw _privateConstructorUsedError;
 
-  /// Serializes this AuthenticationMethod to a JSON map.
+  /// Serializes this AuthMethod to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AuthenticationMethodCopyWith<AuthenticationMethod> get copyWith =>
+  $AuthMethodCopyWith<AuthMethod> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AuthenticationMethodCopyWith<$Res> {
-  factory $AuthenticationMethodCopyWith(AuthenticationMethod value,
-          $Res Function(AuthenticationMethod) then) =
-      _$AuthenticationMethodCopyWithImpl<$Res, AuthenticationMethod>;
+abstract class $AuthMethodCopyWith<$Res> {
+  factory $AuthMethodCopyWith(
+          AuthMethod value, $Res Function(AuthMethod) then) =
+      _$AuthMethodCopyWithImpl<$Res, AuthMethod>;
   @useResult
   $Res call({String id, bool selected, GoogleClientId? googleClientId});
 
@@ -46,17 +46,16 @@ abstract class $AuthenticationMethodCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AuthenticationMethodCopyWithImpl<$Res,
-        $Val extends AuthenticationMethod>
-    implements $AuthenticationMethodCopyWith<$Res> {
-  _$AuthenticationMethodCopyWithImpl(this._value, this._then);
+class _$AuthMethodCopyWithImpl<$Res, $Val extends AuthMethod>
+    implements $AuthMethodCopyWith<$Res> {
+  _$AuthMethodCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -81,7 +80,7 @@ class _$AuthenticationMethodCopyWithImpl<$Res,
     ) as $Val);
   }
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -97,11 +96,11 @@ class _$AuthenticationMethodCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$AuthenticationMethodImplCopyWith<$Res>
-    implements $AuthenticationMethodCopyWith<$Res> {
-  factory _$$AuthenticationMethodImplCopyWith(_$AuthenticationMethodImpl value,
-          $Res Function(_$AuthenticationMethodImpl) then) =
-      __$$AuthenticationMethodImplCopyWithImpl<$Res>;
+abstract class _$$AuthMethodImplCopyWith<$Res>
+    implements $AuthMethodCopyWith<$Res> {
+  factory _$$AuthMethodImplCopyWith(
+          _$AuthMethodImpl value, $Res Function(_$AuthMethodImpl) then) =
+      __$$AuthMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, bool selected, GoogleClientId? googleClientId});
@@ -111,14 +110,14 @@ abstract class _$$AuthenticationMethodImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AuthenticationMethodImplCopyWithImpl<$Res>
-    extends _$AuthenticationMethodCopyWithImpl<$Res, _$AuthenticationMethodImpl>
-    implements _$$AuthenticationMethodImplCopyWith<$Res> {
-  __$$AuthenticationMethodImplCopyWithImpl(_$AuthenticationMethodImpl _value,
-      $Res Function(_$AuthenticationMethodImpl) _then)
+class __$$AuthMethodImplCopyWithImpl<$Res>
+    extends _$AuthMethodCopyWithImpl<$Res, _$AuthMethodImpl>
+    implements _$$AuthMethodImplCopyWith<$Res> {
+  __$$AuthMethodImplCopyWithImpl(
+      _$AuthMethodImpl _value, $Res Function(_$AuthMethodImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -127,7 +126,7 @@ class __$$AuthenticationMethodImplCopyWithImpl<$Res>
     Object? selected = null,
     Object? googleClientId = freezed,
   }) {
-    return _then(_$AuthenticationMethodImpl(
+    return _then(_$AuthMethodImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -146,12 +145,12 @@ class __$$AuthenticationMethodImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AuthenticationMethodImpl implements _AuthenticationMethod {
-  const _$AuthenticationMethodImpl(
+class _$AuthMethodImpl implements _AuthMethod {
+  const _$AuthMethodImpl(
       {required this.id, required this.selected, this.googleClientId});
 
-  factory _$AuthenticationMethodImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuthenticationMethodImplFromJson(json);
+  factory _$AuthMethodImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AuthMethodImplFromJson(json);
 
   @override
   final String id;
@@ -162,14 +161,14 @@ class _$AuthenticationMethodImpl implements _AuthenticationMethod {
 
   @override
   String toString() {
-    return 'AuthenticationMethod(id: $id, selected: $selected, googleClientId: $googleClientId)';
+    return 'AuthMethod(id: $id, selected: $selected, googleClientId: $googleClientId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthenticationMethodImpl &&
+            other is _$AuthMethodImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.selected, selected) ||
                 other.selected == selected) &&
@@ -181,32 +180,30 @@ class _$AuthenticationMethodImpl implements _AuthenticationMethod {
   @override
   int get hashCode => Object.hash(runtimeType, id, selected, googleClientId);
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthenticationMethodImplCopyWith<_$AuthenticationMethodImpl>
-      get copyWith =>
-          __$$AuthenticationMethodImplCopyWithImpl<_$AuthenticationMethodImpl>(
-              this, _$identity);
+  _$$AuthMethodImplCopyWith<_$AuthMethodImpl> get copyWith =>
+      __$$AuthMethodImplCopyWithImpl<_$AuthMethodImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AuthenticationMethodImplToJson(
+    return _$$AuthMethodImplToJson(
       this,
     );
   }
 }
 
-abstract class _AuthenticationMethod implements AuthenticationMethod {
-  const factory _AuthenticationMethod(
+abstract class _AuthMethod implements AuthMethod {
+  const factory _AuthMethod(
       {required final String id,
       required final bool selected,
-      final GoogleClientId? googleClientId}) = _$AuthenticationMethodImpl;
+      final GoogleClientId? googleClientId}) = _$AuthMethodImpl;
 
-  factory _AuthenticationMethod.fromJson(Map<String, dynamic> json) =
-      _$AuthenticationMethodImpl.fromJson;
+  factory _AuthMethod.fromJson(Map<String, dynamic> json) =
+      _$AuthMethodImpl.fromJson;
 
   @override
   String get id;
@@ -215,10 +212,10 @@ abstract class _AuthenticationMethod implements AuthenticationMethod {
   @override
   GoogleClientId? get googleClientId;
 
-  /// Create a copy of AuthenticationMethod
+  /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuthenticationMethodImplCopyWith<_$AuthenticationMethodImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$AuthMethodImplCopyWith<_$AuthMethodImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

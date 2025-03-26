@@ -24,8 +24,7 @@ mixin _$AppConfig {
   String get privacyUrl => throw _privateConstructorUsedError;
   List<RegistrationStep> get registrationSteps =>
       throw _privateConstructorUsedError;
-  List<AuthenticationMethod> get authMethods =>
-      throw _privateConstructorUsedError;
+  List<AuthMethod> get authMethods => throw _privateConstructorUsedError;
 
   /// Serializes this AppConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +45,7 @@ abstract class $AppConfigCopyWith<$Res> {
       {String termsUrl,
       String privacyUrl,
       List<RegistrationStep> registrationSteps,
-      List<AuthenticationMethod> authMethods});
+      List<AuthMethod> authMethods});
 }
 
 /// @nodoc
@@ -85,7 +84,7 @@ class _$AppConfigCopyWithImpl<$Res, $Val extends AppConfig>
       authMethods: null == authMethods
           ? _value.authMethods
           : authMethods // ignore: cast_nullable_to_non_nullable
-              as List<AuthenticationMethod>,
+              as List<AuthMethod>,
     ) as $Val);
   }
 }
@@ -102,7 +101,7 @@ abstract class _$$AppConfigImplCopyWith<$Res>
       {String termsUrl,
       String privacyUrl,
       List<RegistrationStep> registrationSteps,
-      List<AuthenticationMethod> authMethods});
+      List<AuthMethod> authMethods});
 }
 
 /// @nodoc
@@ -139,7 +138,7 @@ class __$$AppConfigImplCopyWithImpl<$Res>
       authMethods: null == authMethods
           ? _value._authMethods
           : authMethods // ignore: cast_nullable_to_non_nullable
-              as List<AuthenticationMethod>,
+              as List<AuthMethod>,
     ));
   }
 }
@@ -151,7 +150,7 @@ class _$AppConfigImpl implements _AppConfig {
       {required this.termsUrl,
       required this.privacyUrl,
       required final List<RegistrationStep> registrationSteps,
-      required final List<AuthenticationMethod> authMethods})
+      required final List<AuthMethod> authMethods})
       : _registrationSteps = registrationSteps,
         _authMethods = authMethods;
 
@@ -171,9 +170,9 @@ class _$AppConfigImpl implements _AppConfig {
     return EqualUnmodifiableListView(_registrationSteps);
   }
 
-  final List<AuthenticationMethod> _authMethods;
+  final List<AuthMethod> _authMethods;
   @override
-  List<AuthenticationMethod> get authMethods {
+  List<AuthMethod> get authMethods {
     if (_authMethods is EqualUnmodifiableListView) return _authMethods;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_authMethods);
@@ -229,7 +228,7 @@ abstract class _AppConfig implements AppConfig {
       {required final String termsUrl,
       required final String privacyUrl,
       required final List<RegistrationStep> registrationSteps,
-      required final List<AuthenticationMethod> authMethods}) = _$AppConfigImpl;
+      required final List<AuthMethod> authMethods}) = _$AppConfigImpl;
 
   factory _AppConfig.fromJson(Map<String, dynamic> json) =
       _$AppConfigImpl.fromJson;
@@ -241,7 +240,7 @@ abstract class _AppConfig implements AppConfig {
   @override
   List<RegistrationStep> get registrationSteps;
   @override
-  List<AuthenticationMethod> get authMethods;
+  List<AuthMethod> get authMethods;
 
   /// Create a copy of AppConfig
   /// with the given fields replaced by the non-null parameter values.

@@ -1,5 +1,7 @@
 library fluo;
 
+import 'dart:io';
+
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/managers/session_manager.dart';
@@ -7,6 +9,7 @@ import 'package:fluo/presentation/auth/auth_navigator.dart';
 import 'package:fluo/presentation/register/register_navigator.dart';
 import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class Fluo {
@@ -157,6 +160,67 @@ class Fluo {
         },
       ),
     );
+  }
+
+  /// Shows the Google Sign-in flow.
+  ///
+  /// This is a modal dialog which takes care of signing in the user's google
+  /// account and creating the fluo session.
+  ///
+  void showConnectWithGoogleFlow({
+    required BuildContext context,
+    required FluoTheme theme,
+    required Function() onUserReady,
+  }) async {
+    final googleClientId = appConfig.authMethods
+        .firstWhere((method) => method.id == 'google')
+        .googleClientId!;
+
+    String? clientId;
+    if (Platform.isIOS) {
+      clientId = googleClientId.ios;
+    } else if (Platform.isAndroid) {
+      clientId = googleClientId.android;
+    } else {
+      throw Exception('Google sign-in is not supported on this platform');
+    }
+
+    if (clientId.isEmpty) {
+      throw Exception('No google client id for ${Platform.operatingSystem}');
+    }
+
+    final googleSignIn = GoogleSignIn(
+      clientId: clientId,
+      scopes: ['email'],
+    );
+
+    final googleAccount = await googleSignIn.signIn();
+    if (googleAccount == null) {
+      // User cancelled the sign in dialog
+      return;
+    }
+
+    final googleAuth = await googleAccount.authentication;
+    final googleIdToken = googleAuth.idToken;
+    if (googleIdToken == null) {
+      throw Exception('No google id token found');
+    }
+
+    final session = await _apiClient.createSession(
+      googleIdToken: googleIdToken,
+    );
+
+    await _sessionManager.setSession(session);
+
+    if (isUserComplete()) {
+      onUserReady();
+    } else if (context.mounted) {
+      showRegisterFlow(
+        context: context,
+        theme: theme,
+        onUserReady: onUserReady,
+      );
+    }
   }
 
   /// Shows the register flow.

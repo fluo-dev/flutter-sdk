@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'authentication_method.dart';
+part of 'auth_method.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthenticationMethodImpl _$$AuthenticationMethodImplFromJson(
-        Map<String, dynamic> json) =>
-    _$AuthenticationMethodImpl(
+_$AuthMethodImpl _$$AuthMethodImplFromJson(Map<String, dynamic> json) =>
+    _$AuthMethodImpl(
       id: json['id'] as String,
       selected: json['selected'] as bool,
       googleClientId: json['googleClientId'] == null
@@ -17,8 +16,7 @@ _$AuthenticationMethodImpl _$$AuthenticationMethodImplFromJson(
               json['googleClientId'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$AuthenticationMethodImplToJson(
-        _$AuthenticationMethodImpl instance) =>
+Map<String, dynamic> _$$AuthMethodImplToJson(_$AuthMethodImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'selected': instance.selected,
