@@ -22,8 +22,8 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 **Auth methods**
 
-- E-mail + code (done)
-- Google sign in (will be done in March)
+- Email + code (✅ done)
+- Google sign in (✅ done)
 - Apple sign in (will be done in April)
 - Mobile + code (will be done in May)
 
@@ -38,7 +38,7 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 ## Getting started
 
-**STEP 1** — Get an api key from the [Fluo dashboard](https://dashboard.fluo.dev/signup).
+**STEP 1** — Get an api key from the [Fluo dashboard](https://dashboard.fluo.dev/signup)
 
 **STEP 2** — Add the package to your dependencies:
 

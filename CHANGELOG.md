@@ -1,3 +1,7 @@
+## 0.6.0
+
+- You can now let your users connect with Google sign-in. Set it up on https://dashboard.fluo.dev
+
 ## 0.5.0
 
 - Introducing the FluoTheme: customize the look & feel of the fluo sdk.
