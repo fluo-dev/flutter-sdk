@@ -23,6 +23,7 @@ mixin _$RegistrationStep {
   String get id => throw _privateConstructorUsedError;
   String get fieldKey => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
+  bool get selected => throw _privateConstructorUsedError;
 
   /// Serializes this RegistrationStep to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +41,7 @@ abstract class $RegistrationStepCopyWith<$Res> {
           RegistrationStep value, $Res Function(RegistrationStep) then) =
       _$RegistrationStepCopyWithImpl<$Res, RegistrationStep>;
   @useResult
-  $Res call({String id, String fieldKey, String path});
+  $Res call({String id, String fieldKey, String path, bool selected});
 }
 
 /// @nodoc
@@ -61,6 +62,7 @@ class _$RegistrationStepCopyWithImpl<$Res, $Val extends RegistrationStep>
     Object? id = null,
     Object? fieldKey = null,
     Object? path = null,
+    Object? selected = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,6 +77,10 @@ class _$RegistrationStepCopyWithImpl<$Res, $Val extends RegistrationStep>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -87,7 +93,7 @@ abstract class _$$RegistrationStepImplCopyWith<$Res>
       __$$RegistrationStepImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String fieldKey, String path});
+  $Res call({String id, String fieldKey, String path, bool selected});
 }
 
 /// @nodoc
@@ -106,6 +112,7 @@ class __$$RegistrationStepImplCopyWithImpl<$Res>
     Object? id = null,
     Object? fieldKey = null,
     Object? path = null,
+    Object? selected = null,
   }) {
     return _then(_$RegistrationStepImpl(
       id: null == id
@@ -120,6 +127,10 @@ class __$$RegistrationStepImplCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -128,7 +139,10 @@ class __$$RegistrationStepImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RegistrationStepImpl implements _RegistrationStep {
   const _$RegistrationStepImpl(
-      {required this.id, required this.fieldKey, required this.path});
+      {required this.id,
+      required this.fieldKey,
+      required this.path,
+      required this.selected});
 
   factory _$RegistrationStepImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegistrationStepImplFromJson(json);
@@ -139,10 +153,12 @@ class _$RegistrationStepImpl implements _RegistrationStep {
   final String fieldKey;
   @override
   final String path;
+  @override
+  final bool selected;
 
   @override
   String toString() {
-    return 'RegistrationStep(id: $id, fieldKey: $fieldKey, path: $path)';
+    return 'RegistrationStep(id: $id, fieldKey: $fieldKey, path: $path, selected: $selected)';
   }
 
   @override
@@ -153,12 +169,14 @@ class _$RegistrationStepImpl implements _RegistrationStep {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.fieldKey, fieldKey) ||
                 other.fieldKey == fieldKey) &&
-            (identical(other.path, path) || other.path == path));
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.selected, selected) ||
+                other.selected == selected));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, fieldKey, path);
+  int get hashCode => Object.hash(runtimeType, id, fieldKey, path, selected);
 
   /// Create a copy of RegistrationStep
   /// with the given fields replaced by the non-null parameter values.
@@ -181,7 +199,8 @@ abstract class _RegistrationStep implements RegistrationStep {
   const factory _RegistrationStep(
       {required final String id,
       required final String fieldKey,
-      required final String path}) = _$RegistrationStepImpl;
+      required final String path,
+      required final bool selected}) = _$RegistrationStepImpl;
 
   factory _RegistrationStep.fromJson(Map<String, dynamic> json) =
       _$RegistrationStepImpl.fromJson;
@@ -192,6 +211,8 @@ abstract class _RegistrationStep implements RegistrationStep {
   String get fieldKey;
   @override
   String get path;
+  @override
+  bool get selected;
 
   /// Create a copy of RegistrationStep
   /// with the given fields replaced by the non-null parameter values.

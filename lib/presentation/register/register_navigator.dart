@@ -75,12 +75,12 @@ class RegisterNavigatorState extends State<RegisterNavigator> {
     }
 
     final step = steps[stepIndex];
-    if (step.id == 'firstName') {
+    if (step.id == 'firstName' && step.selected) {
       screen = EnterFirstNameScreen(
         onBackButtonPressed: onBackButtonPressed,
         onFirstNameSubmitted: onStepComplete,
       );
-    } else if (step.id == 'lastName') {
+    } else if (step.id == 'lastName' && step.selected) {
       screen = EnterLastNameScreen(
         onBackButtonPressed: onBackButtonPressed,
         onLastNameSubmitted: onStepComplete,

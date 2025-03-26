@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Fixed a bug which was always showing the enter first and last name screens no matter what was selected from the dashboard.
+
 ## 0.6.0
 
 - You can now let your users connect with Google sign-in. Set it up on https://dashboard.fluo.dev

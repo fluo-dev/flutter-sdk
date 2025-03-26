@@ -9,6 +9,7 @@ class RegistrationStep with _$RegistrationStep {
     required String id,
     required String fieldKey,
     required String path,
+    required bool selected,
   }) = _RegistrationStep;
 
   factory RegistrationStep.fromJson(Map<String, dynamic> json) =>

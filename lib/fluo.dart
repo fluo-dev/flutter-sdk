@@ -70,13 +70,13 @@ class Fluo {
     final steps = _appConfig.registrationSteps;
     for (var i = 0; i < steps.length; ++i) {
       final step = steps[i];
-      if (step.fieldKey == 'firstName') {
+      if (step.id == 'firstName' && step.selected) {
         final firstName = session.user.firstName;
         if (firstName == null || firstName.length < 2) {
           return false;
         }
       }
-      if (step.fieldKey == 'lastName') {
+      if (step.id == 'lastName' && step.selected) {
         final lastName = session.user.lastName;
         if (lastName == null || lastName.length < 2) {
           return false;

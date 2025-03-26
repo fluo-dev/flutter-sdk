@@ -12,6 +12,7 @@ _$RegistrationStepImpl _$$RegistrationStepImplFromJson(
       id: json['id'] as String,
       fieldKey: json['fieldKey'] as String,
       path: json['path'] as String,
+      selected: json['selected'] as bool,
     );
 
 Map<String, dynamic> _$$RegistrationStepImplToJson(
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$RegistrationStepImplToJson(
       'id': instance.id,
       'fieldKey': instance.fieldKey,
       'path': instance.path,
+      'selected': instance.selected,
     };
