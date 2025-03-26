@@ -20,7 +20,7 @@ class ExampleApp extends StatelessWidget {
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
       home: FluoOnboarding(
-        apiKey: 'your-api-key',
+        apiKey: 'ddEH5aCGeHEbJQMPguxWUBWSJgaKbWochI2cPEqJhwo=',
         onUserReady: _onUserReady,
         onInitError: (error) => print(error ?? ''),
         introBuilder: (context, initializing, bottomContainerHeight) {
@@ -73,6 +73,7 @@ class ExampleApp extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Spacer(),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -94,7 +95,7 @@ class ExampleApp extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 SizedBox(
-                  width: 270,
+                  width: 290,
                   child: Text(
                     'Now that you got to experience Fluo, are you ready for the next step?',
                     textAlign: TextAlign.center,
@@ -118,6 +119,15 @@ class ExampleApp extends StatelessWidget {
                     ),
                   ),
                 ),
+                const Spacer(),
+                FilledButton(
+                  onPressed: () async {
+                    await fluo.clearSession();
+                    _navigatorKey.currentState?.pop();
+                  },
+                  child: const Text('Sign out'),
+                ),
+                const SizedBox(height: 50),
               ],
             ),
           ),
