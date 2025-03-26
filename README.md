@@ -102,14 +102,12 @@ class ExampleApp extends StatelessWidget {
 
 ## Integrating Firebase
 
-Integrate Firebase in the ['Backend' page of the dashboard](https://dashboard.fluo.dev/backend). Once complete, when users are onboarded, Fluo securely forwards their information to:
+1. Open the dashboard and select the [Backend tab'](https://dashboard.fluo.dev/backend)
+2. Click "Set up your backend now" and select "Firebase"
 
-- the Firebase Authentication service
-- a 'users' table created automatically in the Firestore Database
+Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
 
-> **Important:** Make sure the Firestore Database is initialized.
-
-To initialize correctly the Firebase session in your app, use the `fluo.firebaseToken` as below:
+Back to your app code, to initialize correctly the Firebase session, use the `fluo.firebaseToken` as below:
 
 ```dart
 FluoOnboarding(
@@ -124,12 +122,12 @@ FluoOnboarding(
 
 ## Integrating Supabase
 
-Integrate Supabase in the ['Backend' page of the dashboard](https://dashboard.fluo.dev/backend). Once complete, when users are onboarded, Fluo securely forwards their information to:
+1. Open the dashboard and select the [Backend tab'](https://dashboard.fluo.dev/backend)
+2. Click "Set up your backend now" and select "Supabase"
 
-- the Supabase Authentication service
-- a 'users' table that you will create as part of the Supabase setup in the Fluo dashboard (don't worry, it's a simple copy-paste)
+Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup in the Fluo dashboard (don't worry, it's a simple copy-paste).
 
-To initialize correctly the Supabase session in your app, use the `fluo.supabaseSession` as below:
+Back to your app code, to initialize correctly the Supabase session, use the `fluo.supabaseSession` as below:
 
 ```dart
 FluoOnboarding(
