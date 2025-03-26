@@ -22,12 +22,12 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 **Auth methods**
 
-- Email + code (✅ done)
-- Google sign in (✅ done)
-- Apple sign in (will be done in April)
-- Mobile + code (will be done in May)
-
-> **Note:** You don't need to set up an email service. Fluo sends emails on your behalf using your app name.
+| Method             | Status   | Note                                                                    |
+| ------------------ | -------- | ----------------------------------------------------------------------- |
+| Email + Code       | ✔️ Done  | Fluo sends emails on your behalf using your app name                    |
+| Google Sign-in     | ✔️ Done  | Set it up in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
+| Sign in with Apple | Not done | Plan is to ship by the end of April                                     |
+| Mobile + Code      | Not done | Plan is to ship in May                                                  |
 
 **Registration**
 
@@ -73,6 +73,11 @@ class ExampleApp extends StatelessWidget {
         apiKey: 'your-api-key',
         onUserReady: (fluo) {
           // Here, your user is onboarded, so do your own things!
+
+          // When you need to sign the user out, you can use the
+          // fluo.clearSession() method. It's async so you can decide
+          // to use await depending on your use case.
+          fluo.clearSession();
         },
         onInitError: (error) {
           // Optional - Handle network or server error
@@ -97,13 +102,21 @@ class ExampleApp extends StatelessWidget {
 
 ## Integrating Firebase
 
-Use the `fluo.firebaseToken` as below:
+Integrate Firebase in the ['Backend' page of the dashboard](https://dashboard.fluo.dev/backend). Once complete, when users are onboarded, Fluo securely forwards their information to:
+
+- the Firebase Authentication service
+- a 'users' table created automatically in the Firestore Database
+
+> **Important:** Make sure the Firestore Database is initialized.
+
+To initialize correctly the Firebase session in your app, use the `fluo.firebaseToken` as below:
 
 ```dart
 FluoOnboarding(
   // ...other properties...
   onUserReady: (fluo) async {
-    // Initialize the Firebase client, then use 'signInWithCustomToken' here
+    // 1. Initialize the Firebase client somewhere in your code
+    // 2. Use 'signInWithCustomToken' as below:
     await FirebaseAuth.instance.signInWithCustomToken(fluo.firebaseToken!);
   },
 )
@@ -111,13 +124,19 @@ FluoOnboarding(
 
 ## Integrating Supabase
 
-Use the `fluo.supabaseSession` as below:
+Integrate Supabase in the ['Backend' page of the dashboard](https://dashboard.fluo.dev/backend). Once complete, when users are onboarded, Fluo securely forwards their information to:
+
+- the Supabase Authentication service
+- a 'users' table that you will create as part of the Supabase setup in the Fluo dashboard (don't worry, it's a simple copy-paste)
+
+To initialize correctly the Supabase session in your app, use the `fluo.supabaseSession` as below:
 
 ```dart
 FluoOnboarding(
   // ...other properties...
   onUserReady: (fluo) async {
-    // Initialize the Supabase client, then use 'recoverSession' here
+    // 1. Initialize the Supabase client somewhere in your code
+    // 2. Use 'recoverSession' as below:
     await Supabase.instance.client.auth.recoverSession(fluo.supabaseSession!);
   },
 )
