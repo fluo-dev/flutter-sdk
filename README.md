@@ -2,8 +2,9 @@
 
 - [Introduction](#introduction)
 - [Getting started](#getting-started)
-- [Integrating Firebase](#integrating-firebase)
-- [Integrating Supabase](#integrating-supabase)
+- [Integrating with Firebase](#integrating-with-firebase)
+- [Integrating with Supabase](#integrating-with-supabase)
+- [Integrating with any backend](#integrating-with-any-backend)
 - [Customizing the theme](#Customizing-the-theme)
 
 ## Introduction
@@ -22,12 +23,11 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 **Auth methods**
 
-| Method             | Status   | Note                                                                    |
-| ------------------ | -------- | ----------------------------------------------------------------------- |
-| Email + Code       | ✔️ Done  | Fluo sends emails on your behalf using your app name                    |
-| Google Sign-in     | ✔️ Done  | Set it up in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
-| Sign in with Apple | Not done | Plan is to ship by the end of April                                     |
-| Mobile + Code      | Not done | Plan is to ship in May                                                  |
+| Method             | Status | Note                                                                    |
+| ------------------ | ------ | ----------------------------------------------------------------------- |
+| Email + Code       | ✔️     | Fluo sends emails on your behalf                                        |
+| Google Sign-in     | ✔️     | Set it up in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
+| Sign in with Apple | 🔜     | Shipping by the end of April                                            |
 
 **Registration**
 
@@ -35,6 +35,7 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 - Collect first name, last name, both, or none
 - Integration with Firebase
 - Integration with Supabase
+- Integration with any backend (Node.js, Django, etc)
 
 ## Getting started
 
@@ -49,6 +50,7 @@ flutter pub add fluo
 **STEP 3** — Add the `FluoOnboarding` component in your app:
 
 ```dart
+import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
@@ -100,12 +102,9 @@ class ExampleApp extends StatelessWidget {
 }
 ```
 
-## Integrating Firebase
+## Integrating with Firebase
 
-1. Open the dashboard and select the [Backend tab](https://dashboard.fluo.dev/backend)
-2. Click "Set up your backend now" and select "Firebase"
-
-Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
+Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Firebase' and follow the instructions. Once complete, when users are onboarded, Fluo forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
 
 Back to your app code, to initialize correctly the Firebase session, use the `fluo.firebaseToken` as below:
 
@@ -120,12 +119,9 @@ FluoOnboarding(
 )
 ```
 
-## Integrating Supabase
+## Integrating with Supabase
 
-1. Open the dashboard and select the [Backend tab](https://dashboard.fluo.dev/backend)
-2. Click "Set up your backend now" and select "Supabase"
-
-Once complete, when users are onboarded, Fluo securely forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup in the Fluo dashboard (don't worry, it's a simple copy-paste).
+Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Supabase' and follow the instructions. Once complete, when users are onboarded, Fluo forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste).
 
 Back to your app code, to initialize correctly the Supabase session, use the `fluo.supabaseSession` as below:
 
@@ -139,6 +135,10 @@ FluoOnboarding(
   },
 )
 ```
+
+## Integrating with any backend
+
+Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Custom' and follow the instructions. The general idea is to use the JWT access token provided by Fluo. Once decoded (using your secret key), it provides the user information which you can store in your database. A complete guide is provided directly in the dashboard.
 
 ## Customizing the theme
 
