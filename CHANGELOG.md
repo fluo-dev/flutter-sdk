@@ -1,3 +1,7 @@
+## 0.7.0
+
+- Add localizations for German, Portuguese and Brazilian Portuguese
+
 ## 0.6.1
 
 - Fixed a bug which was always showing the enter first and last name screens no matter what was selected from the dashboard.
