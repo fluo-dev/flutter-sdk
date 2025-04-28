@@ -1,0 +1,32 @@
+{
+  "@@locale": "pt",
+  "acceptTerms": "Ao continuar, aceita os nossos <terms>termos e condições</terms> e a nossa <privacy>política de privacidade</privacy>.",
+  "enterCode": "Introduza o código de verificação",
+  "enterCodeHelper": "O código foi enviado para <email>{email}</email>. Se não recebeu um email, pode verificar a sua pasta de spam.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Introduza o seu endereço de email",
+  "enterEmailPlaceholder": "exemplo@dominio.com",
+  "enterFirstName": "Introduza o seu primeiro nome",
+  "enterFirstNamePlaceholder": "Primeiro Nome",
+  "enterLastName": "Introduza o seu apelido",
+  "enterLastNamePlaceholder": "Apelido",
+  "errorUnknown": "Ocorreu um erro ao processar o seu pedido.",
+  "errorCodeExpired": "O código expirou.",
+  "errorCodeInvalid": "O código não é válido.",
+  "errorInternal": "Ocorreu um erro interno do servidor.",
+  "errorNotFound": "Não foi possível encontrar o recurso.",
+  "errorParameterInvalid": "O valor enviado não é válido.",
+  "errorParameterMissing": "O pedido não tem os parâmetros necessários.",
+  "errorSessionRevoked": "A sua sessão foi revogada.",
+  "errorUnauthorized": "Não tem as permissões necessárias.",
+  "next": "Seguinte",
+  "continueWithEmail": "Continuar com email",
+  "termsAndConditions": "Termos e condições",
+  "privacyPolicy": "Política de privacidade"
+}

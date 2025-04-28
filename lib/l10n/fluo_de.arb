@@ -1,0 +1,32 @@
+{
+  "@@locale": "de",
+  "acceptTerms": "Mit dem Fortfahren akzeptieren Sie unsere <terms>Geschäftsbedingungen</terms> und unsere <privacy>Datenschutzrichtlinie</privacy>.",
+  "enterCode": "Bestätigungscode eingeben",
+  "enterCodeHelper": "Der Code wurde an <email>{email}</email> gesendet. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
+  "@enterCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Geben Sie Ihre E-Mail-Adresse ein",
+  "enterEmailPlaceholder": "beispiel@domain.de",
+  "enterFirstName": "Geben Sie Ihren Vornamen ein",
+  "enterFirstNamePlaceholder": "Vorname",
+  "enterLastName": "Geben Sie Ihren Nachnamen ein",
+  "enterLastNamePlaceholder": "Nachname",
+  "errorUnknown": "Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten.",
+  "errorCodeExpired": "Der Code ist abgelaufen.",
+  "errorCodeInvalid": "Der Code ist ungültig.",
+  "errorInternal": "Ein interner Serverfehler ist aufgetreten.",
+  "errorNotFound": "Die Ressource konnte nicht gefunden werden.",
+  "errorParameterInvalid": "Der gesendete Wert ist ungültig.",
+  "errorParameterMissing": "Der Anfrage fehlen Parameter.",
+  "errorSessionRevoked": "Ihre Sitzung wurde widerrufen.",
+  "errorUnauthorized": "Sie haben nicht die richtigen Berechtigungen.",
+  "next": "Weiter",
+  "continueWithEmail": "Mit E-Mail fortfahren",
+  "termsAndConditions": "Geschäftsbedingungen",
+  "privacyPolicy": "Datenschutzrichtlinie"
+}

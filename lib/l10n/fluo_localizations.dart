@@ -5,11 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'fluo_localizations_de.dart';
 import 'fluo_localizations_en.dart';
 import 'fluo_localizations_es.dart';
 import 'fluo_localizations_fa.dart';
 import 'fluo_localizations_fr.dart';
 import 'fluo_localizations_it.dart';
+import 'fluo_localizations_pt.dart';
 
 // ignore_for_file: type=lint
 
@@ -97,11 +99,14 @@ abstract class FluoLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
     Locale('en'),
     Locale('es'),
     Locale('fa'),
     Locale('fr'),
-    Locale('it')
+    Locale('it'),
+    Locale('pt'),
+    Locale('pt', 'BR')
   ];
 
   /// No description provided for @acceptTerms.
@@ -248,16 +253,37 @@ class _FluoLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'es', 'fa', 'fr', 'it'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'de',
+        'en',
+        'es',
+        'fa',
+        'fr',
+        'it',
+        'pt'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_FluoLocalizationsDelegate old) => false;
 }
 
 FluoLocalizations lookupFluoLocalizations(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return FluoLocalizationsPtBr();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'de':
+      return FluoLocalizationsDe();
     case 'en':
       return FluoLocalizationsEn();
     case 'es':
@@ -268,6 +294,8 @@ FluoLocalizations lookupFluoLocalizations(Locale locale) {
       return FluoLocalizationsFr();
     case 'it':
       return FluoLocalizationsIt();
+    case 'pt':
+      return FluoLocalizationsPt();
   }
 
   throw FlutterError(
