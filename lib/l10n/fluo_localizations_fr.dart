@@ -75,8 +75,8 @@ class FluoLocalizationsFr extends FluoLocalizations {
   String get continueWithEmail => 'Continuer avec l\'e-mail';
 
   @override
-  String get termsAndConditions => 'Terms and conditions';
+  String get termsAndConditions => 'Conditions générales';
 
   @override
-  String get privacyPolicy => 'Privacy policy';
+  String get privacyPolicy => 'Politique de confidentialité';
 }
