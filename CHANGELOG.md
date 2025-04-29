@@ -1,3 +1,8 @@
+## 0.8.0
+
+- Support for "Sign in with Apple"
+- More customizations for connect buttons in the FluoTheme
+
 ## 0.7.0
 
 - Add localizations for German, Portuguese and Brazilian Portuguese
