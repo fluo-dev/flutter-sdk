@@ -240,6 +240,18 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'Privacy policy'**
   String get privacyPolicy;
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @continueWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get continueWithApple;
 }
 
 class _FluoLocalizationsDelegate

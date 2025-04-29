@@ -28,5 +28,7 @@
   "next": "Weiter",
   "continueWithEmail": "Mit E-Mail fortfahren",
   "termsAndConditions": "Geschäftsbedingungen",
-  "privacyPolicy": "Datenschutzrichtlinie"
+  "privacyPolicy": "Datenschutzrichtlinie",
+  "continueWithGoogle": "Mit Google fortfahren",
+  "continueWithApple": "Mit Apple fortfahren"
 }

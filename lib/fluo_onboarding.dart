@@ -159,7 +159,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 'packages/fluo/assets/images/google.png',
                 width: 20.0,
               ),
-              title: 'Continue with Google',
+              title: FluoLocalizations.of(context)!.continueWithGoogle,
               buttonStyle: widget.theme.connectButtonStyle,
               textStyle: widget.theme.connectButtonTextStyle,
               onPressed: () {
@@ -178,7 +178,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 'packages/fluo/assets/images/apple.png',
                 width: 20.0,
               ),
-              title: 'Continue with Apple',
+              title: FluoLocalizations.of(context)!.continueWithApple,
               buttonStyle: widget.theme.connectButtonStyle,
               textStyle: widget.theme.connectButtonTextStyle,
               onPressed: () => {},

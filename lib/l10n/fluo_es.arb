@@ -28,5 +28,7 @@
   "next": "Siguiente",
   "continueWithEmail": "Continuar con correo",
   "termsAndConditions": "Términos y condiciones",
-  "privacyPolicy": "Política de privacidad"
+  "privacyPolicy": "Política de privacidad",
+  "continueWithGoogle": "Continuar con Google",
+  "continueWithApple": "Continuar con Apple"
 }

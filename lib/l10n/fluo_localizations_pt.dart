@@ -77,6 +77,12 @@ class FluoLocalizationsPt extends FluoLocalizations {
 
   @override
   String get privacyPolicy => 'Política de privacidade';
+
+  @override
+  String get continueWithGoogle => 'Continuar com o Google';
+
+  @override
+  String get continueWithApple => 'Continuar com a Apple';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -151,4 +157,10 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
 
   @override
   String get privacyPolicy => 'Política de privacidade';
+
+  @override
+  String get continueWithGoogle => 'Continuar com o Google';
+
+  @override
+  String get continueWithApple => 'Continuar com a Apple';
 }

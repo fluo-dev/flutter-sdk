@@ -78,4 +78,10 @@ class FluoLocalizationsDe extends FluoLocalizations {
 
   @override
   String get privacyPolicy => 'Datenschutzrichtlinie';
+
+  @override
+  String get continueWithGoogle => 'Mit Google fortfahren';
+
+  @override
+  String get continueWithApple => 'Mit Apple fortfahren';
 }

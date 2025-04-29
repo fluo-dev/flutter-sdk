@@ -28,5 +28,7 @@
   "next": "بعدی",
   "continueWithEmail": "ادامه با ایمیل",
   "termsAndConditions": "شرایط و ضوابط",
-  "privacyPolicy": "سیاست حریم خصوصی"
+  "privacyPolicy": "سیاست حریم خصوصی",
+  "continueWithGoogle": "ادامه با گوگل",
+  "continueWithApple": "ادامه با اپل"
 }
