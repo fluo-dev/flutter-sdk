@@ -83,11 +83,26 @@ class ApiClient {
 
   Future<Session> createSession({
     String? googleIdToken,
+    String? appleIdToken,
+    String? firstName,
+    String? lastName,
   }) async {
     final body = <String, dynamic>{};
 
     if (googleIdToken != null) {
       body['googleIdToken'] = googleIdToken;
+    }
+
+    if (appleIdToken != null) {
+      body['appleIdToken'] = appleIdToken;
+    }
+
+    if (firstName != null) {
+      body['firstName'] = firstName;
+    }
+
+    if (lastName != null) {
+      body['lastName'] = lastName;
     }
 
     final response = await _post(

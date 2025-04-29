@@ -11,6 +11,7 @@ import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class Fluo {
   Fluo._(this._apiClient, this._sessionManager, this._appConfig);
@@ -167,7 +168,7 @@ class Fluo {
   /// This is a modal dialog which takes care of signing in the user's google
   /// account and creating the fluo session.
   ///
-  void showConnectWithGoogleFlow({
+  Future<bool> showConnectWithGoogleFlow({
     required BuildContext context,
     required FluoTheme theme,
     required Function() onUserReady,
@@ -197,7 +198,7 @@ class Fluo {
     final googleAccount = await googleSignIn.signIn();
     if (googleAccount == null) {
       // User cancelled the sign in dialog
-      return;
+      return false;
     }
 
     final googleAuth = await googleAccount.authentication;
@@ -220,6 +221,53 @@ class Fluo {
         theme: theme,
         onUserReady: onUserReady,
       );
+    }
+
+    return true;
+  }
+
+  /// Shows the Apple Sign-in flow.
+  ///
+  /// This is a modal dialog which takes care of signing in the user's apple
+  /// account and creating the fluo session.
+  ///
+  Future<bool> showConnectWithAppleFlow({
+    required BuildContext context,
+    required FluoTheme theme,
+    required Function() onUserReady,
+  }) async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final session = await _apiClient.createSession(
+        appleIdToken: credential.identityToken,
+        firstName: credential.givenName,
+        lastName: credential.familyName,
+      );
+
+      await _sessionManager.setSession(session);
+
+      if (isUserComplete()) {
+        onUserReady();
+      } else if (context.mounted) {
+        showRegisterFlow(
+          context: context,
+          theme: theme,
+          onUserReady: onUserReady,
+        );
+      }
+
+      return true;
+    } on SignInWithAppleAuthorizationException {
+      // User cancelled the dialog
+      return false;
+    } on SignInWithAppleException catch (e) {
+      throw Exception('There was an exception while signing in with Apple: $e');
     }
   }
 

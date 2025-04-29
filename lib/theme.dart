@@ -7,7 +7,15 @@ class FluoTheme {
     required Color inversePrimaryColor,
     EdgeInsets? screenPadding,
     ButtonStyle? connectButtonStyle,
+    ButtonStyle? connectButtonStyleGoogle,
+    ButtonStyle? connectButtonStyleApple,
     TextStyle? connectButtonTextStyle,
+    TextStyle? connectButtonTextStyleGoogle,
+    TextStyle? connectButtonTextStyleApple,
+    double? connectButtonIconSize,
+    Widget? connectButtonIconEmail,
+    Widget? connectButtonIconGoogle,
+    Widget? connectButtonIconApple,
     TextStyle? legalTextStyle,
     EdgeInsets? legalTextPadding,
     TextStyle? modalTitleTextStyle,
@@ -42,10 +50,37 @@ class FluoTheme {
       ),
     );
 
+    connectButtonStyleGoogle ??= connectButtonStyle;
+
+    connectButtonStyleApple ??= connectButtonStyle;
+
     connectButtonTextStyle ??= TextStyle(
       fontSize: 18,
       color: primaryColor,
       fontWeight: FontWeight.w700,
+    );
+
+    connectButtonTextStyleGoogle ??= connectButtonTextStyle;
+
+    connectButtonTextStyleApple ??= connectButtonTextStyle;
+
+    connectButtonIconSize ??= 20.0;
+
+    connectButtonIconEmail ??= Icon(
+      Icons.mail_outline_rounded,
+      color: connectButtonTextStyle.color,
+      size: connectButtonIconSize,
+    );
+
+    connectButtonIconGoogle ??= Image.asset(
+      'packages/fluo/assets/images/google.png',
+      width: connectButtonIconSize,
+    );
+
+    connectButtonIconApple ??= Image.asset(
+      'packages/fluo/assets/images/apple.png',
+      color: connectButtonTextStyleApple.color,
+      width: connectButtonIconSize,
     );
 
     legalTextStyle ??= TextStyle(
@@ -162,7 +197,15 @@ class FluoTheme {
       inversePrimaryColor,
       screenPadding,
       connectButtonStyle,
+      connectButtonStyleGoogle,
+      connectButtonStyleApple,
       connectButtonTextStyle,
+      connectButtonTextStyleGoogle,
+      connectButtonTextStyleApple,
+      connectButtonIconSize,
+      connectButtonIconEmail,
+      connectButtonIconGoogle,
+      connectButtonIconApple,
       legalTextStyle,
       legalTextPadding,
       modalTitleTextStyle,
@@ -203,7 +246,15 @@ class FluoTheme {
     this.inversePrimaryColor,
     this.screenPadding,
     this.connectButtonStyle,
+    this.connectButtonStyleGoogle,
+    this.connectButtonStyleApple,
     this.connectButtonTextStyle,
+    this.connectButtonTextStyleGoogle,
+    this.connectButtonTextStyleApple,
+    this.connectButtonIconSize,
+    this.connectButtonIconEmail,
+    this.connectButtonIconGoogle,
+    this.connectButtonIconApple,
     this.legalTextStyle,
     this.legalTextPadding,
     this.modalTitleTextStyle,
@@ -230,7 +281,18 @@ class FluoTheme {
   final EdgeInsets screenPadding;
 
   final ButtonStyle connectButtonStyle;
+  final ButtonStyle connectButtonStyleGoogle;
+  final ButtonStyle connectButtonStyleApple;
+
   final TextStyle connectButtonTextStyle;
+  final TextStyle connectButtonTextStyleGoogle;
+  final TextStyle connectButtonTextStyleApple;
+
+  final double connectButtonIconSize;
+  final Widget connectButtonIconEmail;
+  final Widget connectButtonIconGoogle;
+  final Widget connectButtonIconApple;
+
   final TextStyle legalTextStyle;
   final EdgeInsets legalTextPadding;
   final TextStyle modalTitleTextStyle;
