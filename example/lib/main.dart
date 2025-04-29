@@ -41,12 +41,14 @@ class ExampleApp extends StatelessWidget {
           primaryColor: Colors.black,
           inversePrimaryColor: Colors.white,
           connectButtonStyle: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.white),
+            backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
             foregroundColor: WidgetStateProperty.all(Colors.black),
+            minimumSize: WidgetStateProperty.all(const Size(200, 54)),
           ),
           connectButtonStyleApple: ButtonStyle(
             backgroundColor: WidgetStateProperty.all(Colors.black),
             foregroundColor: WidgetStateProperty.all(Colors.white),
+            minimumSize: WidgetStateProperty.all(const Size(200, 54)),
           ),
           connectButtonIconApple: const Icon(
             Icons.apple,
