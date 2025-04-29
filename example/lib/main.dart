@@ -1,6 +1,7 @@
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,11 +24,41 @@ class ExampleApp extends StatelessWidget {
         apiKey: 'your-api-key',
         onUserReady: _onUserReady,
         onInitError: (error) => print(error ?? ''),
-        introBuilder: (context, initializing, bottomContainerHeight) {
+        introBuilder:
+            (context, initializing, signingIn, bottomContainerHeight) {
+          if (signingIn) {
+            return Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 100),
+              child: const CircularProgressIndicator(),
+            );
+          }
           return Center(
             child: _tryMe(initializing),
           );
         },
+        theme: FluoTheme(
+          primaryColor: Colors.black,
+          inversePrimaryColor: Colors.white,
+          connectButtonStyle: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(Colors.white),
+            foregroundColor: WidgetStateProperty.all(Colors.black),
+          ),
+          connectButtonStyleApple: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(Colors.black),
+            foregroundColor: WidgetStateProperty.all(Colors.white),
+          ),
+          connectButtonIconApple: const Icon(
+            Icons.apple,
+            color: Colors.white,
+            size: 20,
+          ),
+          connectButtonTextStyleApple: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
@@ -40,7 +71,7 @@ class ExampleApp extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 65, right: 20),
+            padding: EdgeInsets.only(right: 20),
             child: Text(
               'Try me',
               style: TextStyle(
@@ -52,7 +83,7 @@ class ExampleApp extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 120, right: 100),
+            padding: const EdgeInsets.only(top: 60, right: 100),
             child: Image.asset(
               'assets/images/arrow-down.png',
               width: 50,
@@ -123,7 +154,8 @@ class ExampleApp extends StatelessWidget {
                 FilledButton(
                   onPressed: () async {
                     await fluo.clearSession();
-                    _navigatorKey.currentState?.pop();
+                    _navigatorKey.currentState
+                        ?.popUntil((route) => route.isFirst);
                   },
                   child: const Text('Sign out'),
                 ),
