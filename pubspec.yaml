@@ -1,6 +1,6 @@
 name: fluo
 description: User onboarding for Flutter. Seamless user authentication & registration, with just 5 lines of code.
-version: 0.8.0
+version: 0.8.1
 homepage: https://fluo.dev
 repository: https://github.com/fluo-dev/flutter-sdk
 

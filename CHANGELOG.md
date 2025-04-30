@@ -1,3 +1,7 @@
+## 0.8.1
+
+- The underline decoration of the legal text (terms & privacy) is not set to the color of the text
+
 ## 0.8.0
 
 - Support for "Sign in with Apple"
