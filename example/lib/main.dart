@@ -22,76 +22,81 @@ class ExampleApp extends StatelessWidget {
       supportedLocales: FluoLocalizations.supportedLocales,
       home: FluoOnboarding(
         apiKey: 'your-api-key',
+        theme: _theme(),
+        introBuilder: _introScreen,
         onUserReady: _onUserReady,
-        onInitError: (error) => print(error ?? ''),
-        introBuilder:
-            (context, initializing, signingIn, bottomContainerHeight) {
-          if (signingIn) {
-            return Container(
-              alignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.only(bottom: 100),
-              child: const CircularProgressIndicator(),
-            );
-          }
-          return Center(
-            child: _tryMe(initializing),
-          );
-        },
-        theme: FluoTheme(
-          primaryColor: Colors.black,
-          inversePrimaryColor: Colors.white,
-          connectButtonStyle: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
-            foregroundColor: WidgetStateProperty.all(Colors.black),
-            minimumSize: WidgetStateProperty.all(const Size(200, 54)),
-          ),
-          connectButtonStyleApple: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.black),
-            foregroundColor: WidgetStateProperty.all(Colors.white),
-            minimumSize: WidgetStateProperty.all(const Size(200, 54)),
-          ),
-          connectButtonIconApple: const Icon(
-            Icons.apple,
-            color: Colors.white,
-            size: 20,
-          ),
-          connectButtonTextStyleApple: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
       ),
     );
   }
 
-  Widget _tryMe(bool initializing) {
-    return AnimatedOpacity(
-      opacity: initializing ? 0.0 : 1.0,
-      duration: const Duration(seconds: 2),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Text(
-              'Try me',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                fontFamily: 'Caveat',
+  FluoTheme _theme() {
+    return FluoTheme(
+      primaryColor: Colors.black,
+      inversePrimaryColor: Colors.white,
+      connectButtonStyle: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
+        foregroundColor: WidgetStateProperty.all(Colors.black),
+        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
+      ),
+      connectButtonStyleApple: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(Colors.black),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
+      ),
+      connectButtonIconApple: const Icon(
+        Icons.apple,
+        color: Colors.white,
+        size: 20,
+      ),
+      connectButtonTextStyleApple: const TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _introScreen(
+    BuildContext context,
+    bool initializing,
+    bool signingIn,
+    double bottomContainerHeight,
+  ) {
+    if (signingIn) {
+      return Container(
+        alignment: Alignment.bottomCenter,
+        padding: const EdgeInsets.only(bottom: 100),
+        child: const CircularProgressIndicator(),
+      );
+    }
+    return Center(
+      child: AnimatedOpacity(
+        opacity: initializing ? 0.0 : 1.0,
+        duration: const Duration(seconds: 2),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Text(
+                'Try me',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: 'Caveat',
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 60, right: 100),
-            child: Image.asset(
-              'assets/images/arrow-down.png',
-              width: 50,
+            Padding(
+              padding: const EdgeInsets.only(top: 60, right: 100),
+              child: Image.asset(
+                'assets/images/arrow-down.png',
+                width: 50,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
