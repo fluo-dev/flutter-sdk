@@ -212,9 +212,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     title: FluoLocalizations.of(context)!.termsAndConditions,
                     url: fluo!.appConfig.termsUrl,
                   ),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
+                    decorationColor: widget.theme.legalTextStyle.color,
                   ),
                 ),
                 'privacy': StyledTextActionTag(
@@ -224,9 +225,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     title: FluoLocalizations.of(context)!.privacyPolicy,
                     url: fluo!.appConfig.privacyUrl,
                   ),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
+                    decorationColor: widget.theme.legalTextStyle.color,
                   ),
                 ),
               },
