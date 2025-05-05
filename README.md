@@ -9,9 +9,9 @@
 
 ## Introduction
 
-User onboarding for Flutter.
+**User onboarding for Flutter.**
 
-Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and register your users.
+Seamless user authentication & registration, in your app with just 5 lines of code.
 
 <img src="https://fluo.dev/img/fluo-onboarding-screenshot.png" alt="Fluo Onboarding" width="300">
 
@@ -23,11 +23,11 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 
 **Auth methods**
 
-| Method             | Status | Note                                                                    |
-| ------------------ | ------ | ----------------------------------------------------------------------- |
-| Email + Code       | ✔️     | Fluo sends emails on your behalf                                        |
-| Google Sign-in     | ✔️     | Set it up in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
-| Sign in with Apple | 🔜     | Shipping by the end of April                                            |
+| Method             | Status | Note                                                                       |
+| ------------------ | ------ | -------------------------------------------------------------------------- |
+| Email + Code       | ✔️     | Fluo sends emails on your behalf                                           |
+| Google Sign-in     | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
+| Sign in with Apple | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
 
 **Registration**
 
@@ -35,7 +35,7 @@ Integrate the Fluo SDK in minutes and get a complete UI flow to authenticate and
 - Collect first name, last name, both, or none
 - Integration with Firebase
 - Integration with Supabase
-- Integration with any backend (Node.js, Django, etc)
+- Integration with any backend via JWT token (Node.js, Django, etc)
 
 ## Getting started
 
@@ -139,6 +139,14 @@ FluoOnboarding(
 ## Integrating with any backend
 
 Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Custom' and follow the instructions. The general idea is to use the JWT access token provided by Fluo. Once decoded (using your secret key), it provides the user information which you can store in your database. A complete guide is provided directly in the dashboard.
+
+The session management is handled by the Fluo SDK:
+
+- access tokens are valid for 1 hour
+- when expired, access tokens are automatically refreshed using a single-use refresh token (exactly like Firebase does)
+- all you have to do is call `await fluo.getAccessToken()`
+- send the returned access token to your backend and decode it with the provided secret key
+- it will include all the necessary user information
 
 ## Customizing the theme
 
