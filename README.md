@@ -171,7 +171,7 @@ Future<User> getOrCreateUser() async {
   final response = await http.get(
     Uri.parse('https://your-backend.com/api/user/me'),
     headers: {
-      'authorization': 'Bearer \$accessToken',
+      'authorization': 'Bearer $accessToken',
     },
   );
   return User.fromJson(jsonDecode(response.body));
