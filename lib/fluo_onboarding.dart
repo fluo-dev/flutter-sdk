@@ -42,7 +42,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   @override
   void initState() {
     super.initState();
-    _fluoInitFuture = Fluo.init(widget.apiKey);
+    _fluoInitFuture = Future.microtask(() => Fluo.init(widget.apiKey));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final context = _bottomContainerKey.currentContext!;
       final renderBox = context.findRenderObject() as RenderBox;
