@@ -300,14 +300,32 @@ class Fluo {
     showGeneralDialog(
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) {
-        return MultiProvider(
-          providers: [
-            Provider(create: (_) => _apiClient),
-            Provider(create: (_) => _sessionManager),
-            Provider(create: (_) => _appConfig),
-            Provider(create: (_) => theme),
-          ],
-          child: navigator,
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isWide = constraints.maxWidth > 500;
+            return Center(
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: isWide ? 450 : double.infinity,
+                  maxHeight: isWide ? 400 : double.infinity,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(isWide ? 20 : 0),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: MultiProvider(
+                  providers: [
+                    Provider(create: (_) => _apiClient),
+                    Provider(create: (_) => _sessionManager),
+                    Provider(create: (_) => _appConfig),
+                    Provider(create: (_) => theme),
+                  ],
+                  child: navigator,
+                ),
+              ),
+            );
+          },
         );
       },
       transitionDuration: const Duration(milliseconds: 300),

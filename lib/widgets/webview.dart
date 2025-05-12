@@ -1,8 +1,10 @@
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/round_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Webview extends StatelessWidget {
   const Webview({
@@ -35,6 +37,7 @@ class Webview extends StatelessWidget {
               ),
               RoundButton(
                 onPressed: onClosePressed,
+                color: theme.primaryColor,
                 iconData: Icons.close_rounded,
               ),
             ],
@@ -55,12 +58,17 @@ class Webview extends StatelessWidget {
   }
 }
 
-void showWebviewDialog({
+void openWebPage({
   required BuildContext context,
   required FluoTheme theme,
   required String title,
   required String url,
 }) {
+  if (kIsWeb) {
+    launchUrl(Uri.parse(url));
+    return;
+  }
+
   showModalBottomSheet(
     context: context,
     useSafeArea: true,

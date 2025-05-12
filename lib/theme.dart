@@ -42,6 +42,7 @@ class FluoTheme {
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       minimumSize: const Size.fromHeight(54),
+      enabledMouseCursor: SystemMouseCursors.click,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: const BorderSide(
@@ -147,6 +148,7 @@ class FluoTheme {
     nextButtonStyle ??= TextButton.styleFrom(
       splashFactory: NoSplash.splashFactory,
       minimumSize: const Size.fromHeight(54),
+      enabledMouseCursor: SystemMouseCursors.click,
       textStyle: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w700,

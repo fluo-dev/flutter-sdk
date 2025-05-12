@@ -20,83 +20,90 @@ class ExampleApp extends StatelessWidget {
       navigatorKey: _navigatorKey,
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
-      home: FluoOnboarding(
-        apiKey: 'your-api-key',
-        theme: _theme(),
-        introBuilder: _introScreen,
-        onUserReady: _onUserReady,
+      theme: ThemeData(
+        fontFamily: 'Geist',
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontFamily: 'Geist'),
+          displayMedium: TextStyle(fontFamily: 'Geist'),
+          displaySmall: TextStyle(fontFamily: 'Geist'),
+          headlineLarge: TextStyle(fontFamily: 'Geist'),
+          headlineMedium: TextStyle(fontFamily: 'Geist'),
+          headlineSmall: TextStyle(fontFamily: 'Geist'),
+          titleLarge: TextStyle(fontFamily: 'Geist'),
+          titleMedium: TextStyle(fontFamily: 'Geist'),
+          titleSmall: TextStyle(fontFamily: 'Geist'),
+          bodyLarge: TextStyle(fontFamily: 'Geist'),
+          bodyMedium: TextStyle(fontFamily: 'Geist'),
+          bodySmall: TextStyle(fontFamily: 'Geist'),
+          labelLarge: TextStyle(fontFamily: 'Geist'),
+          labelMedium: TextStyle(fontFamily: 'Geist'),
+          labelSmall: TextStyle(fontFamily: 'Geist'),
+        ),
+      ),
+      home: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 700,
+            height: 300,
+            child: FluoOnboarding(
+              apiKey: 'your-api-key',
+              theme: _theme(),
+              onUserReady: _onUserReady,
+            ),
+          ),
+        ),
       ),
     );
   }
 
   FluoTheme _theme() {
+    final defaultTheme = FluoTheme.light();
+
     return FluoTheme(
       primaryColor: Colors.black,
       inversePrimaryColor: Colors.white,
-      connectButtonStyle: ButtonStyle(
+      connectButtonStyle: defaultTheme.connectButtonStyle.copyWith(
         backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
-        foregroundColor: WidgetStateProperty.all(Colors.black),
-        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(35),
+          ),
+        ),
+        minimumSize: WidgetStateProperty.all(const Size(600, 70)),
       ),
-      connectButtonStyleApple: ButtonStyle(
+      inputDecoration: defaultTheme.inputDecoration.copyWith(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 17.0,
+          horizontal: 15.0,
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 2,
+          ),
+        ),
+      ),
+      legalTextStyle: defaultTheme.legalTextStyle.copyWith(
+        fontSize: 15,
+      ),
+      nextButtonStyle: defaultTheme.nextButtonStyle.copyWith(
+        minimumSize: WidgetStateProperty.all(const Size(600, 60)),
         backgroundColor: WidgetStateProperty.all(Colors.black),
         foregroundColor: WidgetStateProperty.all(Colors.white),
-        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
-      ),
-      connectButtonIconApple: const Icon(
-        Icons.apple,
-        color: Colors.white,
-        size: 20,
-      ),
-      connectButtonTextStyleApple: const TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget _introScreen(
-    BuildContext context,
-    bool initializing,
-    bool signingIn,
-    double bottomContainerHeight,
-  ) {
-    if (signingIn) {
-      return Container(
-        alignment: Alignment.bottomCenter,
-        padding: const EdgeInsets.only(bottom: 100),
-        child: const CircularProgressIndicator(),
-      );
-    }
-    return Center(
-      child: AnimatedOpacity(
-        opacity: initializing ? 0.0 : 1.0,
-        duration: const Duration(seconds: 2),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 00, bottom: 30),
-              child: Text(
-                '5 lines of code\nto get these',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  fontFamily: 'Caveat',
-                  height: 1.2,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 60, right: 160),
-              child: Image.asset(
-                'assets/images/arrow-down.png',
-                width: 50,
-              ),
-            ),
-          ],
+        textStyle: WidgetStateProperty.all(
+          const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Geist',
+          ),
         ),
       ),
     );

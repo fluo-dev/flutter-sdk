@@ -37,7 +37,10 @@ class SingleInputScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RoundButton(onPressed: onBackButtonPressed),
+              RoundButton(
+                onPressed: onBackButtonPressed,
+                color: theme.primaryColor,
+              ),
               const SizedBox(height: 30.0),
               Text(
                 inputTitle,

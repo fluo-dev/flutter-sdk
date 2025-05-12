@@ -24,6 +24,7 @@ dependencies:
   provider: ^6.1.2
   sign_in_with_apple: ^7.0.1
   styled_text: ^8.1.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   build_runner: ^2.4.12

@@ -5,6 +5,7 @@ import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 
@@ -125,7 +126,9 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
           showEmailButton = method.selected;
         } else if (method.id == AuthMethodId.google) {
           showGoogleButton = method.selected;
-        } else if (method.id == AuthMethodId.apple && Platform.isIOS) {
+        } else if (method.id == AuthMethodId.apple &&
+            !kIsWeb &&
+            Platform.isIOS) {
           showAppleButton = method.selected;
         }
       }
@@ -206,7 +209,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               style: widget.theme.legalTextStyle,
               tags: {
                 'terms': StyledTextActionTag(
-                  (text, attrs) => showWebviewDialog(
+                  (text, attrs) => openWebPage(
                     context: context,
                     theme: widget.theme,
                     title: FluoLocalizations.of(context)!.termsAndConditions,
@@ -219,7 +222,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   ),
                 ),
                 'privacy': StyledTextActionTag(
-                  (text, attrs) => showWebviewDialog(
+                  (text, attrs) => openWebPage(
                     context: context,
                     theme: widget.theme,
                     title: FluoLocalizations.of(context)!.privacyPolicy,
