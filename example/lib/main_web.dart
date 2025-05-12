@@ -4,6 +4,8 @@ import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'config.dart'; // Import the config file
+
 void main() {
   runApp(ExampleApp());
 }
@@ -29,7 +31,7 @@ class ExampleApp extends StatelessWidget {
             width: 700,
             height: 300,
             child: FluoOnboarding(
-              apiKey: 'gW6cAaAtl2i_baHf012NmEblhEWiCIqql1J6Hj12SWg=',
+              apiKey: Config.apiKey,
               theme: _theme(),
               onUserReady: _onUserReady,
             ),

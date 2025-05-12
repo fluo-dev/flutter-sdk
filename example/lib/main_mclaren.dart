@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:example/config.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
@@ -24,7 +25,7 @@ class ExampleApp extends StatelessWidget {
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
       home: FluoOnboarding(
-        apiKey: 'your-api-key',
+        apiKey: Config.apiKey,
         theme: _theme(),
         introBuilder: _introScreen,
         onUserReady: _onUserReady,
