@@ -22,23 +22,6 @@ class ExampleApp extends StatelessWidget {
       supportedLocales: FluoLocalizations.supportedLocales,
       theme: ThemeData(
         fontFamily: 'Geist',
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(fontFamily: 'Geist'),
-          displayMedium: TextStyle(fontFamily: 'Geist'),
-          displaySmall: TextStyle(fontFamily: 'Geist'),
-          headlineLarge: TextStyle(fontFamily: 'Geist'),
-          headlineMedium: TextStyle(fontFamily: 'Geist'),
-          headlineSmall: TextStyle(fontFamily: 'Geist'),
-          titleLarge: TextStyle(fontFamily: 'Geist'),
-          titleMedium: TextStyle(fontFamily: 'Geist'),
-          titleSmall: TextStyle(fontFamily: 'Geist'),
-          bodyLarge: TextStyle(fontFamily: 'Geist'),
-          bodyMedium: TextStyle(fontFamily: 'Geist'),
-          bodySmall: TextStyle(fontFamily: 'Geist'),
-          labelLarge: TextStyle(fontFamily: 'Geist'),
-          labelMedium: TextStyle(fontFamily: 'Geist'),
-          labelSmall: TextStyle(fontFamily: 'Geist'),
-        ),
       ),
       home: Scaffold(
         body: Center(
@@ -46,7 +29,7 @@ class ExampleApp extends StatelessWidget {
             width: 700,
             height: 300,
             child: FluoOnboarding(
-              apiKey: 'your-api-key',
+              apiKey: 'gW6cAaAtl2i_baHf012NmEblhEWiCIqql1J6Hj12SWg=',
               theme: _theme(),
               onUserReady: _onUserReady,
             ),
