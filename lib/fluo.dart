@@ -8,6 +8,7 @@ import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/auth_navigator.dart';
 import 'package:fluo/presentation/register/register_navigator.dart';
 import 'package:fluo/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -178,7 +179,9 @@ class Fluo {
         .googleClientId!;
 
     String? clientId;
-    if (Platform.isIOS) {
+    if (kIsWeb) {
+      clientId = googleClientId.web;
+    } else if (Platform.isIOS) {
       clientId = googleClientId.ios;
     } else if (Platform.isAndroid) {
       clientId = googleClientId.android;
@@ -195,7 +198,13 @@ class Fluo {
       scopes: ['email'],
     );
 
-    final googleAccount = await googleSignIn.signIn();
+    GoogleSignInAccount? googleAccount;
+    if (kIsWeb) {
+      googleAccount = await googleSignIn.signInSilently();
+    } else {
+      googleAccount = await googleSignIn.signIn();
+    }
+
     if (googleAccount == null) {
       // User cancelled the sign in dialog
       return false;

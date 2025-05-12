@@ -5,7 +5,7 @@ import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 
