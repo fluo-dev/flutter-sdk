@@ -7,8 +7,10 @@ import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:styled_text/styled_text.dart';
+
+import 'stubs/google_sign_in_web_stub.dart'
+    if (dart.library.html) 'package:google_sign_in_web/google_sign_in_web.dart';
 
 class FluoOnboarding extends StatefulWidget {
   FluoOnboarding({
