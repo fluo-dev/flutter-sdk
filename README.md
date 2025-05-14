@@ -23,11 +23,11 @@ Seamless user authentication & registration, in your app with just 5 lines of co
 
 **Auth methods**
 
-| Method             | Status | Note                                                                       |
-| ------------------ | ------ | -------------------------------------------------------------------------- |
-| Email + Code       | ✔️     | Fluo sends emails on your behalf                                           |
-| Google Sign-in     | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
-| Sign in with Apple | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
+| Method              | Status | Note                                                                       |
+| ------------------- | ------ | -------------------------------------------------------------------------- |
+| Email + Code        | ✔️     | Fluo sends emails on your behalf                                           |
+| Sign-in with Google | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
+| Sign in with Apple  | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
 
 **Registration**
 
@@ -90,7 +90,7 @@ class ExampleApp extends StatelessWidget {
           //   use 'initializing' if you want to show a loading indicator
           //   use 'bottomContainerHeight' if you need to position content above the buttons
         },
-        theme: FluoTheme(
+        theme: FluoTheme.native(
           // Optional - Customize the look & feel
           primaryColor: Colors.black,
           inversePrimaryColor: Colors.white,
@@ -235,14 +235,21 @@ Pass a `FluoTheme` to the `FluoOnboarding` component:
 ```dart
 FluoOnboarding(
   // ...other properties...
-  theme: FluoTheme(
-    // Required
-    primaryColor: Colors.black,
-    inversePrimaryColor: Colors.white,
-    // Optional
+  theme: FluoTheme.native( // or FluoTheme.web()
+    primaryColor: null,
+    inversePrimaryColor: null,
+    accentColor: null,
     screenPadding: null,
     connectButtonStyle: null,
+    connectButtonStyleGoogle: null,
+    connectButtonStyleApple: null,
     connectButtonTextStyle: null,
+    connectButtonTextStyleGoogle: null,
+    connectButtonTextStyleApple: null,
+    connectButtonIconSize: null,
+    connectButtonIconEmail: null,
+    connectButtonIconGoogle: null,
+    connectButtonIconApple: null,
     legalTextStyle: null,
     legalTextPadding: null,
     modalTitleTextStyle: null,
