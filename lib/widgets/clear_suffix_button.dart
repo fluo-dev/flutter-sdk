@@ -42,18 +42,21 @@ class _ClearSuffixButtonState extends State<ClearSuffixButton> {
     final isDark = theme.brightness == Brightness.dark;
     final surfaceColor = theme.colorScheme.surface;
 
-    return GestureDetector(
-      onTap: widget.controller.clear,
-      child: Container(
-        margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-        decoration: BoxDecoration(
-          color: isDark ? Colors.white24 : Colors.black.withAlpha(50),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        padding: const EdgeInsets.all(2.0),
-        child: Icon(
-          Icons.close_rounded,
-          color: surfaceColor,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.controller.clear,
+        child: Container(
+          margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white24 : Colors.black.withAlpha(50),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          padding: const EdgeInsets.all(2.0),
+          child: Icon(
+            Icons.close_rounded,
+            color: surfaceColor,
+          ),
         ),
       ),
     );
