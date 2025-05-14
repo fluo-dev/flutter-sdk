@@ -141,13 +141,17 @@ class Fluo {
   void showConnectWithEmailFlow({
     required BuildContext context,
     required FluoTheme theme,
+    required Function() onExit,
     required Function() onUserReady,
   }) {
     _showNavigator(
       context: context,
       theme: theme,
       navigator: AuthNavigator(
-        onExit: () => Navigator.of(context).pop(),
+        onExit: () {
+          Navigator.of(context).pop();
+          onExit();
+        },
         onUserAuthenticated: () {
           Navigator.of(context).pop();
           if (isUserComplete()) {
@@ -164,6 +168,22 @@ class Fluo {
     );
   }
 
+  String getGoogleClientId() {
+    final googleClientId = appConfig.authMethods
+        .firstWhere((method) => method.id == 'google')
+        .googleClientId!;
+    if (kIsWeb) {
+      return googleClientId.web;
+    }
+    if (Platform.isIOS) {
+      return googleClientId.ios;
+    }
+    if (Platform.isAndroid) {
+      return googleClientId.android;
+    }
+    return '';
+  }
+
   /// Shows the Google Sign-in flow.
   ///
   /// This is a modal dialog which takes care of signing in the user's google
@@ -174,23 +194,10 @@ class Fluo {
     required FluoTheme theme,
     required Function() onUserReady,
   }) async {
-    final googleClientId = appConfig.authMethods
-        .firstWhere((method) => method.id == 'google')
-        .googleClientId!;
-
-    String? clientId;
-    if (kIsWeb) {
-      clientId = googleClientId.web;
-    } else if (Platform.isIOS) {
-      clientId = googleClientId.ios;
-    } else if (Platform.isAndroid) {
-      clientId = googleClientId.android;
-    } else {
-      throw Exception('Google sign-in is not supported on this platform');
-    }
-
+    final clientId = getGoogleClientId();
     if (clientId.isEmpty) {
-      throw Exception('No google client id for ${Platform.operatingSystem}');
+      throw Exception(
+          'No google client id for ${kIsWeb ? "web" : Platform.operatingSystem}');
     }
 
     final googleSignIn = GoogleSignIn(
@@ -198,13 +205,7 @@ class Fluo {
       scopes: ['email'],
     );
 
-    GoogleSignInAccount? googleAccount;
-    if (kIsWeb) {
-      googleAccount = await googleSignIn.signInSilently();
-    } else {
-      googleAccount = await googleSignIn.signIn();
-    }
-
+    final googleAccount = await googleSignIn.signIn();
     if (googleAccount == null) {
       // User cancelled the sign in dialog
       return false;
@@ -216,21 +217,16 @@ class Fluo {
       throw Exception('No google id token found');
     }
 
-    final session = await _apiClient.createSession(
+    if (!context.mounted) {
+      return false;
+    }
+
+    await createSession(
+      context: context,
+      theme: theme,
+      onUserReady: onUserReady,
       googleIdToken: googleIdToken,
     );
-
-    await _sessionManager.setSession(session);
-
-    if (isUserComplete()) {
-      onUserReady();
-    } else if (context.mounted) {
-      showRegisterFlow(
-        context: context,
-        theme: theme,
-        onUserReady: onUserReady,
-      );
-    }
 
     return true;
   }
@@ -253,23 +249,18 @@ class Fluo {
         ],
       );
 
-      final session = await _apiClient.createSession(
+      if (!context.mounted) {
+        return false;
+      }
+
+      await createSession(
+        context: context,
+        theme: theme,
+        onUserReady: onUserReady,
         appleIdToken: credential.identityToken,
         firstName: credential.givenName,
         lastName: credential.familyName,
       );
-
-      await _sessionManager.setSession(session);
-
-      if (isUserComplete()) {
-        onUserReady();
-      } else if (context.mounted) {
-        showRegisterFlow(
-          context: context,
-          theme: theme,
-          onUserReady: onUserReady,
-        );
-      }
 
       return true;
     } on SignInWithAppleAuthorizationException {
@@ -277,6 +268,40 @@ class Fluo {
       return false;
     } on SignInWithAppleException catch (e) {
       throw Exception('There was an exception while signing in with Apple: $e');
+    }
+  }
+
+  /// Creates a session with the given parameters.
+  ///
+  /// Once the session is created, it will show the register flow if the user
+  /// is not complete. Otherwise, it will call the [onUserReady] callback.
+  ///
+  Future<void> createSession({
+    required BuildContext context,
+    required FluoTheme theme,
+    required Function() onUserReady,
+    String? googleIdToken,
+    String? appleIdToken,
+    String? firstName,
+    String? lastName,
+  }) async {
+    final session = await _apiClient.createSession(
+      googleIdToken: googleIdToken,
+      appleIdToken: appleIdToken,
+      firstName: firstName,
+      lastName: lastName,
+    );
+
+    await _sessionManager.setSession(session);
+
+    if (isUserComplete()) {
+      onUserReady();
+    } else if (context.mounted) {
+      showRegisterFlow(
+        context: context,
+        theme: theme,
+        onUserReady: onUserReady,
+      );
     }
   }
 
@@ -315,12 +340,12 @@ class Fluo {
             return Center(
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: isWide ? 450 : double.infinity,
-                  maxHeight: isWide ? 400 : double.infinity,
+                  maxWidth: isWide ? 400 : double.infinity,
+                  maxHeight: isWide ? 370 : double.infinity,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(isWide ? 20 : 0),
+                  borderRadius: BorderRadius.circular(isWide ? 8 : 0),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: MultiProvider(

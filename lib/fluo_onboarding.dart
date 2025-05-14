@@ -7,6 +7,7 @@ import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:styled_text/styled_text.dart';
 
 class FluoOnboarding extends StatefulWidget {
@@ -17,7 +18,7 @@ class FluoOnboarding extends StatefulWidget {
     this.onInitError,
     this.introBuilder,
     FluoTheme? theme,
-  }) : theme = theme ?? FluoTheme.light();
+  }) : theme = theme ?? FluoTheme();
 
   final String apiKey;
   final Function(Fluo fluo) onUserReady;
@@ -37,13 +38,19 @@ class FluoOnboarding extends StatefulWidget {
 class _FluoOnboardingState extends State<FluoOnboarding> {
   final GlobalKey _bottomContainerKey = GlobalKey();
   double _bottomContainerHeight = 0.0;
-  late Future<Fluo?> _fluoInitFuture;
+  late Future<Fluo?> _initFluoFuture;
+  Widget? _googleButtonForWeb;
+  bool _googleButtonForWebReady = false;
   bool _signingIn = false;
 
   @override
   void initState() {
     super.initState();
-    _fluoInitFuture = Future.microtask(() => Fluo.init(widget.apiKey));
+
+    _initFluoFuture = Future.microtask(() {
+      return Fluo.init(widget.apiKey);
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final context = _bottomContainerKey.currentContext!;
       final renderBox = context.findRenderObject() as RenderBox;
@@ -56,7 +63,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<Fluo?>(
-        future: _fluoInitFuture, // ensures it's called once
+        future: _initFluoFuture, // ensures it's called once
         builder: (context, snapshot) {
           final fluo = snapshot.data;
 
@@ -103,7 +110,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     top: false,
                     child: Container(
                       padding: widget.theme.screenPadding,
-                      child: _signingIn ? Container() : _connectButtons(fluo),
+                      child: _signingIn ? Container() : _connectContainer(fluo),
                     ),
                   ),
                 ),
@@ -115,7 +122,14 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     );
   }
 
-  Widget _connectButtons(Fluo? fluo) {
+  bool _showConnectContainer(Fluo? fluo) {
+    if (kIsWeb) {
+      return fluo != null && _googleButtonForWebReady;
+    }
+    return fluo != null;
+  }
+
+  Widget _connectContainer(Fluo? fluo) {
     bool showEmailButton = false;
     bool showGoogleButton = false;
     bool showAppleButton = false;
@@ -135,7 +149,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     }
 
     return AnimatedOpacity(
-      opacity: fluo == null ? 0.0 : 1.0,
+      opacity: _showConnectContainer(fluo) ? 1.0 : 0.01,
       duration: const Duration(seconds: 2),
       child: Column(
         spacing: 15.0,
@@ -148,16 +162,37 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               buttonStyle: widget.theme.connectButtonStyle,
               textStyle: widget.theme.connectButtonTextStyle,
               onPressed: () {
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  setState(() {
+                    _signingIn = true;
+                    _googleButtonForWebReady = false;
+                  });
+                });
                 fluo!.showConnectWithEmailFlow(
                   context: context,
                   theme: widget.theme,
+                  onExit: () {
+                    setState(() => _signingIn = false);
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      setState(() => _googleButtonForWebReady = true);
+                    });
+                  },
                   onUserReady: () {
+                    setState(() {
+                      _signingIn = false;
+                      _googleButtonForWebReady = true;
+                    });
                     widget.onUserReady(fluo);
                   },
                 );
               },
             ),
-          if (showGoogleButton)
+          if (showGoogleButton && kIsWeb)
+            SizedBox(
+              height: 40.0, // because GSIButtonSize.large is 40px tall
+              child: _connectButtonForGoogleWeb(fluo!),
+            ),
+          if (showGoogleButton && !kIsWeb)
             _connectButton(
               icon: widget.theme.connectButtonIconGoogle,
               title: FluoLocalizations.of(context)!.continueWithGoogle,
@@ -264,5 +299,72 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         ],
       ),
     );
+  }
+
+  Widget _connectButtonForGoogleWeb(Fluo fluo) {
+    var googleButtonForWeb = _googleButtonForWeb;
+    if (googleButtonForWeb == null) {
+      _initGoogleButtonForWeb(fluo);
+      googleButtonForWeb = _connectButton(
+        icon: widget.theme.connectButtonIconGoogle,
+        title: FluoLocalizations.of(context)!.continueWithGoogle,
+        buttonStyle: widget.theme.connectButtonStyleGoogle,
+        textStyle: widget.theme.connectButtonTextStyleGoogle,
+        onPressed: () {},
+      );
+    }
+
+    return googleButtonForWeb;
+  }
+
+  Future<void> _initGoogleButtonForWeb(Fluo fluo) async {
+    final googleSignInPlugin = GoogleSignInPlugin();
+    await googleSignInPlugin.init(
+      clientId: fluo.getGoogleClientId(),
+      scopes: ['email'],
+    );
+
+    googleSignInPlugin.userDataEvents?.listen((data) {
+      final buildContext = context;
+      final googleIdToken = data?.idToken;
+      if (!buildContext.mounted || googleIdToken == null) {
+        return;
+      }
+      fluo.createSession(
+        context: buildContext,
+        theme: widget.theme,
+        googleIdToken: googleIdToken,
+        onUserReady: () {
+          widget.onUserReady(fluo);
+        },
+      );
+    });
+
+    String? locale;
+    final buildContext = context;
+    if (buildContext.mounted) {
+      locale = FluoLocalizations.of(buildContext)!.localeName;
+    }
+
+    final googleButtonForWeb = googleSignInPlugin.renderButton(
+      configuration: GSIButtonConfiguration(
+        theme: GSIButtonTheme.outline,
+        type: GSIButtonType.standard,
+        shape: GSIButtonShape.rectangular,
+        text: GSIButtonText.continueWith,
+        size: GSIButtonSize.large,
+        locale: locale,
+        logoAlignment: GSIButtonLogoAlignment.center,
+        minimumWidth: 360,
+      ),
+    );
+
+    setState(() => _googleButtonForWeb = googleButtonForWeb);
+
+    // The button is rendered asynchronously using a FutureBuilder,
+    // so we need to wait a little to avoid seeing a flash of the button.
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() => _googleButtonForWebReady = true);
+    });
   }
 }
