@@ -38,9 +38,12 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
     super.initState();
 
     _codeController.addListener(() {
+      if (_isCodeComplete && _errorText != null) {
+        _codeController.setText('');
+      }
       setState(() {
-        _errorText = null;
         _isCodeComplete = _codeController.text.length == 6;
+        _errorText = null;
       });
     });
   }
@@ -69,7 +72,6 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
         followingPinTheme: theme.codeInputThemeFollowing,
         disabledPinTheme: theme.codeInputThemeDisabled,
         errorPinTheme: theme.codeInputThemeError,
-        // onTap: _clearIfHasError,
         onCompleted: (_) => _onNext(),
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
@@ -100,10 +102,16 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       );
       widget.onCodeVerified(session);
     } on ApiError catch (apiError) {
-      setState(() => _errorText =
-          FluoLocalizedModels.localizedError(context, apiError.message));
+      setState(() {
+        _errorText = FluoLocalizedModels.localizedError(
+          context,
+          apiError.message,
+        );
+      });
     } catch (error) {
-      setState(() => _errorText = FluoLocalizations.of(context)!.errorUnknown);
+      setState(() {
+        _errorText = FluoLocalizations.of(context)!.errorUnknown;
+      });
     } finally {
       setState(() => _loading = false);
     }
