@@ -37,19 +37,15 @@ class FluoOnboarding extends StatefulWidget {
 
 class _FluoOnboardingState extends State<FluoOnboarding> {
   final GlobalKey _bottomContainerKey = GlobalKey();
+  Fluo? _fluo;
   double _bottomContainerHeight = 0.0;
-  late Future<Fluo?> _initFluoFuture;
+  bool _signingIn = false;
   Widget? _googleButtonForWeb;
   bool _googleButtonForWebReady = false;
-  bool _signingIn = false;
 
   @override
   void initState() {
     super.initState();
-
-    _initFluoFuture = Future.microtask(() {
-      return Fluo.init(widget.apiKey);
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final context = _bottomContainerKey.currentContext!;
@@ -57,85 +53,79 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       final height = renderBox.size.height;
       setState(() => _bottomContainerHeight = height);
     });
+
+    _initFluo();
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget? introWidget;
+    if (widget.introBuilder != null) {
+      introWidget = widget.introBuilder!(
+        context,
+        _fluo == null,
+        _signingIn,
+        _bottomContainerHeight,
+      );
+    }
+
     return Scaffold(
-      body: FutureBuilder<Fluo?>(
-        future: _initFluoFuture, // ensures it's called once
-        builder: (context, snapshot) {
-          final fluo = snapshot.data;
-
-          if (snapshot.hasError && widget.onInitError != null) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              widget.onInitError!(snapshot.error);
-            });
-          }
-
-          if (fluo != null && fluo.hasSession()) {
-            if (fluo.isUserComplete()) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                widget.onUserReady(fluo);
-              });
-            } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                fluo.showRegisterFlow(
-                  context: context,
-                  theme: widget.theme,
-                  onUserReady: () => widget.onUserReady(fluo),
-                );
-              });
-            }
-          }
-
-          Widget? introWidget;
-          if (widget.introBuilder != null) {
-            introWidget = widget.introBuilder!(
-              context,
-              fluo == null,
-              _signingIn,
-              _bottomContainerHeight,
-            );
-          }
-
-          return Stack(
-            children: [
-              if (introWidget != null) introWidget,
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: IntrinsicHeight(
-                  key: _bottomContainerKey,
-                  child: SafeArea(
-                    top: false,
-                    child: Container(
-                      padding: widget.theme.screenPadding,
-                      child: _signingIn ? Container() : _connectContainer(fluo),
-                    ),
-                  ),
+      body: Stack(
+        children: [
+          if (introWidget != null) introWidget,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: IntrinsicHeight(
+              key: _bottomContainerKey,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: widget.theme.screenPadding,
+                  child: _signingIn ? Container() : _connectContainer(),
                 ),
               ),
-            ],
-          );
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  bool _showConnectContainer(Fluo? fluo) {
-    if (kIsWeb) {
-      return fluo != null && _googleButtonForWebReady;
+  Future<void> _initFluo() async {
+    try {
+      final fluo = await Fluo.init(widget.apiKey);
+      setState(() => _fluo = fluo);
+      if (fluo.hasSession()) {
+        final buildContext = context;
+        if (fluo.isUserComplete()) {
+          widget.onUserReady(fluo);
+        } else if (buildContext.mounted) {
+          fluo.showRegisterFlow(
+            context: buildContext,
+            theme: widget.theme,
+            onUserReady: () => widget.onUserReady(fluo),
+          );
+        }
+      }
+    } catch (error) {
+      widget.onInitError?.call(error);
     }
-    return fluo != null;
   }
 
-  Widget _connectContainer(Fluo? fluo) {
+  bool _showConnectContainer() {
+    if (kIsWeb) {
+      return _fluo != null && _googleButtonForWebReady;
+    }
+    return _fluo != null;
+  }
+
+  Widget _connectContainer() {
     bool showEmailButton = false;
     bool showGoogleButton = false;
     bool showAppleButton = false;
 
-    if (fluo != null) {
-      for (final method in fluo.appConfig.authMethods) {
+    if (_fluo != null) {
+      for (final method in _fluo!.appConfig.authMethods) {
         if (method.id == AuthMethodId.email) {
           showEmailButton = method.selected;
         } else if (method.id == AuthMethodId.google) {
@@ -149,7 +139,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     }
 
     return AnimatedOpacity(
-      opacity: _showConnectContainer(fluo) ? 1.0 : 0.01,
+      opacity: _showConnectContainer() ? 1.0 : 0.01,
       duration: const Duration(seconds: 2),
       child: Column(
         spacing: 15.0,
@@ -168,7 +158,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     _googleButtonForWebReady = false;
                   });
                 });
-                fluo!.showConnectWithEmailFlow(
+                _fluo!.showConnectWithEmailFlow(
                   context: context,
                   theme: widget.theme,
                   onExit: () {
@@ -182,7 +172,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                       _signingIn = false;
                       _googleButtonForWebReady = true;
                     });
-                    widget.onUserReady(fluo);
+                    widget.onUserReady(_fluo!);
                   },
                 );
               },
@@ -190,7 +180,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
           if (showGoogleButton && kIsWeb)
             SizedBox(
               height: 40.0, // because GSIButtonSize.large is 40px tall
-              child: _connectButtonForGoogleWeb(fluo!),
+              child: _connectButtonForGoogleWeb(),
             ),
           if (showGoogleButton && !kIsWeb)
             _connectButton(
@@ -202,11 +192,11 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 Future.delayed(const Duration(milliseconds: 300), () {
                   setState(() => _signingIn = true);
                 });
-                final success = await fluo!.showConnectWithGoogleFlow(
+                final success = await _fluo!.showConnectWithGoogleFlow(
                   context: context,
                   theme: widget.theme,
                   onUserReady: () {
-                    widget.onUserReady(fluo);
+                    widget.onUserReady(_fluo!);
                   },
                 );
                 Future.delayed(Duration(milliseconds: success ? 300 : 0), () {
@@ -224,11 +214,11 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 Future.delayed(const Duration(milliseconds: 300), () {
                   setState(() => _signingIn = true);
                 });
-                final success = await fluo!.showConnectWithAppleFlow(
+                final success = await _fluo!.showConnectWithAppleFlow(
                   context: context,
                   theme: widget.theme,
                   onUserReady: () {
-                    widget.onUserReady(fluo);
+                    widget.onUserReady(_fluo!);
                   },
                 );
                 Future.delayed(Duration(milliseconds: success ? 300 : 0), () {
@@ -248,7 +238,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     context: context,
                     theme: widget.theme,
                     title: FluoLocalizations.of(context)!.termsAndConditions,
-                    url: fluo!.appConfig.termsUrl,
+                    url: _fluo!.appConfig.termsUrl,
                   ),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -261,7 +251,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     context: context,
                     theme: widget.theme,
                     title: FluoLocalizations.of(context)!.privacyPolicy,
-                    url: fluo!.appConfig.privacyUrl,
+                    url: _fluo!.appConfig.privacyUrl,
                   ),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -301,10 +291,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     );
   }
 
-  Widget _connectButtonForGoogleWeb(Fluo fluo) {
+  Widget _connectButtonForGoogleWeb() {
     var googleButtonForWeb = _googleButtonForWeb;
     if (googleButtonForWeb == null) {
-      _initGoogleButtonForWeb(fluo);
+      _initGoogleButtonForWeb();
       googleButtonForWeb = _connectButton(
         icon: widget.theme.connectButtonIconGoogle,
         title: FluoLocalizations.of(context)!.continueWithGoogle,
@@ -317,10 +307,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     return googleButtonForWeb;
   }
 
-  Future<void> _initGoogleButtonForWeb(Fluo fluo) async {
+  Future<void> _initGoogleButtonForWeb() async {
     final googleSignInPlugin = GoogleSignInPlugin();
     await googleSignInPlugin.init(
-      clientId: fluo.getGoogleClientId(),
+      clientId: _fluo!.getGoogleClientId(),
       scopes: ['email'],
     );
 
@@ -330,12 +320,12 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       if (!buildContext.mounted || googleIdToken == null) {
         return;
       }
-      fluo.createSession(
+      _fluo!.createSession(
         context: buildContext,
         theme: widget.theme,
         googleIdToken: googleIdToken,
         onUserReady: () {
-          widget.onUserReady(fluo);
+          widget.onUserReady(_fluo!);
         },
       );
     });

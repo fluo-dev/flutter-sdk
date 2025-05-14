@@ -319,7 +319,10 @@ class Fluo {
       context: context,
       theme: theme,
       navigator: RegisterNavigator(
-        onUserReady: onUserReady,
+        onUserReady: () {
+          Navigator.of(context).pop();
+          onUserReady();
+        },
       ),
     );
   }
