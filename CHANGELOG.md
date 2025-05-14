@@ -1,3 +1,8 @@
+## 0.9.0
+
+- Support for Web, super excited about that! See it live at https://fluo-website-demo.netlify.app
+- Introducing a dedicated theme `FluoTheme.web()`
+
 ## 0.8.1
 
 - The underline decoration of the legal text (terms & privacy) is not set to the color of the text
