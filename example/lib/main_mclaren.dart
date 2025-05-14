@@ -34,7 +34,7 @@ class ExampleApp extends StatelessWidget {
   }
 
   FluoTheme _theme() {
-    return FluoTheme(
+    return FluoTheme.native(
       primaryColor: Colors.black,
       inversePrimaryColor: Colors.white,
       connectButtonStyle: ButtonStyle(

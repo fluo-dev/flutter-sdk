@@ -24,15 +24,17 @@ class ExampleApp extends StatelessWidget {
       supportedLocales: FluoLocalizations.supportedLocales,
       theme: ThemeData(
         fontFamily: 'Geist',
+        colorScheme: const ColorScheme.light(),
       ),
       home: Scaffold(
         body: Center(
           child: SizedBox(
-            width: 700,
+            width: 400,
             height: 300,
             child: FluoOnboarding(
               apiKey: Config.apiKey,
-              theme: _theme(),
+              theme: FluoTheme.web(),
+              introBuilder: _introBuilder,
               onUserReady: _onUserReady,
             ),
           ),
@@ -41,53 +43,34 @@ class ExampleApp extends StatelessWidget {
     );
   }
 
-  FluoTheme _theme() {
-    final defaultTheme = FluoTheme.light();
-
-    return FluoTheme(
-      primaryColor: Colors.black,
-      inversePrimaryColor: Colors.white,
-      connectButtonStyle: defaultTheme.connectButtonStyle.copyWith(
-        backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(35),
-          ),
-        ),
-        minimumSize: WidgetStateProperty.all(const Size(600, 70)),
-      ),
-      inputDecoration: defaultTheme.inputDecoration.copyWith(
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 17.0,
-          horizontal: 15.0,
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(
-            color: Colors.black,
-            width: 2,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(
-            color: Colors.grey,
-            width: 2,
-          ),
-        ),
-      ),
-      legalTextStyle: defaultTheme.legalTextStyle.copyWith(
-        fontSize: 15,
-      ),
-      nextButtonStyle: defaultTheme.nextButtonStyle.copyWith(
-        minimumSize: WidgetStateProperty.all(const Size(600, 60)),
-        backgroundColor: WidgetStateProperty.all(Colors.black),
-        foregroundColor: WidgetStateProperty.all(Colors.white),
-        textStyle: WidgetStateProperty.all(
-          const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Geist',
+  Widget _introBuilder(
+    context,
+    initializing,
+    signingIn,
+    bottomContainerHeight,
+  ) {
+    return AnimatedOpacity(
+      opacity: initializing ? 0.0 : 1.0,
+      duration: const Duration(milliseconds: 2000),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: bottomContainerHeight + 120),
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/images/fluo.png',
+                height: 28,
+              ),
+              const SizedBox(height: 14),
+              Text(
+                'Try the Fluo web experience',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
         ),
       ),
