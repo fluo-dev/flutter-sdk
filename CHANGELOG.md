@@ -1,3 +1,7 @@
+## 0.11.0
+
+- Migrate to intl 0.20.2 to improve pub score
+
 ## 0.10.0
 
 - Make sure we've got support for macOS
