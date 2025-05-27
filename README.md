@@ -1,41 +1,12 @@
+<img src="https://fluo.dev/img/fluo-github-header.png" alt="fluo introduction">
+
 # Fluo
 
-- [Introduction](#introduction)
 - [Getting started](#getting-started)
 - [Integrating with Firebase](#integrating-with-firebase)
 - [Integrating with Supabase](#integrating-with-supabase)
 - [Integrating with any backend](#integrating-with-any-backend)
 - [Customizing the theme](#Customizing-the-theme)
-
-## Introduction
-
-**User onboarding for Flutter.**
-
-Seamless user authentication & registration, in your app with just 5 lines of code.
-
-<img src="https://fluo.dev/img/fluo-onboarding-screenshot.png" alt="Fluo Onboarding" width="300">
-
-**UX principles**
-
-- Passwordless
-- Single input screens
-- Seamless authentication
-
-**Auth methods**
-
-| Method              | Status | Note                                                                       |
-| ------------------- | ------ | -------------------------------------------------------------------------- |
-| Email + Code        | ✔️     | Fluo sends emails on your behalf                                           |
-| Sign-in with Google | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
-| Sign in with Apple  | ✔️     | Configurable in the [Fluo dashboard](https://dashboard.fluo.dev/app-setup) |
-
-**Registration**
-
-- Intuitive "get or create user" logic
-- Collect first name, last name, both, or none
-- Integration with Firebase
-- Integration with Supabase
-- Integration with any backend via JWT token (Node.js, Django, etc)
 
 ## Getting started
 
@@ -47,7 +18,7 @@ Seamless user authentication & registration, in your app with just 5 lines of co
 flutter pub add fluo
 ```
 
-**STEP 3** — Add the `FluoOnboarding` component in your app:
+**STEP 3** — Add the `FluoOnboarding` widget in your app:
 
 ```dart
 import 'package:fluo/fluo.dart';
@@ -100,6 +71,16 @@ class ExampleApp extends StatelessWidget {
     );
   }
 }
+```
+
+**For macOS**, make sure you have networking allowed by adding this key to both `{your-app}/macos/Runner/DebugProfile.entitlements` and `{your-app}/macos/Runner/Release.entitlements`:
+
+```xml
+<dict>
+	<!-- Add this key set to true -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+</dict>
 ```
 
 ## Integrating with Firebase
