@@ -30,12 +30,25 @@ class Fluo {
   /// session object from the secure storage and load the app configuration.
   static Future<Fluo> init(String apiKey) async {
     final apiClient = ApiClient(apiKey);
-    final sessionManager = await SessionManager.init();
-    await sessionManager.getSession(
-      apiClient: apiClient,
-      forceRefresh: true,
-    );
-    final appConfig = await apiClient.getAppConfig();
+
+    SessionManager sessionManager;
+    try {
+      sessionManager = await SessionManager.init();
+      await sessionManager.getSession(
+        apiClient: apiClient,
+        forceRefresh: true,
+      );
+    } catch (e) {
+      throw Exception('Failed to initialize session: $e');
+    }
+
+    AppConfig appConfig;
+    try {
+      appConfig = await apiClient.getAppConfig();
+    } catch (e) {
+      throw Exception('Failed to load app config: $e');
+    }
+
     return Fluo._(apiClient, sessionManager, appConfig);
   }
 
