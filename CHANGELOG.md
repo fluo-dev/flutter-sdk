@@ -1,3 +1,8 @@
+## 0.10.0
+
+- Make sure we've got support for macOS
+- Improve pub.dev score
+
 ## 0.9.0
 
 - Support for Web, super excited about that! See it live at https://fluo-website-demo.netlify.app
