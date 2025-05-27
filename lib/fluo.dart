@@ -1,3 +1,8 @@
+/// Provides the Fluo SDK for Flutter applications.
+///
+/// This library allows developers to integrate Fluo authentication and user management
+/// features into their Flutter apps. It handles session management, social sign-ins,
+/// and provides access to user data.
 library fluo;
 
 import 'dart:io';
@@ -105,7 +110,7 @@ class Fluo {
   /// Returns the access token or null if there is no valid session.
   ///
   /// If `null` is returned, you should show the connect flow by calling
-  /// [showConnectFlow].
+  /// [showConnectWithEmailFlow], [showConnectWithGoogleFlow], or [showConnectWithAppleFlow].
   ///
   /// More details below.
   ///
@@ -181,6 +186,13 @@ class Fluo {
     );
   }
 
+  /// Returns the Google client ID for the current platform.
+  ///
+  /// This method checks the app configuration to determine the appropriate
+  /// Google client ID based on the platform. It supports web, iOS, and Android.
+  ///
+  /// Returns:
+  /// - The Google client ID for the current platform.
   String getGoogleClientId() {
     final googleClientId = appConfig.authMethods
         .firstWhere((method) => method.id == 'google')
