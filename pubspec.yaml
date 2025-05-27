@@ -15,11 +15,11 @@ platforms:
   macos:
 
 topics:
-  - user onboarding
-  - user authentication
-  - user registration
-  - social login
-  - authentication sdk
+  - user-onboarding
+  - user-authentication
+  - user-registration
+  - social-login
+  - authentication-sdk
 
 dependencies:
   flutter:
