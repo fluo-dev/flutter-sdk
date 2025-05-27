@@ -2,9 +2,9 @@ import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Webview extends StatelessWidget {
   const Webview({
@@ -44,13 +44,8 @@ class Webview extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: InAppWebView(
-            initialSettings: InAppWebViewSettings(
-              transparentBackground: true,
-            ),
-            initialUrlRequest: URLRequest(
-              url: WebUri(url),
-            ),
+          child: WebViewWidget(
+            controller: WebViewController()..loadRequest(Uri.parse(url)),
           ),
         ),
       ],
