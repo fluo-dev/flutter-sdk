@@ -69,7 +69,7 @@ class FluoLocalizationsEn extends FluoLocalizations {
   String get next => 'Next';
 
   @override
-  String get continueWithEmail => 'Continue with e-mail';
+  String get continueWithEmail => 'Continue with email';
 
   @override
   String get termsAndConditions => 'Terms and conditions';
@@ -82,4 +82,10 @@ class FluoLocalizationsEn extends FluoLocalizations {
 
   @override
   String get continueWithApple => 'Continue with Apple';
+
+  @override
+  String get continueWithMobile => 'Continue with mobile';
+
+  @override
+  String get enterMobile => 'Enter your mobile number';
 }

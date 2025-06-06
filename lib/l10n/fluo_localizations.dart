@@ -226,7 +226,7 @@ abstract class FluoLocalizations {
   /// No description provided for @continueWithEmail.
   ///
   /// In en, this message translates to:
-  /// **'Continue with e-mail'**
+  /// **'Continue with email'**
   String get continueWithEmail;
 
   /// No description provided for @termsAndConditions.
@@ -252,6 +252,18 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'Continue with Apple'**
   String get continueWithApple;
+
+  /// No description provided for @continueWithMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with mobile'**
+  String get continueWithMobile;
+
+  /// No description provided for @enterMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your mobile number'**
+  String get enterMobile;
 }
 
 class _FluoLocalizationsDelegate

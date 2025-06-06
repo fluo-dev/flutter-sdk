@@ -30,5 +30,7 @@
   "termsAndConditions": "شرایط و ضوابط",
   "privacyPolicy": "سیاست حریم خصوصی",
   "continueWithGoogle": "ادامه با گوگل",
-  "continueWithApple": "ادامه با اپل"
+  "continueWithApple": "ادامه با اپل",
+  "continueWithMobile": "ادامه با موبایل",
+  "enterMobile": "شماره موبایل خود را وارد کنید"
 }

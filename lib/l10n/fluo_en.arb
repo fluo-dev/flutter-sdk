@@ -26,9 +26,11 @@
   "errorSessionRevoked": "Your session was revoked.",
   "errorUnauthorized": "You do not have the right permissions.",
   "next": "Next",
-  "continueWithEmail": "Continue with e-mail",
+  "continueWithEmail": "Continue with email",
   "termsAndConditions": "Terms and conditions",
   "privacyPolicy": "Privacy policy",
   "continueWithGoogle": "Continue with Google",
-  "continueWithApple": "Continue with Apple"
+  "continueWithApple": "Continue with Apple",
+  "continueWithMobile": "Continue with mobile",
+  "enterMobile": "Enter your mobile number"
 }

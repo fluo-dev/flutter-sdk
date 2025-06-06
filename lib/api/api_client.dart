@@ -38,11 +38,21 @@ class ApiClient {
 
   Future<PartialSession> createPartialSession({
     String? email,
+    String? mobileNumberE164,
+    String? mobileNumberIso2,
   }) async {
     final body = <String, dynamic>{};
 
     if (email != null) {
       body['email'] = email;
+    }
+
+    if (mobileNumberE164 != null) {
+      body['mobileNumberE164'] = mobileNumberE164;
+    }
+
+    if (mobileNumberIso2 != null) {
+      body['mobileNumberIso2'] = mobileNumberIso2;
     }
 
     final response = await _post(

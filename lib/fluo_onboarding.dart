@@ -123,6 +123,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
 
   Widget _connectContainer() {
     bool showEmailButton = false;
+    bool showMobileButton = true;
     bool showGoogleButton = false;
     bool showAppleButton = false;
 
@@ -130,6 +131,8 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       for (final method in _fluo!.appConfig.authMethods) {
         if (method.id == AuthMethodId.email) {
           showEmailButton = method.selected;
+        } else if (method.id == AuthMethodId.mobile) {
+          showMobileButton = method.selected;
         } else if (method.id == AuthMethodId.google) {
           showGoogleButton = method.selected;
         } else if (method.id == AuthMethodId.apple &&
@@ -151,6 +154,38 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             _connectButton(
               icon: widget.theme.connectButtonIconEmail,
               title: FluoLocalizations.of(context)!.continueWithEmail,
+              buttonStyle: widget.theme.connectButtonStyle,
+              textStyle: widget.theme.connectButtonTextStyle,
+              onPressed: () {
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  setState(() {
+                    _signingIn = true;
+                    _googleButtonForWebReady = false;
+                  });
+                });
+                _fluo!.showConnectWithEmailFlow(
+                  context: context,
+                  theme: widget.theme,
+                  onExit: () {
+                    setState(() => _signingIn = false);
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      setState(() => _googleButtonForWebReady = true);
+                    });
+                  },
+                  onUserReady: () {
+                    setState(() {
+                      _signingIn = false;
+                      _googleButtonForWebReady = true;
+                    });
+                    widget.onUserReady(_fluo!);
+                  },
+                );
+              },
+            ),
+          if (showMobileButton)
+            _connectButton(
+              icon: widget.theme.connectButtonIconMobile,
+              title: FluoLocalizations.of(context)!.continueWithMobile,
               buttonStyle: widget.theme.connectButtonStyle,
               textStyle: widget.theme.connectButtonTextStyle,
               onPressed: () {

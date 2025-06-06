@@ -84,4 +84,10 @@ class FluoLocalizationsDe extends FluoLocalizations {
 
   @override
   String get continueWithApple => 'Mit Apple fortfahren';
+
+  @override
+  String get continueWithMobile => 'Mit Handy fortfahren';
+
+  @override
+  String get enterMobile => 'Geben Sie Ihre Handynummer ein';
 }

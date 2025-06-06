@@ -29,6 +29,7 @@ class FluoTheme {
     TextStyle? connectButtonTextStyleApple,
     double? connectButtonIconSize,
     Widget? connectButtonIconEmail,
+    Widget? connectButtonIconMobile,
     Widget? connectButtonIconGoogle,
     Widget? connectButtonIconApple,
     TextStyle? legalTextStyle,
@@ -90,6 +91,12 @@ class FluoTheme {
 
     connectButtonIconEmail ??= Icon(
       Icons.mail_outline_rounded,
+      color: connectButtonTextStyle.color,
+      size: connectButtonIconSize,
+    );
+
+    connectButtonIconMobile ??= Icon(
+      Icons.phone_iphone_outlined,
       color: connectButtonTextStyle.color,
       size: connectButtonIconSize,
     );
@@ -224,6 +231,7 @@ class FluoTheme {
       connectButtonTextStyleApple,
       connectButtonIconSize,
       connectButtonIconEmail,
+      connectButtonIconMobile,
       connectButtonIconGoogle,
       connectButtonIconApple,
       legalTextStyle,
@@ -260,6 +268,7 @@ class FluoTheme {
     TextStyle? connectButtonTextStyleApple,
     double? connectButtonIconSize,
     Widget? connectButtonIconEmail,
+    Widget? connectButtonIconMobile,
     Widget? connectButtonIconGoogle,
     Widget? connectButtonIconApple,
     TextStyle? legalTextStyle,
@@ -337,6 +346,12 @@ class FluoTheme {
 
     connectButtonIconEmail ??= Icon(
       Icons.mail_outline_rounded,
+      color: connectButtonTextStyle.color,
+      size: connectButtonIconSize,
+    );
+
+    connectButtonIconMobile ??= Icon(
+      Icons.phone_android_rounded,
       color: connectButtonTextStyle.color,
       size: connectButtonIconSize,
     );
@@ -493,6 +508,7 @@ class FluoTheme {
       connectButtonTextStyleApple,
       connectButtonIconSize,
       connectButtonIconEmail,
+      connectButtonIconMobile,
       connectButtonIconGoogle,
       connectButtonIconApple,
       legalTextStyle,
@@ -529,6 +545,7 @@ class FluoTheme {
     this.connectButtonTextStyleApple,
     this.connectButtonIconSize,
     this.connectButtonIconEmail,
+    this.connectButtonIconMobile,
     this.connectButtonIconGoogle,
     this.connectButtonIconApple,
     this.legalTextStyle,
@@ -566,6 +583,7 @@ class FluoTheme {
 
   final double connectButtonIconSize;
   final Widget connectButtonIconEmail;
+  final Widget connectButtonIconMobile;
   final Widget connectButtonIconGoogle;
   final Widget connectButtonIconApple;
 

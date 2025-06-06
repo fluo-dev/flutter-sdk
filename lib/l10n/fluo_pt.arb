@@ -26,9 +26,11 @@
   "errorSessionRevoked": "A sua sessão foi revogada.",
   "errorUnauthorized": "Não tem as permissões necessárias.",
   "next": "Seguinte",
-  "continueWithEmail": "Continuar com email",
+  "continueWithEmail": "Continuar com o e-mail",
   "termsAndConditions": "Termos e condições",
   "privacyPolicy": "Política de privacidade",
-  "continueWithGoogle": "Continuar com o Google",
-  "continueWithApple": "Continuar com a Apple"
+  "continueWithGoogle": "Continuar com Google",
+  "continueWithApple": "Continuar com Apple",
+  "continueWithMobile": "Continuar com celular",
+  "enterMobile": "Digite seu número de celular"
 }

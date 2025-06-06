@@ -30,5 +30,7 @@
   "termsAndConditions": "Conditions générales",
   "privacyPolicy": "Politique de confidentialité",
   "continueWithGoogle": "Continuer avec Google",
-  "continueWithApple": "Continuer avec Apple"
+  "continueWithApple": "Continuer avec Apple",
+  "continueWithMobile": "Continuer avec le mobile",
+  "enterMobile": "Entrez votre numéro de mobile"
 }

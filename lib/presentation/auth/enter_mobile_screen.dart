@@ -1,57 +1,49 @@
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/fluo_localized_models.dart';
-import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EnterFirstNameScreen extends StatefulWidget {
-  const EnterFirstNameScreen({
+class EnterMobileScreen extends StatefulWidget {
+  const EnterMobileScreen({
     super.key,
     required this.onBackButtonPressed,
-    required this.onFirstNameSubmitted,
+    required this.onMobileSubmitted,
   });
 
-  final Function()? onBackButtonPressed;
-  final Function() onFirstNameSubmitted;
+  final Function() onBackButtonPressed;
+  final Function(PartialSession partialSession) onMobileSubmitted;
 
   @override
-  State<EnterFirstNameScreen> createState() => _EnterFirstNameScreenState();
+  State<EnterMobileScreen> createState() => _EnterMobileScreenState();
 }
 
-class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
-  final TextEditingController _firstNameController = TextEditingController();
+class _EnterMobileScreenState extends State<EnterMobileScreen> {
+  final TextEditingController _mobileController = TextEditingController();
   String? _errorText;
   bool _loading = false;
-  bool _isFirstNameValid = false;
+  final bool _isMobileValid = false;
 
   @override
   void initState() {
     super.initState();
 
-    final session = context.read<SessionManager>().session;
-    if (session != null) {
-      final firstName = session.user.firstName;
-      if (firstName != null) {
-        _firstNameController.text = firstName;
-      }
-    }
-
-    _firstNameController.addListener(() {
+    _mobileController.addListener(() {
       setState(() {
         _errorText = null;
-        _isFirstNameValid = _firstNameController.text.length >= 2;
+        // _isMobileValid = do it
       });
     });
   }
 
   @override
   void dispose() {
-    _firstNameController.dispose();
+    _mobileController.dispose();
     super.dispose();
   }
 
@@ -59,28 +51,27 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
   Widget build(BuildContext context) {
     final theme = context.read<FluoTheme>();
     return SingleInputScreen(
-      inputTitle: FluoLocalizations.of(context)!.enterFirstName,
+      inputTitle: FluoLocalizations.of(context)!.enterMobile,
       inputWidget: TextField(
-        controller: _firstNameController,
+        controller: _mobileController,
         style: theme.inputTextStyle,
         textAlignVertical: theme.inputTextAlignVertical,
         decoration: theme.inputDecoration.copyWith(
-          hintText: FluoLocalizations.of(context)!.enterFirstNamePlaceholder,
-          suffixIcon: ClearSuffixButton(controller: _firstNameController),
+          // hintText: do it
+          suffixIcon: ClearSuffixButton(controller: _mobileController),
         ),
         onSubmitted: (_) => _onNext(),
         autofocus: true,
         autocorrect: false,
-        textCapitalization: TextCapitalization.words,
         textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.phone,
         autofillHints: const [
-          AutofillHints.givenName,
+          AutofillHints.telephoneNumber,
         ],
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isFirstNameValid,
+      nextButtonEnabled: _isMobileValid,
       errorText: _errorText,
       loading: _loading,
     );
@@ -90,13 +81,11 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();
-      final sessionManager = context.read<SessionManager>();
-      final session = await sessionManager.getSession(apiClient: apiClient);
-      await apiClient.updateUser(
-        accessToken: session!.accessToken,
-        firstName: _firstNameController.text,
+      final partialSession = await apiClient.createPartialSession(
+        mobileNumberE164: '',
+        mobileNumberIso2: '',
       );
-      widget.onFirstNameSubmitted();
+      widget.onMobileSubmitted(partialSession);
     } on ApiError catch (apiError) {
       setState(() {
         _errorText = FluoLocalizedModels.error(context, apiError.message);

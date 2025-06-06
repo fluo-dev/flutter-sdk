@@ -88,10 +88,13 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
       );
       widget.onEmailSubmitted(partialSession);
     } on ApiError catch (apiError) {
-      setState(() => _errorText =
-          FluoLocalizedModels.localizedError(context, apiError.message));
+      setState(() {
+        _errorText = FluoLocalizedModels.error(context, apiError.message);
+      });
     } catch (error) {
-      setState(() => _errorText = FluoLocalizations.of(context)!.errorUnknown);
+      setState(() {
+        _errorText = FluoLocalizations.of(context)!.errorUnknown;
+      });
     } finally {
       setState(() => _loading = false);
     }

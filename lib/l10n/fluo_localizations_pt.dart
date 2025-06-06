@@ -70,7 +70,7 @@ class FluoLocalizationsPt extends FluoLocalizations {
   String get next => 'Seguinte';
 
   @override
-  String get continueWithEmail => 'Continuar com email';
+  String get continueWithEmail => 'Continuar com o e-mail';
 
   @override
   String get termsAndConditions => 'Termos e condições';
@@ -79,10 +79,16 @@ class FluoLocalizationsPt extends FluoLocalizations {
   String get privacyPolicy => 'Política de privacidade';
 
   @override
-  String get continueWithGoogle => 'Continuar com o Google';
+  String get continueWithGoogle => 'Continuar com Google';
 
   @override
-  String get continueWithApple => 'Continuar com a Apple';
+  String get continueWithApple => 'Continuar com Apple';
+
+  @override
+  String get continueWithMobile => 'Continuar com celular';
+
+  @override
+  String get enterMobile => 'Digite seu número de celular';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -150,7 +156,7 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
   String get next => 'Próximo';
 
   @override
-  String get continueWithEmail => 'Continuar com e-mail';
+  String get continueWithEmail => 'Continuar com o e-mail';
 
   @override
   String get termsAndConditions => 'Termos e condições';
@@ -159,8 +165,11 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
   String get privacyPolicy => 'Política de privacidade';
 
   @override
-  String get continueWithGoogle => 'Continuar com o Google';
+  String get continueWithGoogle => 'Continuar com Google';
 
   @override
-  String get continueWithApple => 'Continuar com a Apple';
+  String get continueWithApple => 'Continuar com Apple';
+
+  @override
+  String get continueWithMobile => 'Continuar com o celular';
 }

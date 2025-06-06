@@ -103,10 +103,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       widget.onCodeVerified(session);
     } on ApiError catch (apiError) {
       setState(() {
-        _errorText = FluoLocalizedModels.localizedError(
-          context,
-          apiError.message,
-        );
+        _errorText = FluoLocalizedModels.error(context, apiError.message);
       });
     } catch (error) {
       setState(() {

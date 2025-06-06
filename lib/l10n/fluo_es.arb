@@ -26,9 +26,11 @@
   "errorSessionRevoked": "Tu sesión ha sido revocada.",
   "errorUnauthorized": "No tienes los permisos necesarios.",
   "next": "Siguiente",
-  "continueWithEmail": "Continuar con correo",
+  "continueWithEmail": "Continuar con el correo",
   "termsAndConditions": "Términos y condiciones",
   "privacyPolicy": "Política de privacidad",
   "continueWithGoogle": "Continuar con Google",
-  "continueWithApple": "Continuar con Apple"
+  "continueWithApple": "Continuar con Apple",
+  "continueWithMobile": "Continuar con móvil",
+  "enterMobile": "Introduce tu número de móvil"
 }

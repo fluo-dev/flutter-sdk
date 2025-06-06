@@ -49,5 +49,6 @@ dev_dependencies:
   json_serializable: ^6.8.0
 
 flutter:
+  generate: true
   assets:
     - assets/images/

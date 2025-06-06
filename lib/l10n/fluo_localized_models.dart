@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'fluo_localizations.dart';
 
 class FluoLocalizedModels {
-  static String localizedError(BuildContext context, String messageId) {
+  static String error(BuildContext context, String messageId) {
     final fluoLocalizations = FluoLocalizations.of(context)!;
     switch (messageId) {
       case 'unauthorized':

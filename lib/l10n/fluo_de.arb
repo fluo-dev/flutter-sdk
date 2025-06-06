@@ -30,5 +30,7 @@
   "termsAndConditions": "Geschäftsbedingungen",
   "privacyPolicy": "Datenschutzrichtlinie",
   "continueWithGoogle": "Mit Google fortfahren",
-  "continueWithApple": "Mit Apple fortfahren"
+  "continueWithApple": "Mit Apple fortfahren",
+  "continueWithMobile": "Mit Handy fortfahren",
+  "enterMobile": "Geben Sie Ihre Handynummer ein"
 }

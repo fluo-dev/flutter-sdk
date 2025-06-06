@@ -82,4 +82,10 @@ class FluoLocalizationsFa extends FluoLocalizations {
 
   @override
   String get continueWithApple => 'ادامه با اپل';
+
+  @override
+  String get continueWithMobile => 'ادامه با موبایل';
+
+  @override
+  String get enterMobile => 'شماره موبایل خود را وارد کنید';
 }
