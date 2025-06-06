@@ -2,19 +2,23 @@ import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/enter_code_screen.dart';
 import 'package:fluo/presentation/auth/enter_email_screen.dart';
+import 'package:fluo/presentation/auth/enter_mobile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-const routeEnterEmail = '/';
-const routeEnterCode = '/enter-code';
 
 class AuthNavigator extends StatefulWidget {
   const AuthNavigator({
     super.key,
+    required this.initialRoute,
     required this.onExit,
     required this.onUserAuthenticated,
   });
 
+  static const routeEnterEmail = '/enter-email';
+  static const routeEnterMobile = '/enter-mobile';
+  static const routeEnterCode = '/enter-code';
+
+  final String initialRoute;
   final Function() onExit;
   final Function() onUserAuthenticated;
 
@@ -31,6 +35,7 @@ class AuthNavigatorState extends State<AuthNavigator> {
   Widget build(BuildContext context) {
     return Navigator(
       key: _navigatorKey,
+      initialRoute: widget.initialRoute,
       onGenerateRoute: _onGenerateRoute,
     );
   }
@@ -42,17 +47,27 @@ class AuthNavigatorState extends State<AuthNavigator> {
   Route<Widget> _onGenerateRoute(RouteSettings settings) {
     late Widget page;
 
-    if (settings.name == routeEnterEmail) {
+    if (settings.name == AuthNavigator.routeEnterEmail) {
       page = EnterEmailScreen(
         onBackButtonPressed: () {
           widget.onExit();
         },
         onEmailSubmitted: (partialSession) {
           _partialSession = partialSession;
-          _navigator().pushNamed(routeEnterCode);
+          _navigator().pushNamed(AuthNavigator.routeEnterCode);
         },
       );
-    } else if (settings.name == routeEnterCode) {
+    } else if (settings.name == AuthNavigator.routeEnterMobile) {
+      page = EnterMobileScreen(
+        onBackButtonPressed: () {
+          widget.onExit();
+        },
+        onMobileSubmitted: (partialSession) {
+          _partialSession = partialSession;
+          _navigator().pushNamed(AuthNavigator.routeEnterCode);
+        },
+      );
+    } else if (settings.name == AuthNavigator.routeEnterCode) {
       page = EnterCodeScreen(
         partialSession: _partialSession!,
         onBackButtonPressed: _navigator().pop,

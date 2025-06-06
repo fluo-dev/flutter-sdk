@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
@@ -27,6 +29,7 @@ class EnterEmailScreen extends StatefulWidget {
 
 class _EnterEmailScreenState extends State<EnterEmailScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   String? _errorText;
   bool _loading = false;
   bool _isEmailValid = false;
@@ -41,11 +44,18 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
         _isEmailValid = emailRegex.hasMatch(_emailController.text);
       });
     });
+
+    Timer(const Duration(milliseconds: 600), () {
+      if (mounted) {
+        _focusNode.requestFocus();
+      }
+    });
   }
 
   @override
   void dispose() {
     _emailController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -56,6 +66,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
       inputWidget: TextField(
         controller: _emailController,
+        focusNode: _focusNode,
         style: theme.inputTextStyle,
         textAlignVertical: theme.inputTextAlignVertical,
         decoration: theme.inputDecoration.copyWith(
@@ -63,7 +74,6 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
           suffixIcon: ClearSuffixButton(controller: _emailController),
         ),
         onSubmitted: (_) => _onNext(),
-        autofocus: true,
         autocorrect: false,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,

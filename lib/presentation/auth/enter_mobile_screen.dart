@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
@@ -25,6 +27,7 @@ class EnterMobileScreen extends StatefulWidget {
 
 class _EnterMobileScreenState extends State<EnterMobileScreen> {
   final TextEditingController _mobileController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   String? _errorText;
   bool _loading = false;
   final bool _isMobileValid = false;
@@ -39,11 +42,18 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
         // _isMobileValid = do it
       });
     });
+
+    Timer(const Duration(milliseconds: 600), () {
+      if (mounted) {
+        _focusNode.requestFocus();
+      }
+    });
   }
 
   @override
   void dispose() {
     _mobileController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -54,6 +64,7 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
       inputTitle: FluoLocalizations.of(context)!.enterMobile,
       inputWidget: TextField(
         controller: _mobileController,
+        focusNode: _focusNode,
         style: theme.inputTextStyle,
         textAlignVertical: theme.inputTextAlignVertical,
         decoration: theme.inputDecoration.copyWith(
@@ -61,7 +72,6 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
           suffixIcon: ClearSuffixButton(controller: _mobileController),
         ),
         onSubmitted: (_) => _onNext(),
-        autofocus: true,
         autocorrect: false,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.phone,

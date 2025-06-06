@@ -195,7 +195,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     _googleButtonForWebReady = false;
                   });
                 });
-                _fluo!.showConnectWithEmailFlow(
+                _fluo!.showConnectWithMobileFlow(
                   context: context,
                   theme: widget.theme,
                   onExit: () {

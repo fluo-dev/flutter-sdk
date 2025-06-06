@@ -166,6 +166,43 @@ class Fluo {
       context: context,
       theme: theme,
       navigator: AuthNavigator(
+        initialRoute: AuthNavigator.routeEnterEmail,
+        onExit: () {
+          Navigator.of(context).pop();
+          onExit();
+        },
+        onUserAuthenticated: () {
+          Navigator.of(context).pop();
+          if (isUserComplete()) {
+            onUserReady();
+          } else {
+            showRegisterFlow(
+              context: context,
+              theme: theme,
+              onUserReady: onUserReady,
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  /// Shows the connect with mobile flow.
+  ///
+  /// This is a modal dialog which takes care of collecting the user's mobile number,
+  /// sending an otp, and validating the session.
+  ///
+  void showConnectWithMobileFlow({
+    required BuildContext context,
+    required FluoTheme theme,
+    required Function() onExit,
+    required Function() onUserReady,
+  }) {
+    _showNavigator(
+      context: context,
+      theme: theme,
+      navigator: AuthNavigator(
+        initialRoute: AuthNavigator.routeEnterMobile,
         onExit: () {
           Navigator.of(context).pop();
           onExit();
