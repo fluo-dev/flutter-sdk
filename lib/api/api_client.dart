@@ -14,7 +14,8 @@ final class Error {
 class ApiClient {
   ApiClient(this.apiKey);
 
-  static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
+  //static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
+  static const String baseUrl = 'http://127.0.0.1:8090/api/v1';
 
   final String apiKey;
 
@@ -38,8 +39,9 @@ class ApiClient {
 
   Future<PartialSession> createPartialSession({
     String? email,
-    String? mobileNumberE164,
-    String? mobileNumberIso2,
+    String? mobileE164,
+    String? mobileIso2,
+    String? mobileLocal,
   }) async {
     final body = <String, dynamic>{};
 
@@ -47,12 +49,16 @@ class ApiClient {
       body['email'] = email;
     }
 
-    if (mobileNumberE164 != null) {
-      body['mobileNumberE164'] = mobileNumberE164;
+    if (mobileE164 != null) {
+      body['mobileE164'] = mobileE164;
     }
 
-    if (mobileNumberIso2 != null) {
-      body['mobileNumberIso2'] = mobileNumberIso2;
+    if (mobileIso2 != null) {
+      body['mobileIso2'] = mobileIso2;
+    }
+
+    if (mobileLocal != null) {
+      body['mobileLocal'] = mobileLocal;
     }
 
     final response = await _post(

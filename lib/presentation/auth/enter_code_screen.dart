@@ -77,18 +77,35 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
       nextButtonEnabled: _isCodeComplete,
-      helperWidget: StyledText(
-        text: FluoLocalizations.of(context)!
-            .enterCodeHelper(widget.partialSession.email!),
-        style: Theme.of(context).textTheme.bodyMedium,
-        tags: {
-          'email': StyledTextTag(
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        },
-      ),
+      helperWidget: _helperWidget(),
       errorText: _errorText,
       loading: _loading,
+    );
+  }
+
+  Widget _helperWidget() {
+    String text = '';
+
+    final email = widget.partialSession.email;
+    if (email != null) {
+      text = FluoLocalizations.of(context)!.enterEmailCodeHelper(email);
+    }
+
+    final mobileLocal = widget.partialSession.mobileLocal;
+    if (mobileLocal != null) {
+      text = FluoLocalizations.of(context)!.enterMessageCodeHelper(mobileLocal);
+    }
+
+    return StyledText(
+      text: text,
+      tags: {
+        'email': StyledTextTag(
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        'mobile': StyledTextTag(
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      },
     );
   }
 

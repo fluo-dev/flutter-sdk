@@ -5,8 +5,7 @@ import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/fluo_localized_models.dart';
-import 'package:fluo/theme.dart';
-import 'package:fluo/widgets/clear_suffix_button.dart';
+import 'package:fluo/widgets/mobile_input.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +27,10 @@ class EnterMobileScreen extends StatefulWidget {
 class _EnterMobileScreenState extends State<EnterMobileScreen> {
   final TextEditingController _mobileController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  String? _mobileE164;
+  String? _mobileIso2;
   String? _errorText;
   bool _loading = false;
-  final bool _isMobileValid = false;
 
   @override
   void initState() {
@@ -59,29 +59,21 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterMobile,
-      inputWidget: TextField(
+      inputWidget: MobileInput(
         controller: _mobileController,
         focusNode: _focusNode,
-        style: theme.inputTextStyle,
-        textAlignVertical: theme.inputTextAlignVertical,
-        decoration: theme.inputDecoration.copyWith(
-          // hintText: do it
-          suffixIcon: ClearSuffixButton(controller: _mobileController),
-        ),
-        onSubmitted: (_) => _onNext(),
-        autocorrect: false,
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.phone,
-        autofillHints: const [
-          AutofillHints.telephoneNumber,
-        ],
+        onComplete: (mobileE164, mobileIso2) {
+          setState(() {
+            _mobileE164 = mobileE164;
+            _mobileIso2 = mobileIso2;
+          });
+        },
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isMobileValid,
+      nextButtonEnabled: _mobileE164 != null,
       errorText: _errorText,
       loading: _loading,
     );
@@ -92,8 +84,9 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();
       final partialSession = await apiClient.createPartialSession(
-        mobileNumberE164: '',
-        mobileNumberIso2: '',
+        mobileE164: _mobileE164,
+        mobileIso2: _mobileIso2,
+        mobileLocal: _mobileController.text,
       );
       widget.onMobileSubmitted(partialSession);
     } on ApiError catch (apiError) {

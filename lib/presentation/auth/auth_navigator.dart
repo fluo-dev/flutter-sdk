@@ -76,13 +76,17 @@ class AuthNavigatorState extends State<AuthNavigator> {
           widget.onUserAuthenticated();
         },
       );
+    } else {
+      // This is to avoid an exception because navigators always start
+      // with a "/" route even when an initial route is set.
+      page = const SizedBox.shrink();
     }
 
     return MaterialPageRoute(
+      settings: settings,
       builder: (context) {
         return page;
       },
-      settings: settings,
     );
   }
 }

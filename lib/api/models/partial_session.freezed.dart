@@ -22,6 +22,9 @@ PartialSession _$PartialSessionFromJson(Map<String, dynamic> json) {
 mixin _$PartialSession {
   String get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get mobileE164 => throw _privateConstructorUsedError;
+  String? get mobileIso2 => throw _privateConstructorUsedError;
+  String? get mobileLocal => throw _privateConstructorUsedError;
 
   /// Serializes this PartialSession to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +42,12 @@ abstract class $PartialSessionCopyWith<$Res> {
           PartialSession value, $Res Function(PartialSession) then) =
       _$PartialSessionCopyWithImpl<$Res, PartialSession>;
   @useResult
-  $Res call({String id, String? email});
+  $Res call(
+      {String id,
+      String? email,
+      String? mobileE164,
+      String? mobileIso2,
+      String? mobileLocal});
 }
 
 /// @nodoc
@@ -59,6 +67,9 @@ class _$PartialSessionCopyWithImpl<$Res, $Val extends PartialSession>
   $Res call({
     Object? id = null,
     Object? email = freezed,
+    Object? mobileE164 = freezed,
+    Object? mobileIso2 = freezed,
+    Object? mobileLocal = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -68,6 +79,18 @@ class _$PartialSessionCopyWithImpl<$Res, $Val extends PartialSession>
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobileE164: freezed == mobileE164
+          ? _value.mobileE164
+          : mobileE164 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobileIso2: freezed == mobileIso2
+          ? _value.mobileIso2
+          : mobileIso2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobileLocal: freezed == mobileLocal
+          ? _value.mobileLocal
+          : mobileLocal // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -81,7 +104,12 @@ abstract class _$$PartialSessionImplCopyWith<$Res>
       __$$PartialSessionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String? email});
+  $Res call(
+      {String id,
+      String? email,
+      String? mobileE164,
+      String? mobileIso2,
+      String? mobileLocal});
 }
 
 /// @nodoc
@@ -99,6 +127,9 @@ class __$$PartialSessionImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = freezed,
+    Object? mobileE164 = freezed,
+    Object? mobileIso2 = freezed,
+    Object? mobileLocal = freezed,
   }) {
     return _then(_$PartialSessionImpl(
       id: null == id
@@ -109,6 +140,18 @@ class __$$PartialSessionImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      mobileE164: freezed == mobileE164
+          ? _value.mobileE164
+          : mobileE164 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobileIso2: freezed == mobileIso2
+          ? _value.mobileIso2
+          : mobileIso2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobileLocal: freezed == mobileLocal
+          ? _value.mobileLocal
+          : mobileLocal // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -116,7 +159,12 @@ class __$$PartialSessionImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PartialSessionImpl implements _PartialSession {
-  const _$PartialSessionImpl({required this.id, this.email});
+  const _$PartialSessionImpl(
+      {required this.id,
+      this.email,
+      this.mobileE164,
+      this.mobileIso2,
+      this.mobileLocal});
 
   factory _$PartialSessionImpl.fromJson(Map<String, dynamic> json) =>
       _$$PartialSessionImplFromJson(json);
@@ -125,10 +173,16 @@ class _$PartialSessionImpl implements _PartialSession {
   final String id;
   @override
   final String? email;
+  @override
+  final String? mobileE164;
+  @override
+  final String? mobileIso2;
+  @override
+  final String? mobileLocal;
 
   @override
   String toString() {
-    return 'PartialSession(id: $id, email: $email)';
+    return 'PartialSession(id: $id, email: $email, mobileE164: $mobileE164, mobileIso2: $mobileIso2, mobileLocal: $mobileLocal)';
   }
 
   @override
@@ -137,12 +191,19 @@ class _$PartialSessionImpl implements _PartialSession {
         (other.runtimeType == runtimeType &&
             other is _$PartialSessionImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.mobileE164, mobileE164) ||
+                other.mobileE164 == mobileE164) &&
+            (identical(other.mobileIso2, mobileIso2) ||
+                other.mobileIso2 == mobileIso2) &&
+            (identical(other.mobileLocal, mobileLocal) ||
+                other.mobileLocal == mobileLocal));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email);
+  int get hashCode =>
+      Object.hash(runtimeType, id, email, mobileE164, mobileIso2, mobileLocal);
 
   /// Create a copy of PartialSession
   /// with the given fields replaced by the non-null parameter values.
@@ -163,7 +224,11 @@ class _$PartialSessionImpl implements _PartialSession {
 
 abstract class _PartialSession implements PartialSession {
   const factory _PartialSession(
-      {required final String id, final String? email}) = _$PartialSessionImpl;
+      {required final String id,
+      final String? email,
+      final String? mobileE164,
+      final String? mobileIso2,
+      final String? mobileLocal}) = _$PartialSessionImpl;
 
   factory _PartialSession.fromJson(Map<String, dynamic> json) =
       _$PartialSessionImpl.fromJson;
@@ -172,6 +237,12 @@ abstract class _PartialSession implements PartialSession {
   String get id;
   @override
   String? get email;
+  @override
+  String? get mobileE164;
+  @override
+  String? get mobileIso2;
+  @override
+  String? get mobileLocal;
 
   /// Create a copy of PartialSession
   /// with the given fields replaced by the non-null parameter values.

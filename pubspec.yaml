@@ -22,8 +22,12 @@ topics:
   - authentication-sdk
 
 dependencies:
+  country_flags: ^3.3.0
+  device_region: ^1.4.0
+  diacritic: ^0.1.6
   flutter:
     sdk: flutter
+  flutter_libphonenumber: ^2.5.1
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.2

@@ -44,6 +44,9 @@ class FluoTheme {
     Size? nextButtonProgressIndicatorSize,
     Color? nextButtonProgressIndicatorColor,
     double? nextButtonProgressIndicatorStrokeWidth,
+    EdgeInsets? countryItemPadding,
+    Color? countryItemHighlightColor,
+    TextStyle? countryTextStyle,
     PinTheme? codeInputThemeDefault,
     PinTheme? codeInputThemeFocused,
     PinTheme? codeInputThemeSubmitted,
@@ -141,7 +144,7 @@ class FluoTheme {
       isDense: true,
       contentPadding: const EdgeInsets.symmetric(
         vertical: 15.0,
-        horizontal: 15.0,
+        horizontal: 20.0,
       ),
       hintStyle: TextStyle(
         fontSize: 18,
@@ -187,6 +190,18 @@ class FluoTheme {
     nextButtonProgressIndicatorColor ??= inversePrimaryColor;
 
     nextButtonProgressIndicatorStrokeWidth ??= 2.0;
+
+    countryItemPadding ??= const EdgeInsets.symmetric(
+      horizontal: 20.0,
+      vertical: 15.0,
+    );
+
+    countryItemHighlightColor ??= primaryColor.withAlpha(255 ~/ 16);
+
+    countryTextStyle ??= const TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+    );
 
     codeInputThemeDefault ??= PinTheme(
       width: 54.0,
@@ -246,6 +261,9 @@ class FluoTheme {
       nextButtonProgressIndicatorSize,
       nextButtonProgressIndicatorColor,
       nextButtonProgressIndicatorStrokeWidth,
+      countryItemPadding,
+      countryItemHighlightColor,
+      countryTextStyle,
       codeInputThemeDefault,
       codeInputThemeFocused,
       codeInputThemeSubmitted,
@@ -283,6 +301,9 @@ class FluoTheme {
     Size? nextButtonProgressIndicatorSize,
     Color? nextButtonProgressIndicatorColor,
     double? nextButtonProgressIndicatorStrokeWidth,
+    EdgeInsets? countryItemPadding,
+    Color? countryItemHighlightColor,
+    TextStyle? countryTextStyle,
     PinTheme? codeInputThemeDefault,
     PinTheme? codeInputThemeFocused,
     PinTheme? codeInputThemeSubmitted,
@@ -465,6 +486,18 @@ class FluoTheme {
 
     nextButtonProgressIndicatorStrokeWidth ??= 1.5;
 
+    countryItemPadding ??= const EdgeInsets.symmetric(
+      horizontal: 12.0,
+      vertical: 8.0,
+    );
+
+    countryItemHighlightColor ??= primaryColor.withAlpha(255 ~/ 16);
+
+    countryTextStyle ??= const TextStyle(
+      fontSize: 17.0,
+      fontWeight: FontWeight.w600,
+    );
+
     codeInputThemeDefault ??= PinTheme(
       width: 54.0,
       height: 64.0,
@@ -523,6 +556,9 @@ class FluoTheme {
       nextButtonProgressIndicatorSize,
       nextButtonProgressIndicatorColor,
       nextButtonProgressIndicatorStrokeWidth,
+      countryItemPadding,
+      countryItemHighlightColor,
+      countryTextStyle,
       codeInputThemeDefault,
       codeInputThemeFocused,
       codeInputThemeSubmitted,
@@ -560,6 +596,9 @@ class FluoTheme {
     this.nextButtonProgressIndicatorSize,
     this.nextButtonProgressIndicatorColor,
     this.nextButtonProgressIndicatorStrokeWidth,
+    this.countryItemPadding,
+    this.countryItemHighlightColor,
+    this.countryTextStyle,
     this.codeInputThemeDefault,
     this.codeInputThemeFocused,
     this.codeInputThemeSubmitted,
@@ -602,6 +641,10 @@ class FluoTheme {
   final Size nextButtonProgressIndicatorSize;
   final Color nextButtonProgressIndicatorColor;
   final double nextButtonProgressIndicatorStrokeWidth;
+
+  final EdgeInsets countryItemPadding;
+  final Color countryItemHighlightColor;
+  final TextStyle countryTextStyle;
 
   final PinTheme? codeInputThemeDefault;
   final PinTheme? codeInputThemeFocused;
