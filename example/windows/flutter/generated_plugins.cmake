@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  device_region
   flutter_inappwebview_windows
   flutter_secure_storage_windows
   url_launcher_windows

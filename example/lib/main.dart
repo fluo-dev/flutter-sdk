@@ -17,6 +17,13 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: const ColorScheme.light(
+          surface: Colors.white,
+          primary: Colors.black,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       navigatorKey: _navigatorKey,
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
