@@ -11,6 +11,7 @@ import 'package:fluo/l10n/localized_countries_ko.dart';
 import 'package:fluo/l10n/localized_countries_nl.dart';
 import 'package:fluo/l10n/localized_countries_pl.dart';
 import 'package:fluo/l10n/localized_countries_pt.dart';
+import 'package:fluo/l10n/localized_countries_pt_BR.dart';
 import 'package:fluo/l10n/localized_countries_ru.dart';
 import 'package:fluo/l10n/localized_countries_sv.dart';
 import 'package:fluo/l10n/localized_countries_tr.dart';
@@ -71,6 +72,9 @@ class Localized {
       case 'pl':
         return localizedCountriesPl[countryCode];
       case 'pt':
+        if (locale.countryCode == 'BR') {
+          return localizedCountriesPtBR[countryCode];
+        }
         return localizedCountriesPt[countryCode];
       case 'ru':
         return localizedCountriesRu[countryCode];

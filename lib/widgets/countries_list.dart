@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:country_flags/country_flags.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class CountryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.read<FluoTheme>();
+    final name = Localized.countryName(context, country.countryCode);
     return InkWell(
       onTap: onTap,
       highlightColor: theme.countryItemHighlightColor,
@@ -39,7 +41,7 @@ class CountryItem extends StatelessWidget {
             const SizedBox(width: 20.0),
             Expanded(
               child: Text(
-                country.countryName!,
+                name ?? country.countryCode,
                 style: theme.countryTextStyle,
               ),
             ),
@@ -150,22 +152,17 @@ class _CountriesListState extends State<CountriesList> {
 
   void _filterCountries(String query) {
     if (query.isEmpty) {
-      setState(() {
-        _filteredCountries = widget.countries;
-      });
+      setState(() => _filteredCountries = widget.countries);
       return;
     }
 
     final lowercaseQuery = query.toLowerCase();
-    setState(() {
-      _filteredCountries = widget.countries.where((country) {
-        final countryName = country.countryName?.toLowerCase() ?? '';
-        final countryCode = country.countryCode.toLowerCase();
-        final phoneCode = country.phoneCode.toLowerCase();
-        return countryName.contains(lowercaseQuery) ||
-            countryCode.contains(lowercaseQuery) ||
-            phoneCode.contains(lowercaseQuery);
-      }).toList();
-    });
+    final filteredCountries = widget.countries.where((country) {
+      final name = Localized.countryName(context, country.countryCode) ?? '';
+      return name.toLowerCase().contains(lowercaseQuery) ||
+          country.phoneCode.toLowerCase().contains(lowercaseQuery);
+    }).toList();
+
+    setState(() => _filteredCountries = filteredCountries);
   }
 }
