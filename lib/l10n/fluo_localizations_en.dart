@@ -99,9 +99,9 @@ class FluoLocalizationsEn extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'A verification code will be sent to verify your email address.';
+      'A verification code will be sent to verify your email address. Make sure to check your inbox.';
 
   @override
   String get enterMobileHelper =>
-      'A verification code will be sent to verify your mobile number.';
+      'A verification code will be sent to verify your mobile number. Make sure to have access to messages.';
 }

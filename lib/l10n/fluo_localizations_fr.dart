@@ -102,9 +102,9 @@ class FluoLocalizationsFr extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'Un code de vérification sera envoyé pour vérifier votre adresse e-mail.';
+      'Un code de vérification sera envoyé pour vérifier votre adresse e-mail. Assurez-vous de vérifier votre boîte de réception.';
 
   @override
   String get enterMobileHelper =>
-      'Un code de vérification sera envoyé pour vérifier votre numéro de mobile.';
+      'Un code de vérification sera envoyé pour vérifier votre numéro de mobile. Assurez-vous d\'avoir accès à vos messages.';
 }

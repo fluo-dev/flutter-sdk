@@ -61,6 +61,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = FluoLocalizations.of(context)!;
     final theme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
@@ -70,7 +71,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
         style: theme.inputTextStyle,
         textAlignVertical: theme.inputTextAlignVertical,
         decoration: theme.inputDecoration.copyWith(
-          hintText: FluoLocalizations.of(context)!.enterEmailPlaceholder,
+          hintText: l10n.enterEmailPlaceholder,
           suffixIcon: ClearSuffixButton(controller: _emailController),
         ),
         onSubmitted: (_) => _onNext(),
@@ -84,6 +85,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
       nextButtonEnabled: _isEmailValid,
+      helperWidget: Text(l10n.enterEmailHelper),
       errorText: _errorText,
       loading: _loading,
     );

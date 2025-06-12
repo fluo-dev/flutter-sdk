@@ -98,8 +98,9 @@ class FluoLocalizationsJa extends FluoLocalizations {
   }
 
   @override
-  String get enterEmailHelper => 'メールアドレスの確認のため、認証コードが送信されます。';
+  String get enterEmailHelper => 'メールアドレスの確認のため、認証コードが送信されます。受信トレイをご確認ください。';
 
   @override
-  String get enterMobileHelper => '携帯電話番号の確認のため、認証コードが送信されます。';
+  String get enterMobileHelper =>
+      '携帯電話番号の確認のため、認証コードが送信されます。メッセージにアクセスできることをご確認ください。';
 }

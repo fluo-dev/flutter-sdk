@@ -300,13 +300,13 @@ abstract class FluoLocalizations {
   /// No description provided for @enterEmailHelper.
   ///
   /// In en, this message translates to:
-  /// **'A verification code will be sent to verify your email address.'**
+  /// **'A verification code will be sent to verify your email address. Make sure to check your inbox.'**
   String get enterEmailHelper;
 
   /// No description provided for @enterMobileHelper.
   ///
   /// In en, this message translates to:
-  /// **'A verification code will be sent to verify your mobile number.'**
+  /// **'A verification code will be sent to verify your mobile number. Make sure to have access to messages.'**
   String get enterMobileHelper;
 }
 

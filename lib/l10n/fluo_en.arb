@@ -42,6 +42,6 @@
       }
     }
   },
-  "enterEmailHelper": "A verification code will be sent to verify your email address.",
-  "enterMobileHelper": "A verification code will be sent to verify your mobile number."
+  "enterEmailHelper": "A verification code will be sent to verify your email address. Make sure to check your inbox.",
+  "enterMobileHelper": "A verification code will be sent to verify your mobile number. Make sure to have access to messages."
 }

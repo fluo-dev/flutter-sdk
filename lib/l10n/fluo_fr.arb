@@ -42,6 +42,6 @@
       }
     }
   },
-  "enterEmailHelper": "Un code de vérification sera envoyé pour vérifier votre adresse e-mail.",
-  "enterMobileHelper": "Un code de vérification sera envoyé pour vérifier votre numéro de mobile."
+  "enterEmailHelper": "Un code de vérification sera envoyé pour vérifier votre adresse e-mail. Assurez-vous de vérifier votre boîte de réception.",
+  "enterMobileHelper": "Un code de vérification sera envoyé pour vérifier votre numéro de mobile. Assurez-vous d'avoir accès à vos messages."
 }

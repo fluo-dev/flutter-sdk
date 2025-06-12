@@ -100,11 +100,11 @@ class FluoLocalizationsPt extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'Um código de verificação será enviado para verificar o seu endereço de e-mail.';
+      'Um código de verificação será enviado para verificar o seu endereço de e-mail. Certifique-se de verificar a sua caixa de entrada.';
 
   @override
   String get enterMobileHelper =>
-      'Um código de verificação será enviado para verificar o seu número de telemóvel.';
+      'Um código de verificação será enviado para verificar o seu número de telemóvel. Certifique-se de ter acesso às mensagens.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -202,9 +202,9 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
 
   @override
   String get enterEmailHelper =>
-      'Um código de verificação será enviado para verificar seu endereço de e-mail.';
+      'Um código de verificação será enviado para verificar seu endereço de e-mail. Certifique-se de verificar sua caixa de entrada.';
 
   @override
   String get enterMobileHelper =>
-      'Um código de verificação será enviado para verificar seu número de celular.';
+      'Um código de verificação será enviado para verificar seu número de celular. Certifique-se de ter acesso às mensagens.';
 }

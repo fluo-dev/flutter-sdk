@@ -42,6 +42,6 @@
       }
     }
   },
-  "enterEmailHelper": "Er wordt een verificatiecode verzonden om uw e-mailadres te verifiëren.",
-  "enterMobileHelper": "Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren."
+  "enterEmailHelper": "Er wordt een verificatiecode verzonden om uw e-mailadres te verifiëren. Controleer uw postvak in.",
+  "enterMobileHelper": "Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren. Zorg ervoor dat u toegang heeft tot berichten."
 } 

@@ -98,8 +98,9 @@ class FluoLocalizationsKo extends FluoLocalizations {
   }
 
   @override
-  String get enterEmailHelper => '이메일 주소 확인을 위해 인증 코드가 전송됩니다.';
+  String get enterEmailHelper => '이메일 주소 확인을 위해 인증 코드가 전송됩니다. 받은 편지함을 확인해 주세요.';
 
   @override
-  String get enterMobileHelper => '휴대폰 번호 확인을 위해 인증 코드가 전송됩니다.';
+  String get enterMobileHelper =>
+      '휴대폰 번호 확인을 위해 인증 코드가 전송됩니다. 메시지에 접근할 수 있는지 확인해 주세요.';
 }

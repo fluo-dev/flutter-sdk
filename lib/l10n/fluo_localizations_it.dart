@@ -100,9 +100,9 @@ class FluoLocalizationsIt extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'Un codice di verifica verrà inviato per verificare il tuo indirizzo email.';
+      'Un codice di verifica verrà inviato per verificare il tuo indirizzo email. Assicurati di controllare la tua casella di posta in arrivo.';
 
   @override
   String get enterMobileHelper =>
-      'Un codice di verifica verrà inviato per verificare il tuo numero di cellulare.';
+      'Un codice di verifica verrà inviato per verificare il tuo numero di cellulare. Assicurati di avere accesso ai messaggi.';
 }

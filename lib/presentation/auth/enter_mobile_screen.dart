@@ -59,8 +59,9 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = FluoLocalizations.of(context)!;
     return SingleInputScreen(
-      inputTitle: FluoLocalizations.of(context)!.enterMobile,
+      inputTitle: l10n.enterMobile,
       inputWidget: MobileInput(
         controller: _mobileController,
         focusNode: _focusNode,
@@ -74,6 +75,7 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
       nextButtonEnabled: _mobileE164 != null,
+      helperWidget: Text(l10n.enterMobileHelper),
       errorText: _errorText,
       loading: _loading,
     );

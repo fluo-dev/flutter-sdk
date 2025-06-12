@@ -99,9 +99,9 @@ class FluoLocalizationsTr extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'E-posta adresinizi doğrulamak için bir doğrulama kodu gönderilecek.';
+      'E-posta adresinizi doğrulamak için bir doğrulama kodu gönderilecek. Gelen kutunuzu kontrol ettiğinizden emin olun.';
 
   @override
   String get enterMobileHelper =>
-      'Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek.';
+      'Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek. Mesajlara erişiminiz olduğundan emin olun.';
 }

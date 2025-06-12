@@ -101,9 +101,9 @@ class FluoLocalizationsPl extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego adresu e-mail.';
+      'Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego adresu e-mail. Sprawdź swoją skrzynkę odbiorczą.';
 
   @override
   String get enterMobileHelper =>
-      'Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego numeru telefonu.';
+      'Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego numeru telefonu. Upewnij się, że masz dostęp do wiadomości.';
 }

@@ -98,8 +98,8 @@ class FluoLocalizationsZh extends FluoLocalizations {
   }
 
   @override
-  String get enterEmailHelper => '将发送验证码以验证您的电子邮箱地址。';
+  String get enterEmailHelper => '将发送验证码以验证您的电子邮箱地址。请确保查看您的收件箱。';
 
   @override
-  String get enterMobileHelper => '将发送验证码以验证您的手机号码。';
+  String get enterMobileHelper => '将发送验证码以验证您的手机号码。请确保您能收到短信。';
 }

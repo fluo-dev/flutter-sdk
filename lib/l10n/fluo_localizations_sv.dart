@@ -99,9 +99,9 @@ class FluoLocalizationsSv extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'En verifieringskod kommer att skickas för att verifiera din e-postadress.';
+      'En verifieringskod kommer att skickas för att verifiera din e-postadress. Kontrollera din inkorg.';
 
   @override
   String get enterMobileHelper =>
-      'En verifieringskod kommer att skickas för att verifiera ditt mobilnummer.';
+      'En verifieringskod kommer att skickas för att verifiera ditt mobilnummer. Se till att du har tillgång till meddelanden.';
 }

@@ -100,9 +100,9 @@ class FluoLocalizationsNl extends FluoLocalizations {
 
   @override
   String get enterEmailHelper =>
-      'Er wordt een verificatiecode verzonden om uw e-mailadres te verifiëren.';
+      'Er wordt een verificatiecode verzonden om uw e-mailadres te verifiëren. Controleer uw postvak in.';
 
   @override
   String get enterMobileHelper =>
-      'Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren.';
+      'Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren. Zorg ervoor dat u toegang heeft tot berichten.';
 }
