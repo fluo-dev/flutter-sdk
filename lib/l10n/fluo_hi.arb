@@ -1,0 +1,47 @@
+{
+  "@@locale": "hi",
+  "acceptTerms": "जारी रखकर, आप हमारी <terms>नियम और शर्तों</terms> और <privacy>गोपनीयता नीति</privacy> को स्वीकार करते हैं।",
+  "enterCode": "सत्यापन कोड दर्ज करें",
+  "enterEmailCodeHelper": "कोड <email>{email}</email> पर भेजा गया है। यदि आपको ईमेल नहीं मिला है, तो कृपया अपने स्पैम फोल्डर की जांच करें।",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "अपना ईमेल पता दर्ज करें",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "अपना पहला नाम दर्ज करें",
+  "enterFirstNamePlaceholder": "पहला नाम",
+  "enterLastName": "अपना अंतिम नाम दर्ज करें",
+  "enterLastNamePlaceholder": "अंतिम नाम",
+  "errorUnknown": "आपके अनुरोध को संसाधित करने में एक त्रुटि हुई।",
+  "errorCodeExpired": "कोड की समय सीमा समाप्त हो गई है।",
+  "errorCodeInvalid": "कोड मान्य नहीं है।",
+  "errorInternal": "एक आंतरिक सर्वर त्रुटि हुई।",
+  "errorNotFound": "संसाधन नहीं मिला।",
+  "errorParameterInvalid": "भेजा गया मान मान्य नहीं है।",
+  "errorParameterMissing": "अनुरोध में पैरामीटर गायब हैं।",
+  "errorSessionRevoked": "आपका सत्र रद्द कर दिया गया है।",
+  "errorUnauthorized": "आपके पास उचित अनुमतियां नहीं हैं।",
+  "next": "अगला",
+  "continueWithEmail": "ईमेल से जारी रखें",
+  "termsAndConditions": "नियम और शर्तें",
+  "privacyPolicy": "गोपनीयता नीति",
+  "continueWithGoogle": "Google से जारी रखें",
+  "continueWithApple": "Apple से जारी रखें",
+  "continueWithMobile": "मोबाइल से जारी रखें",
+  "enterMobile": "अपना मोबाइल नंबर दर्ज करें",
+  "searchCountry": "देश खोजें",
+  "enterMessageCodeHelper": "कोड <mobile>{mobile}</mobile> पर भेजा गया है। यदि आपको 2 मिनट के भीतर कोड नहीं मिलता है, तो पुनः प्रयास करें।",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "आपके ईमेल पते को सत्यापित करने के लिए एक सत्यापन कोड भेजा जाएगा।",
+  "enterMobileHelper": "आपके मोबाइल नंबर को सत्यापित करने के लिए एक सत्यापन कोड भेजा जाएगा।"
+} 

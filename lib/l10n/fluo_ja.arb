@@ -1,0 +1,47 @@
+{
+  "@@locale": "ja",
+  "acceptTerms": "続行することで、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したことになります。",
+  "enterCode": "認証コードを入力してください",
+  "enterEmailCodeHelper": "認証コードが<email>{email}</email>に送信されました。メールが届かない場合は、迷惑メールフォルダをご確認ください。",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "メールアドレスを入力してください",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "名を入力してください",
+  "enterFirstNamePlaceholder": "名",
+  "enterLastName": "姓を入力してください",
+  "enterLastNamePlaceholder": "姓",
+  "errorUnknown": "リクエストの処理中にエラーが発生しました。",
+  "errorCodeExpired": "認証コードの有効期限が切れました。",
+  "errorCodeInvalid": "認証コードが無効です。",
+  "errorInternal": "サーバー内部エラーが発生しました。",
+  "errorNotFound": "リソースが見つかりませんでした。",
+  "errorParameterInvalid": "送信された値が無効です。",
+  "errorParameterMissing": "リクエストに必要なパラメータが不足しています。",
+  "errorSessionRevoked": "セッションが無効になりました。",
+  "errorUnauthorized": "権限がありません。",
+  "next": "次へ",
+  "continueWithEmail": "メールで続ける",
+  "termsAndConditions": "利用規約",
+  "privacyPolicy": "プライバシーポリシー",
+  "continueWithGoogle": "Googleで続ける",
+  "continueWithApple": "Appleで続ける",
+  "continueWithMobile": "携帯電話で続ける",
+  "enterMobile": "携帯電話番号を入力してください",
+  "searchCountry": "国を検索",
+  "enterMessageCodeHelper": "認証コードが<mobile>{mobile}</mobile>に送信されました。2分以内にコードが届かない場合は、もう一度お試しください。",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "メールアドレスの確認のため、認証コードが送信されます。",
+  "enterMobileHelper": "携帯電話番号の確認のため、認証コードが送信されます。"
+} 

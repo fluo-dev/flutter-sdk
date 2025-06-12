@@ -5,13 +5,23 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'fluo_localizations_ar.dart';
 import 'fluo_localizations_de.dart';
 import 'fluo_localizations_en.dart';
 import 'fluo_localizations_es.dart';
 import 'fluo_localizations_fa.dart';
 import 'fluo_localizations_fr.dart';
+import 'fluo_localizations_hi.dart';
 import 'fluo_localizations_it.dart';
+import 'fluo_localizations_ja.dart';
+import 'fluo_localizations_ko.dart';
+import 'fluo_localizations_nl.dart';
+import 'fluo_localizations_pl.dart';
 import 'fluo_localizations_pt.dart';
+import 'fluo_localizations_ru.dart';
+import 'fluo_localizations_sv.dart';
+import 'fluo_localizations_tr.dart';
+import 'fluo_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -99,14 +109,24 @@ abstract class FluoLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
     Locale('de'),
     Locale('en'),
     Locale('es'),
     Locale('fa'),
     Locale('fr'),
+    Locale('hi'),
     Locale('it'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('nl'),
+    Locale('pl'),
     Locale('pt'),
-    Locale('pt', 'BR')
+    Locale('pt', 'BR'),
+    Locale('ru'),
+    Locale('sv'),
+    Locale('tr'),
+    Locale('zh')
   ];
 
   /// No description provided for @acceptTerms.
@@ -121,11 +141,11 @@ abstract class FluoLocalizations {
   /// **'Enter the verification code'**
   String get enterCode;
 
-  /// No description provided for @enterCodeHelper.
+  /// No description provided for @enterEmailCodeHelper.
   ///
   /// In en, this message translates to:
   /// **'The code was sent to <email>{email}</email>. If you did not receive an email, you may check your spam folder.'**
-  String enterCodeHelper(String email);
+  String enterEmailCodeHelper(String email);
 
   /// No description provided for @enterEmail.
   ///
@@ -264,6 +284,30 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'Enter your mobile number'**
   String get enterMobile;
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Search country'**
+  String get searchCountry;
+
+  /// No description provided for @enterMessageCodeHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'The code was sent to <mobile>{mobile}</mobile>. If you did not receive the code within 2 minutes, try again.'**
+  String enterMessageCodeHelper(String mobile);
+
+  /// No description provided for @enterEmailHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'A verification code will be sent to verify your email address.'**
+  String get enterEmailHelper;
+
+  /// No description provided for @enterMobileHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'A verification code will be sent to verify your mobile number.'**
+  String get enterMobileHelper;
 }
 
 class _FluoLocalizationsDelegate
@@ -278,13 +322,23 @@ class _FluoLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) => <String>[
+        'ar',
         'de',
         'en',
         'es',
         'fa',
         'fr',
+        'hi',
         'it',
-        'pt'
+        'ja',
+        'ko',
+        'nl',
+        'pl',
+        'pt',
+        'ru',
+        'sv',
+        'tr',
+        'zh'
       ].contains(locale.languageCode);
 
   @override
@@ -306,6 +360,8 @@ FluoLocalizations lookupFluoLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return FluoLocalizationsAr();
     case 'de':
       return FluoLocalizationsDe();
     case 'en':
@@ -316,10 +372,28 @@ FluoLocalizations lookupFluoLocalizations(Locale locale) {
       return FluoLocalizationsFa();
     case 'fr':
       return FluoLocalizationsFr();
+    case 'hi':
+      return FluoLocalizationsHi();
     case 'it':
       return FluoLocalizationsIt();
+    case 'ja':
+      return FluoLocalizationsJa();
+    case 'ko':
+      return FluoLocalizationsKo();
+    case 'nl':
+      return FluoLocalizationsNl();
+    case 'pl':
+      return FluoLocalizationsPl();
     case 'pt':
       return FluoLocalizationsPt();
+    case 'ru':
+      return FluoLocalizationsRu();
+    case 'sv':
+      return FluoLocalizationsSv();
+    case 'tr':
+      return FluoLocalizationsTr();
+    case 'zh':
+      return FluoLocalizationsZh();
   }
 
   throw FlutterError(

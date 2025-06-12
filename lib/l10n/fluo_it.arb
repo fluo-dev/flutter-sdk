@@ -2,8 +2,8 @@
   "@@locale": "it",
   "acceptTerms": "Continuando, accetti i nostri <terms>termini e condizioni</terms> e la nostra <privacy>informativa sulla privacy</privacy>.",
   "enterCode": "Inserisci il codice di verifica",
-  "enterCodeHelper": "Il codice è stato inviato a <email>{email}</email>. Se non hai ricevuto l'e-mail, controlla la cartella spam.",
-  "@enterCodeHelper": {
+  "enterEmailCodeHelper": "Il codice è stato inviato a <email>{email}</email>. Se non hai ricevuto l'e-mail, controlla la cartella spam.",
+  "@enterEmailCodeHelper": {
     "placeholders": {
       "email": {
         "type": "String"
@@ -32,5 +32,16 @@
   "continueWithGoogle": "Continua con Google",
   "continueWithApple": "Continua con Apple",
   "continueWithMobile": "Continua con cellulare",
-  "enterMobile": "Inserisci il tuo numero di cellulare"
+  "enterMobile": "Inserisci il tuo numero di cellulare",
+  "searchCountry": "Cerca paese",
+  "enterMessageCodeHelper": "Il codice è stato inviato a <mobile>{mobile}</mobile>. Se non hai ricevuto il codice entro 2 minuti, riprova.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Un codice di verifica verrà inviato per verificare il tuo indirizzo email.",
+  "enterMobileHelper": "Un codice di verifica verrà inviato per verificare il tuo numero di cellulare."
 }

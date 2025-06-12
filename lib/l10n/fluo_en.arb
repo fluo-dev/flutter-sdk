@@ -2,8 +2,8 @@
   "@@locale": "en",
   "acceptTerms": "By continuing, you accept our <terms>terms & conditions</terms> and our <privacy>privacy policy</privacy>.",
   "enterCode": "Enter the verification code",
-  "enterCodeHelper": "The code was sent to <email>{email}</email>. If you did not receive an email, you may check your spam folder.",
-  "@enterCodeHelper": {
+  "enterEmailCodeHelper": "The code was sent to <email>{email}</email>. If you did not receive an email, you may check your spam folder.",
+  "@enterEmailCodeHelper": {
     "placeholders": {
       "email": {
         "type": "String"
@@ -32,5 +32,16 @@
   "continueWithGoogle": "Continue with Google",
   "continueWithApple": "Continue with Apple",
   "continueWithMobile": "Continue with mobile",
-  "enterMobile": "Enter your mobile number"
+  "enterMobile": "Enter your mobile number",
+  "searchCountry": "Search country",
+  "enterMessageCodeHelper": "The code was sent to <mobile>{mobile}</mobile>. If you did not receive the code within 2 minutes, try again.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "A verification code will be sent to verify your email address.",
+  "enterMobileHelper": "A verification code will be sent to verify your mobile number."
 }

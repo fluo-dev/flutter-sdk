@@ -1,0 +1,47 @@
+{
+  "@@locale": "ru",
+  "acceptTerms": "Продолжая, вы принимаете наши <terms>условия использования</terms> и <privacy>политику конфиденциальности</privacy>.",
+  "enterCode": "Введите код подтверждения",
+  "enterEmailCodeHelper": "Код был отправлен на <email>{email}</email>. Если вы не получили письмо, проверьте папку со спамом.",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Введите ваш адрес электронной почты",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "Введите ваше имя",
+  "enterFirstNamePlaceholder": "Имя",
+  "enterLastName": "Введите вашу фамилию",
+  "enterLastNamePlaceholder": "Фамилия",
+  "errorUnknown": "Произошла ошибка при обработке вашего запроса.",
+  "errorCodeExpired": "Срок действия кода истек.",
+  "errorCodeInvalid": "Код недействителен.",
+  "errorInternal": "Произошла внутренняя ошибка сервера.",
+  "errorNotFound": "Ресурс не найден.",
+  "errorParameterInvalid": "Отправленное значение недействительно.",
+  "errorParameterMissing": "В запросе отсутствуют параметры.",
+  "errorSessionRevoked": "Ваша сессия была отозвана.",
+  "errorUnauthorized": "У вас нет необходимых прав доступа.",
+  "next": "Далее",
+  "continueWithEmail": "Продолжить с email",
+  "termsAndConditions": "Условия использования",
+  "privacyPolicy": "Политика конфиденциальности",
+  "continueWithGoogle": "Продолжить с Google",
+  "continueWithApple": "Продолжить с Apple",
+  "continueWithMobile": "Продолжить с телефоном",
+  "enterMobile": "Введите ваш номер телефона",
+  "searchCountry": "Поиск страны",
+  "enterMessageCodeHelper": "Код был отправлен на <mobile>{mobile}</mobile>. Если вы не получили код в течение 2 минут, попробуйте снова.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Будет отправлен код подтверждения для проверки вашего адреса электронной почты.",
+  "enterMobileHelper": "Будет отправлен код подтверждения для проверки вашего номера телефона."
+} 

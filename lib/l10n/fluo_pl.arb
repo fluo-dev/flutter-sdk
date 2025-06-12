@@ -1,0 +1,47 @@
+{
+  "@@locale": "pl",
+  "acceptTerms": "Kontynuując, akceptujesz nasze <terms>warunki użytkowania</terms> i <privacy>politykę prywatności</privacy>.",
+  "enterCode": "Wprowadź kod weryfikacyjny",
+  "enterEmailCodeHelper": "Kod został wysłany na adres <email>{email}</email>. Jeśli nie otrzymałeś e-maila, sprawdź folder ze spamem.",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Wprowadź swój adres e-mail",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "Wprowadź swoje imię",
+  "enterFirstNamePlaceholder": "Imię",
+  "enterLastName": "Wprowadź swoje nazwisko",
+  "enterLastNamePlaceholder": "Nazwisko",
+  "errorUnknown": "Wystąpił błąd podczas przetwarzania Twojego żądania.",
+  "errorCodeExpired": "Kod wygasł.",
+  "errorCodeInvalid": "Kod jest nieprawidłowy.",
+  "errorInternal": "Wystąpił wewnętrzny błąd serwera.",
+  "errorNotFound": "Nie znaleziono zasobu.",
+  "errorParameterInvalid": "Wysłana wartość jest nieprawidłowa.",
+  "errorParameterMissing": "Żądanie nie zawiera wymaganych parametrów.",
+  "errorSessionRevoked": "Twoja sesja została unieważniona.",
+  "errorUnauthorized": "Nie masz odpowiednich uprawnień.",
+  "next": "Dalej",
+  "continueWithEmail": "Kontynuuj z e-mailem",
+  "termsAndConditions": "Warunki użytkowania",
+  "privacyPolicy": "Polityka prywatności",
+  "continueWithGoogle": "Kontynuuj z Google",
+  "continueWithApple": "Kontynuuj z Apple",
+  "continueWithMobile": "Kontynuuj z telefonem",
+  "enterMobile": "Wprowadź swój numer telefonu",
+  "searchCountry": "Szukaj kraju",
+  "enterMessageCodeHelper": "Kod został wysłany na numer <mobile>{mobile}</mobile>. Jeśli nie otrzymasz kodu w ciągu 2 minut, spróbuj ponownie.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego adresu e-mail.",
+  "enterMobileHelper": "Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego numeru telefonu."
+} 

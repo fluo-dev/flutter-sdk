@@ -16,7 +16,7 @@ class FluoLocalizationsPt extends FluoLocalizations {
   String get enterCode => 'Introduza o código de verificação';
 
   @override
-  String enterCodeHelper(String email) {
+  String enterEmailCodeHelper(String email) {
     return 'O código foi enviado para <email>$email</email>. Se não recebeu um email, pode verificar a sua pasta de spam.';
   }
 
@@ -89,6 +89,22 @@ class FluoLocalizationsPt extends FluoLocalizations {
 
   @override
   String get enterMobile => 'Digite seu número de celular';
+
+  @override
+  String get searchCountry => 'Procurar país';
+
+  @override
+  String enterMessageCodeHelper(String mobile) {
+    return 'O código foi enviado para <mobile>$mobile</mobile>. Se não recebeu o código em 2 minutos, tente novamente.';
+  }
+
+  @override
+  String get enterEmailHelper =>
+      'Um código de verificação será enviado para verificar o seu endereço de e-mail.';
+
+  @override
+  String get enterMobileHelper =>
+      'Um código de verificação será enviado para verificar o seu número de telemóvel.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -103,7 +119,7 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
   String get enterCode => 'Digite o código de verificação';
 
   @override
-  String enterCodeHelper(String email) {
+  String enterEmailCodeHelper(String email) {
     return 'O código foi enviado para <email>$email</email>. Se você não recebeu um e-mail, pode verificar sua pasta de spam.';
   }
 
@@ -172,4 +188,23 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
 
   @override
   String get continueWithMobile => 'Continuar com o celular';
+
+  @override
+  String get enterMobile => 'Digite seu número de celular';
+
+  @override
+  String get searchCountry => 'Buscar país';
+
+  @override
+  String enterMessageCodeHelper(String mobile) {
+    return 'O código foi enviado para <mobile>$mobile</mobile>. Se você não recebeu o código em 2 minutos, tente novamente.';
+  }
+
+  @override
+  String get enterEmailHelper =>
+      'Um código de verificação será enviado para verificar seu endereço de e-mail.';
+
+  @override
+  String get enterMobileHelper =>
+      'Um código de verificação será enviado para verificar seu número de celular.';
 }

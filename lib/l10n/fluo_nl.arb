@@ -1,0 +1,47 @@
+{
+  "@@locale": "nl",
+  "acceptTerms": "Door verder te gaan, accepteert u onze <terms>algemene voorwaarden</terms> en ons <privacy>privacybeleid</privacy>.",
+  "enterCode": "Voer de verificatiecode in",
+  "enterEmailCodeHelper": "De code is verzonden naar <email>{email}</email>. Als u geen e-mail heeft ontvangen, controleer dan uw spammap.",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "Voer uw e-mailadres in",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "Voer uw voornaam in",
+  "enterFirstNamePlaceholder": "Voornaam",
+  "enterLastName": "Voer uw achternaam in",
+  "enterLastNamePlaceholder": "Achternaam",
+  "errorUnknown": "Er is een fout opgetreden bij het verwerken van uw verzoek.",
+  "errorCodeExpired": "De code is verlopen.",
+  "errorCodeInvalid": "De code is ongeldig.",
+  "errorInternal": "Er is een interne serverfout opgetreden.",
+  "errorNotFound": "De bron kon niet worden gevonden.",
+  "errorParameterInvalid": "De verzonden waarde is ongeldig.",
+  "errorParameterMissing": "Het verzoek mist parameters.",
+  "errorSessionRevoked": "Uw sessie is ingetrokken.",
+  "errorUnauthorized": "U heeft niet de juiste rechten.",
+  "next": "Volgende",
+  "continueWithEmail": "Doorgaan met e-mail",
+  "termsAndConditions": "Algemene voorwaarden",
+  "privacyPolicy": "Privacybeleid",
+  "continueWithGoogle": "Doorgaan met Google",
+  "continueWithApple": "Doorgaan met Apple",
+  "continueWithMobile": "Doorgaan met mobiel",
+  "enterMobile": "Voer uw mobiele nummer in",
+  "searchCountry": "Zoek land",
+  "enterMessageCodeHelper": "De code is verzonden naar <mobile>{mobile}</mobile>. Als u de code binnen 2 minuten niet heeft ontvangen, probeer het opnieuw.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Er wordt een verificatiecode verzonden om uw e-mailadres te verifiëren.",
+  "enterMobileHelper": "Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren."
+} 

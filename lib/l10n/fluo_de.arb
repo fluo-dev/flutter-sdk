@@ -2,8 +2,8 @@
   "@@locale": "de",
   "acceptTerms": "Mit dem Fortfahren akzeptieren Sie unsere <terms>Geschäftsbedingungen</terms> und unsere <privacy>Datenschutzrichtlinie</privacy>.",
   "enterCode": "Bestätigungscode eingeben",
-  "enterCodeHelper": "Der Code wurde an <email>{email}</email> gesendet. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
-  "@enterCodeHelper": {
+  "enterEmailCodeHelper": "Der Code wurde an <email>{email}</email> gesendet. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
+  "@enterEmailCodeHelper": {
     "placeholders": {
       "email": {
         "type": "String"
@@ -32,5 +32,16 @@
   "continueWithGoogle": "Mit Google fortfahren",
   "continueWithApple": "Mit Apple fortfahren",
   "continueWithMobile": "Mit Handy fortfahren",
-  "enterMobile": "Geben Sie Ihre Handynummer ein"
+  "enterMobile": "Geben Sie Ihre Handynummer ein",
+  "searchCountry": "Land suchen",
+  "enterMessageCodeHelper": "Der Code wurde an <mobile>{mobile}</mobile> gesendet. Wenn Sie den Code innerhalb von 2 Minuten nicht erhalten haben, versuchen Sie es erneut.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Ein Bestätigungscode wird gesendet, um Ihre E-Mail-Adresse zu verifizieren.",
+  "enterMobileHelper": "Ein Bestätigungscode wird gesendet, um Ihre Mobilfunknummer zu verifizieren."
 }

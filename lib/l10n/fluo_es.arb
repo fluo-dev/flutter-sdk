@@ -2,8 +2,8 @@
   "@@locale": "es",
   "acceptTerms": "Al continuar, aceptas nuestros <terms>términos y condiciones</terms> y nuestra <privacy>política de privacidad</privacy>.",
   "enterCode": "Introduce el código de verificación",
-  "enterCodeHelper": "El código se envió a <email>{email}</email>. Si no recibiste el correo electrónico, revisa tu carpeta de spam.",
-  "@enterCodeHelper": {
+  "enterEmailCodeHelper": "El código se envió a <email>{email}</email>. Si no recibiste el correo electrónico, revisa tu carpeta de spam.",
+  "@enterEmailCodeHelper": {
     "placeholders": {
       "email": {
         "type": "String"
@@ -32,5 +32,16 @@
   "continueWithGoogle": "Continuar con Google",
   "continueWithApple": "Continuar con Apple",
   "continueWithMobile": "Continuar con móvil",
-  "enterMobile": "Introduce tu número de móvil"
+  "enterMobile": "Introduce tu número de móvil",
+  "searchCountry": "Buscar país",
+  "enterMessageCodeHelper": "El código fue enviado a <mobile>{mobile}</mobile>. Si no recibiste el código en 2 minutos, inténtalo de nuevo.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "Se enviará un código de verificación para verificar tu dirección de correo electrónico.",
+  "enterMobileHelper": "Se enviará un código de verificación para verificar tu número de móvil."
 }

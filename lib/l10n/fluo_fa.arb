@@ -2,8 +2,8 @@
   "@@locale": "fa",
   "acceptTerms": "با ادامه، شما <terms>شرایط و ضوابط</terms> و <privacy>سیاست حریم خصوصی</privacy> ما را می‌پذیرید.",
   "enterCode": "کد تأیید را وارد کنید",
-  "enterCodeHelper": "کد به <email>{email}</email> ارسال شد. اگر ایمیلی دریافت نکردید، پوشه اسپم خود را بررسی کنید.",
-  "@enterCodeHelper": {
+  "enterEmailCodeHelper": "کد به <email>{email}</email> ارسال شد. اگر ایمیلی دریافت نکردید، پوشه اسپم خود را بررسی کنید.",
+  "@enterEmailCodeHelper": {
     "placeholders": {
       "email": {
         "type": "String"
@@ -32,5 +32,16 @@
   "continueWithGoogle": "ادامه با گوگل",
   "continueWithApple": "ادامه با اپل",
   "continueWithMobile": "ادامه با موبایل",
-  "enterMobile": "شماره موبایل خود را وارد کنید"
+  "enterMobile": "شماره موبایل خود را وارد کنید",
+  "searchCountry": "جستجوی کشور",
+  "enterMessageCodeHelper": "کد به <mobile>{mobile}</mobile> ارسال شد. اگر کد را در عرض ۲ دقیقه دریافت نکردید، دوباره تلاش کنید.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "یک کد تأیید برای تأیید آدرس ایمیل شما ارسال خواهد شد.",
+  "enterMobileHelper": "یک کد تأیید برای تأیید شماره موبایل شما ارسال خواهد شد."
 }

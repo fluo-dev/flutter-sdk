@@ -16,7 +16,7 @@ class FluoLocalizationsIt extends FluoLocalizations {
   String get enterCode => 'Inserisci il codice di verifica';
 
   @override
-  String enterCodeHelper(String email) {
+  String enterEmailCodeHelper(String email) {
     return 'Il codice è stato inviato a <email>$email</email>. Se non hai ricevuto l\'e-mail, controlla la cartella spam.';
   }
 
@@ -89,4 +89,20 @@ class FluoLocalizationsIt extends FluoLocalizations {
 
   @override
   String get enterMobile => 'Inserisci il tuo numero di cellulare';
+
+  @override
+  String get searchCountry => 'Cerca paese';
+
+  @override
+  String enterMessageCodeHelper(String mobile) {
+    return 'Il codice è stato inviato a <mobile>$mobile</mobile>. Se non hai ricevuto il codice entro 2 minuti, riprova.';
+  }
+
+  @override
+  String get enterEmailHelper =>
+      'Un codice di verifica verrà inviato per verificare il tuo indirizzo email.';
+
+  @override
+  String get enterMobileHelper =>
+      'Un codice di verifica verrà inviato per verificare il tuo numero di cellulare.';
 }

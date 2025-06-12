@@ -1,0 +1,47 @@
+{
+  "@@locale": "tr",
+  "acceptTerms": "Devam ederek <terms>kullanım koşullarımızı</terms> ve <privacy>gizlilik politikamızı</privacy> kabul etmiş olursunuz.",
+  "enterCode": "Doğrulama kodunu girin",
+  "enterEmailCodeHelper": "Kod <email>{email}</email> adresine gönderildi. E-posta almadıysanız, spam klasörünüzü kontrol edin.",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "E-posta adresinizi girin",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "Adınızı girin",
+  "enterFirstNamePlaceholder": "Ad",
+  "enterLastName": "Soyadınızı girin",
+  "enterLastNamePlaceholder": "Soyad",
+  "errorUnknown": "İsteğiniz işlenirken bir hata oluştu.",
+  "errorCodeExpired": "Kodun süresi doldu.",
+  "errorCodeInvalid": "Kod geçersiz.",
+  "errorInternal": "Sunucu iç hatası oluştu.",
+  "errorNotFound": "Kaynak bulunamadı.",
+  "errorParameterInvalid": "Gönderilen değer geçersiz.",
+  "errorParameterMissing": "İstek parametreleri eksik.",
+  "errorSessionRevoked": "Oturumunuz sonlandırıldı.",
+  "errorUnauthorized": "Gerekli izinlere sahip değilsiniz.",
+  "next": "İleri",
+  "continueWithEmail": "E-posta ile devam et",
+  "termsAndConditions": "Kullanım koşulları",
+  "privacyPolicy": "Gizlilik politikası",
+  "continueWithGoogle": "Google ile devam et",
+  "continueWithApple": "Apple ile devam et",
+  "continueWithMobile": "Mobil ile devam et",
+  "enterMobile": "Cep telefonu numaranızı girin",
+  "searchCountry": "Ülke ara",
+  "enterMessageCodeHelper": "Kod <mobile>{mobile}</mobile> numarasına gönderildi. 2 dakika içinde kodu almadıysanız, tekrar deneyin.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "E-posta adresinizi doğrulamak için bir doğrulama kodu gönderilecek.",
+  "enterMobileHelper": "Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek."
+} 

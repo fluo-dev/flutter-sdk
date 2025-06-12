@@ -1,0 +1,47 @@
+{
+  "@@locale": "ar",
+  "acceptTerms": "بالمتابعة، فإنك توافق على <terms>الشروط والأحكام</terms> و<privacy>سياسة الخصوصية</privacy> الخاصة بنا.",
+  "enterCode": "أدخل رمز التحقق",
+  "enterEmailCodeHelper": "تم إرسال الرمز إلى <email>{email}</email>. إذا لم تستلم البريد الإلكتروني، يرجى التحقق من مجلد البريد العشوائي.",
+  "@enterEmailCodeHelper": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmail": "أدخل عنوان بريدك الإلكتروني",
+  "enterEmailPlaceholder": "example@domain.com",
+  "enterFirstName": "أدخل اسمك الأول",
+  "enterFirstNamePlaceholder": "الاسم الأول",
+  "enterLastName": "أدخل اسم العائلة",
+  "enterLastNamePlaceholder": "اسم العائلة",
+  "errorUnknown": "حدث خطأ أثناء معالجة طلبك.",
+  "errorCodeExpired": "انتهت صلاحية الرمز.",
+  "errorCodeInvalid": "الرمز غير صالح.",
+  "errorInternal": "حدث خطأ داخلي في الخادم.",
+  "errorNotFound": "لم يتم العثور على المورد.",
+  "errorParameterInvalid": "القيمة المرسلة غير صالحة.",
+  "errorParameterMissing": "الطلب يفتقد إلى المعلمات.",
+  "errorSessionRevoked": "تم إلغاء جلستك.",
+  "errorUnauthorized": "ليس لديك الصلاحيات المناسبة.",
+  "next": "التالي",
+  "continueWithEmail": "المتابعة باستخدام البريد الإلكتروني",
+  "termsAndConditions": "الشروط والأحكام",
+  "privacyPolicy": "سياسة الخصوصية",
+  "continueWithGoogle": "المتابعة باستخدام Google",
+  "continueWithApple": "المتابعة باستخدام Apple",
+  "continueWithMobile": "المتابعة باستخدام الهاتف المحمول",
+  "enterMobile": "أدخل رقم هاتفك المحمول",
+  "searchCountry": "البحث عن الدولة",
+  "enterMessageCodeHelper": "تم إرسال الرمز إلى <mobile>{mobile}</mobile>. إذا لم تستلم الرمز خلال دقيقتين، حاول مرة أخرى.",
+  "@enterMessageCodeHelper": {
+    "placeholders": {
+      "mobile": {
+        "type": "String"
+      }
+    }
+  },
+  "enterEmailHelper": "سيتم إرسال رمز تحقق للتحقق من عنوان بريدك الإلكتروني.",
+  "enterMobileHelper": "سيتم إرسال رمز تحقق للتحقق من رقم هاتفك المحمول."
+} 
