@@ -3,7 +3,7 @@ import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/api/models/session.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
-import 'package:fluo/l10n/fluo_localized_models.dart';
+import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
       widget.onCodeVerified(session);
     } on ApiError catch (apiError) {
       setState(() {
-        _errorText = FluoLocalizedModels.error(context, apiError.message);
+        _errorText = Localized.error(context, apiError.message);
       });
     } catch (error) {
       setState(() {

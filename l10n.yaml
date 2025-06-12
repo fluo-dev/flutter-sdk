@@ -1,5 +1,5 @@
 arb-dir: lib/l10n
-template-arb-file: fluo_en.arb
+template-arb-file: l10n_en.arb
 output-localization-file: fluo_localizations.dart
 output-class: FluoLocalizations
 synthetic-package: false

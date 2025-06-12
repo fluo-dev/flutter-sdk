@@ -4,7 +4,7 @@ import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
-import 'package:fluo/l10n/fluo_localized_models.dart';
+import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/widgets/mobile_input.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +93,7 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
       widget.onMobileSubmitted(partialSession);
     } on ApiError catch (apiError) {
       setState(() {
-        _errorText = FluoLocalizedModels.error(context, apiError.message);
+        _errorText = Localized.error(context, apiError.message);
       });
     } catch (error) {
       setState(() {
