@@ -14,8 +14,7 @@ final class Error {
 class ApiClient {
   ApiClient(this.apiKey);
 
-  //static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
-  static const String baseUrl = 'http://127.0.0.1:8090/api/v1';
+  static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
 
   final String apiKey;
 
