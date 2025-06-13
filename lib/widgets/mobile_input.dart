@@ -6,7 +6,39 @@ import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/countries_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+class AutofillHintsFormatter extends TextInputFormatter {
+  AutofillHintsFormatter(this.country);
+
+  final Country country;
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final phoneCode = country.phoneCode;
+    final natl = country.exampleNumberMobileNational;
+    final intl = country.exampleNumberMobileInternational;
+    final intlNoPhoneCode = intl.replaceAll('+$phoneCode ', '');
+
+    String newText = newValue.text;
+    if (natl != intlNoPhoneCode) {
+      final leadingDigit = natl.isNotEmpty ? natl[0] : '';
+      newText = newText.replaceAll('+$phoneCode ', leadingDigit);
+    } else {
+      newText = newText.replaceAll('+$phoneCode ', '');
+    }
+
+    return TextEditingValue(
+      text: newText,
+      selection: newValue.selection,
+      composing: newValue.composing,
+    );
+  }
+}
 
 class MobileInput extends StatefulWidget {
   const MobileInput({
@@ -54,15 +86,6 @@ class _MobileInputState extends State<MobileInput> {
   @override
   Widget build(BuildContext context) {
     final theme = context.read<FluoTheme>();
-
-    double flagPaddingLeft = 15.0;
-    final padding = theme.inputDecoration.contentPadding;
-    if (padding is EdgeInsets) {
-      flagPaddingLeft = padding.left;
-    } else if (padding is EdgeInsetsDirectional) {
-      flagPaddingLeft = padding.start;
-    }
-
     return TextField(
       controller: widget.controller,
       focusNode: widget.focusNode,
@@ -72,34 +95,23 @@ class _MobileInputState extends State<MobileInput> {
         hintText: _selectedCountry?.exampleNumberMobileNational,
         prefixIcon: GestureDetector(
           onTap: () => _showCountrySelector(),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: flagPaddingLeft,
-                  right: 3.0,
-                ),
-                child: _getCountryFlag(),
-              ),
-              Icon(
-                Icons.arrow_drop_down,
-                color: theme.primaryColor,
-              ),
-            ],
-          ),
+          child: _countrySelectorButton(theme),
         ),
         suffixIcon: ClearSuffixButton(controller: widget.controller),
       ),
       inputFormatters: [
-        if (_selectedCountry != null)
+        if (_selectedCountry != null) ...[
+          AutofillHintsFormatter(_selectedCountry!),
           CountryManager.getMobileNationalFormatter(_selectedCountry!)
+        ],
       ],
       autocorrect: false,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.phone,
       autofillHints: const [
         AutofillHints.telephoneNumber,
+        AutofillHints.telephoneNumberDevice,
+        AutofillHints.telephoneNumberNational,
       ],
     );
   }
@@ -122,7 +134,34 @@ class _MobileInputState extends State<MobileInput> {
     return locale.countryCode ?? locale.languageCode;
   }
 
-  Widget _getCountryFlag() {
+  Widget _countrySelectorButton(FluoTheme theme) {
+    double flagPaddingLeft = 15.0;
+    final padding = theme.inputDecoration.contentPadding;
+    if (padding is EdgeInsets) {
+      flagPaddingLeft = padding.left;
+    } else if (padding is EdgeInsetsDirectional) {
+      flagPaddingLeft = padding.start;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            left: flagPaddingLeft,
+            right: 3.0,
+          ),
+          child: _countryFlag(),
+        ),
+        Icon(
+          Icons.arrow_drop_down,
+          color: theme.primaryColor,
+        ),
+      ],
+    );
+  }
+
+  Widget _countryFlag() {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       transitionBuilder: (Widget child, Animation<double> animation) {

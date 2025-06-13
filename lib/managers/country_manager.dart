@@ -48,6 +48,7 @@ class CountryManager {
       country: country,
       phoneNumberType: libphone.PhoneNumberType.mobile,
       phoneNumberFormat: libphone.PhoneNumberFormat.national,
+      inputContainsCountryCode: true,
     );
   }
 
