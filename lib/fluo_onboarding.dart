@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
+import 'package:fluo/managers/country_manager.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/foundation.dart';
@@ -141,6 +142,11 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
           showAppleButton = method.selected;
         }
       }
+    }
+
+    if (showMobileButton) {
+      // Load countries from libphonenumber
+      CountryManager.init();
     }
 
     return AnimatedOpacity(

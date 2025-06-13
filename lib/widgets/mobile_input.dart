@@ -1,16 +1,12 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:device_region/device_region.dart';
-import 'package:diacritic/diacritic.dart';
+import 'package:fluo/managers/country_manager.dart';
 import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/countries_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_libphonenumber/flutter_libphonenumber.dart' as libphone;
 import 'package:provider/provider.dart';
-
-typedef Country = libphone.CountryWithPhoneCode;
-typedef PhoneNumberFormatter = libphone.LibPhonenumberTextFormatter;
 
 class MobileInput extends StatefulWidget {
   const MobileInput({
@@ -29,14 +25,24 @@ class MobileInput extends StatefulWidget {
 }
 
 class _MobileInputState extends State<MobileInput> {
-  List<Country>? _allCountries;
+  late List<Country> _allSortedCountries;
   Country? _selectedCountry;
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    _initLibPhoneNumber();
     widget.controller.addListener(_onMobileChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _allSortedCountries = CountryManager.getSortedCountries(context);
+      _initDefaultCountry();
+      _initialized = true;
+    }
   }
 
   @override
@@ -87,11 +93,7 @@ class _MobileInputState extends State<MobileInput> {
       ),
       inputFormatters: [
         if (_selectedCountry != null)
-          PhoneNumberFormatter(
-            country: _selectedCountry!,
-            phoneNumberType: libphone.PhoneNumberType.mobile,
-            phoneNumberFormat: libphone.PhoneNumberFormat.national,
-          ),
+          CountryManager.getMobileNationalFormatter(_selectedCountry!)
       ],
       autocorrect: false,
       textInputAction: TextInputAction.next,
@@ -102,25 +104,14 @@ class _MobileInputState extends State<MobileInput> {
     );
   }
 
-  Future<void> _initLibPhoneNumber() async {
-    await libphone.init();
-
-    final countriesMap = await libphone.getAllSupportedRegions();
-    _allCountries = countriesMap.values.toList()
-      ..sort((a, b) {
-        return removeDiacritics(a.countryName!)
-            .compareTo(removeDiacritics(b.countryName!));
-      });
-
+  Future<void> _initDefaultCountry() async {
     final deviceCountryCode = await _getDeviceCountryCode();
-    final selectedCountry = countriesMap[deviceCountryCode];
-
     setState(() {
-      _selectedCountry = selectedCountry;
+      _selectedCountry = CountryManager.getCountry(deviceCountryCode);
     });
   }
 
-  Future<String> _getDeviceCountryCode() async {
+  static Future<String> _getDeviceCountryCode() async {
     if (!kIsWeb) {
       final countryCode = await DeviceRegion.getSIMCountryCode();
       if (countryCode != null) {
@@ -173,7 +164,7 @@ class _MobileInputState extends State<MobileInput> {
     if (selectedCountry != null) {
       mobileIso2 = selectedCountry.countryCode;
 
-      final result = await libphone.getFormattedParseResult(
+      final result = await CountryManager.formatPhoneNumber(
         widget.controller.text,
         selectedCountry,
       );
@@ -187,10 +178,6 @@ class _MobileInputState extends State<MobileInput> {
   }
 
   void _showCountrySelector() {
-    if (_allCountries == null) {
-      return;
-    }
-
     showModalBottomSheet(
       useSafeArea: true,
       isScrollControlled: true,
@@ -198,7 +185,7 @@ class _MobileInputState extends State<MobileInput> {
       context: context,
       builder: (BuildContext context) {
         return CountriesList(
-          countries: _allCountries!,
+          countries: _allSortedCountries,
           onCountrySelected: (country) {
             setState(() {
               _selectedCountry = country;
