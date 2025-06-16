@@ -77,7 +77,9 @@ class ExampleApp extends StatelessWidget {
         child: const CircularProgressIndicator(),
       );
     }
-    return Center(
+    return Container(
+      padding: EdgeInsets.only(bottom: bottomContainerHeight + 20),
+      alignment: Alignment.center,
       child: AnimatedOpacity(
         opacity: initializing ? 0.0 : 1.0,
         duration: const Duration(seconds: 2),
@@ -85,7 +87,7 @@ class ExampleApp extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Padding(
-              padding: EdgeInsets.only(right: 00, bottom: 30),
+              padding: EdgeInsets.only(right: 0, bottom: 30),
               child: Text(
                 '5 lines of code\nto get these',
                 style: TextStyle(
