@@ -1,3 +1,8 @@
+## 0.12.0
+
+- Mobile auth support (still passwordless)
+- Support for 18 languages
+
 ## 0.11.0
 
 - Migrate to intl 0.20.2 to improve pub score

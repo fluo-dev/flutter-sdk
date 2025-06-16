@@ -211,46 +211,65 @@ app.get("/api/user/me", async (req, res) => {
 
 ## Customizing the theme
 
-Pass a `FluoTheme` to the `FluoOnboarding` component:
+Pass a `FluoTheme` to the `FluoOnboarding` component.
+
+**For iOS, Android, macOS**
 
 ```dart
 FluoOnboarding(
   // ...other properties...
-  theme: FluoTheme.native( // or FluoTheme.web()
-    primaryColor: null,
-    inversePrimaryColor: null,
-    accentColor: null,
-    screenPadding: null,
-    connectButtonStyle: null,
-    connectButtonStyleGoogle: null,
-    connectButtonStyleApple: null,
-    connectButtonTextStyle: null,
-    connectButtonTextStyleGoogle: null,
-    connectButtonTextStyleApple: null,
-    connectButtonIconSize: null,
-    connectButtonIconEmail: null,
-    connectButtonIconGoogle: null,
-    connectButtonIconApple: null,
-    legalTextStyle: null,
-    legalTextPadding: null,
-    modalTitleTextStyle: null,
-    titleStyle: null,
-    inputDecoration: null,
-    inputTextStyle: null,
-    inputErrorStyle: null,
-    inputTextAlignVertical: null,
-    nextButtonStyle: null,
-    nextButtonProgressIndicatorSize: null,
-    nextButtonProgressIndicatorColor: null,
-    nextButtonProgressIndicatorStrokeWidth: null,
-    codeInputThemeDefault: null,
-    codeInputThemeFocused: null,
-    codeInputThemeSubmitted: null,
-    codeInputThemeFollowing: null,
-    codeInputThemeDisabled: null,
-    codeInputThemeError: null,
-  ),
+  theme: FluoTheme.native(/* paramaters */),
 )
 ```
 
-> **Note:** If you have questions or need `FluoTheme` to be extended, please do not hesitate to contact me at jordan @ fluo.dev
+**For web**
+
+```dart
+FluoOnboarding(
+  // ...other properties...
+  theme: FluoTheme.web(/* paramaters */),
+)
+```
+
+**Parameters**
+
+```dart
+{
+  Color? primaryColor,
+  Color? inversePrimaryColor,
+  Color? accentColor,
+  EdgeInsets? screenPadding,
+  ButtonStyle? connectButtonStyle,
+  ButtonStyle? connectButtonStyleGoogle,
+  ButtonStyle? connectButtonStyleApple,
+  TextStyle? connectButtonTextStyle,
+  TextStyle? connectButtonTextStyleGoogle,
+  TextStyle? connectButtonTextStyleApple,
+  double? connectButtonIconSize,
+  Widget? connectButtonIconEmail,
+  Widget? connectButtonIconMobile,
+  Widget? connectButtonIconGoogle,
+  Widget? connectButtonIconApple,
+  TextStyle? legalTextStyle,
+  EdgeInsets? legalTextPadding,
+  TextStyle? modalTitleTextStyle,
+  TextStyle? titleStyle,
+  InputDecoration? inputDecoration,
+  TextStyle? inputTextStyle,
+  TextStyle? inputErrorStyle,
+  TextAlignVertical? inputTextAlignVertical,
+  ButtonStyle? nextButtonStyle,
+  Size? nextButtonProgressIndicatorSize,
+  Color? nextButtonProgressIndicatorColor,
+  double? nextButtonProgressIndicatorStrokeWidth,
+  EdgeInsets? countryItemPadding,
+  Color? countryItemHighlightColor,
+  TextStyle? countryTextStyle,
+  PinTheme? codeInputThemeDefault,
+  PinTheme? codeInputThemeFocused,
+  PinTheme? codeInputThemeSubmitted,
+  PinTheme? codeInputThemeFollowing,
+  PinTheme? codeInputThemeDisabled,
+  PinTheme? codeInputThemeError,
+}
+```
