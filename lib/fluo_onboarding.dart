@@ -124,7 +124,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
 
   Widget _connectContainer() {
     bool showEmailButton = false;
-    bool showMobileButton = true;
+    bool showMobileButton = false;
     bool showGoogleButton = false;
     bool showAppleButton = false;
 
