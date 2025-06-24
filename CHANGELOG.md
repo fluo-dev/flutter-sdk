@@ -1,3 +1,7 @@
+## 0.12.1
+
+- Expose `fluo.session` to access session and user info
+
 ## 0.12.0
 
 - Mobile auth support (still passwordless)

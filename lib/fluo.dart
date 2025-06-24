@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/app_config.dart';
+import 'package:fluo/api/models/session.dart';
 import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/auth_navigator.dart';
 import 'package:fluo/presentation/register/register_navigator.dart';
@@ -56,6 +57,9 @@ class Fluo {
 
     return Fluo._(apiClient, sessionManager, appConfig);
   }
+
+  /// Returns the current session.
+  Session? get session => _sessionManager.session;
 
   /// Returns whether a current session exists.
   bool hasSession() {

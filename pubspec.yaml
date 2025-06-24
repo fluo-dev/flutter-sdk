@@ -1,6 +1,6 @@
 name: fluo
 description: Authentication made for Flutter. Complete UI flows in less than 5 minutes.
-version: 0.12.0
+version: 0.12.1
 homepage: https://fluo.dev
 repository: https://github.com/fluo-dev/flutter-sdk
 
