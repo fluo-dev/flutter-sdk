@@ -11,13 +11,13 @@
 
 ## Getting started
 
-**STEP 1** — Add the package to your dependencies:
+Add the package to your dependencies:
 
 ```bash
 flutter pub add fluo
 ```
 
-**STEP 2** — Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
+Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
 
 ```dart
 MaterialApp(
@@ -29,7 +29,7 @@ MaterialApp(
 )
 ```
 
-**STEP 3** — Use the Fluo SDK:
+Use the Fluo SDK:
 
 ```dart
 import 'package:fluo/fluo.dart';
