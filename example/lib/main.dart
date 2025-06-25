@@ -1,9 +1,8 @@
 import 'package:example/config.dart';
+import 'package:example/fluo_theme.dart';
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
-import 'package:fluo/theme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -43,7 +42,7 @@ class _ExampleAppState extends State<ExampleApp> {
 
           if (!Fluo.instance.isUserReady()) {
             return FluoOnboarding(
-              theme: _fluoTheme(),
+              fluoTheme: fluoThemeBasic(),
               onUserReady: () {
                 setState(() {});
               },
@@ -58,19 +57,6 @@ class _ExampleAppState extends State<ExampleApp> {
           );
         },
       ),
-    );
-  }
-
-  FluoTheme _fluoTheme() {
-    if (kIsWeb) {
-      return FluoTheme.web(
-        primaryColor: Colors.black,
-        inversePrimaryColor: Colors.white,
-      );
-    }
-    return FluoTheme.native(
-      primaryColor: Colors.black,
-      inversePrimaryColor: Colors.white,
     );
   }
 }

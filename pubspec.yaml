@@ -6,7 +6,7 @@ repository: https://github.com/fluo-dev/flutter-sdk
 
 environment:
   sdk: ">=3.5.1 <4.0.0"
-  flutter: ">=3.22.0"
+  flutter: ">=3.8.0"
 
 platforms:
   android:

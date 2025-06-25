@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:country_flags/country_flags.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart' as libphone;
@@ -21,15 +21,15 @@ class CountryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     final name = Localized.countryName(context, country.countryCode);
     return InkWell(
       onTap: onTap,
-      highlightColor: theme.countryItemHighlightColor,
+      highlightColor: fluoTheme.countryItemHighlightColor,
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       child: Padding(
-        padding: theme.countryItemPadding,
+        padding: fluoTheme.countryItemPadding,
         child: Row(
           children: [
             CountryFlag.fromCountryCode(
@@ -42,12 +42,12 @@ class CountryItem extends StatelessWidget {
             Expanded(
               child: Text(
                 name ?? country.countryCode,
-                style: theme.countryTextStyle,
+                style: fluoTheme.countryTextStyle,
               ),
             ),
             Text(
               '+${country.phoneCode}',
-              style: theme.countryTextStyle,
+              style: fluoTheme.countryTextStyle,
             ),
           ],
         ),
@@ -96,39 +96,44 @@ class _CountriesListState extends State<CountriesList> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return Column(
       children: [
         Container(
           padding: EdgeInsets.only(
-            left: theme.screenPadding.left,
-            right: theme.screenPadding.right,
+            left: fluoTheme.screenPadding.left,
+            right: fluoTheme.screenPadding.right,
             bottom: 30.0,
           ),
-          child: TextField(
-            controller: _searchController,
-            focusNode: _focusNode,
-            style: theme.inputTextStyle,
-            textAlignVertical: theme.inputTextAlignVertical,
-            decoration: theme.inputDecoration.copyWith(
-              hintText: FluoLocalizations.of(context)!.searchCountry,
-              prefixIcon: const Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.search,
-                  size: 22.0,
-                ),
-              ),
-              suffixIcon: ClearSuffixButton(controller: _searchController),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              inputDecorationTheme: fluoTheme.inputDecorationTheme,
             ),
-            onChanged: _filterCountries,
-            autocorrect: false,
-            textCapitalization: TextCapitalization.words,
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.text,
-            autofillHints: const [
-              AutofillHints.countryName,
-            ],
+            child: TextField(
+              controller: _searchController,
+              focusNode: _focusNode,
+              style: fluoTheme.inputTextStyle,
+              textAlignVertical: fluoTheme.inputTextAlignVertical,
+              decoration: InputDecoration(
+                hintText: FluoLocalizations.of(context)!.searchCountry,
+                prefix: const Padding(
+                  padding: EdgeInsets.only(left: 5.0),
+                  child: Icon(
+                    Icons.search,
+                    size: 22.0,
+                  ),
+                ),
+                suffix: ClearSuffixButton(controller: _searchController),
+              ),
+              onChanged: _filterCountries,
+              autocorrect: false,
+              textCapitalization: TextCapitalization.words,
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.text,
+              autofillHints: const [
+                AutofillHints.countryName,
+              ],
+            ),
           ),
         ),
         Expanded(

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/fluo.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/managers/country_manager.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,19 +14,19 @@ import 'stubs/google_sign_in_web_stub.dart'
     if (dart.library.html) 'package:google_sign_in_web/google_sign_in_web.dart';
 
 class FluoOnboarding extends StatefulWidget {
-  FluoOnboarding({
+  const FluoOnboarding({
     super.key,
+    required this.fluoTheme,
     this.onUserReady,
     this.introBuilder,
-    FluoTheme? theme,
-  }) : theme = theme ?? FluoTheme();
+  });
 
+  final FluoTheme fluoTheme;
   final VoidCallback? onUserReady;
   final Widget Function(
     BuildContext context,
     double bottomContainerHeight,
   )? introBuilder;
-  final FluoTheme theme;
 
   @override
   State<FluoOnboarding> createState() => _FluoOnboardingState();
@@ -55,7 +55,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         } else if (mounted) {
           Fluo.instance.showRegisterFlow(
             context: context,
-            theme: widget.theme,
+            theme: widget.fluoTheme,
             onUserReady: () => widget.onUserReady?.call(),
           );
         }
@@ -96,7 +96,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             child: IntrinsicHeight(
               key: _bottomContainerKey,
               child: Container(
-                padding: widget.theme.screenPadding,
+                padding: widget.fluoTheme.screenPadding,
                 child: _connectContainer(),
               ),
             ),
@@ -148,10 +148,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             children: [
               if (showEmailButton)
                 _connectButton(
-                  icon: widget.theme.connectButtonIconEmail,
+                  icon: widget.fluoTheme.connectButtonIconEmail,
                   title: FluoLocalizations.of(context)!.continueWithEmail,
-                  buttonStyle: widget.theme.connectButtonStyle,
-                  textStyle: widget.theme.connectButtonTextStyle,
+                  buttonStyle: widget.fluoTheme.connectButtonStyle,
+                  textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
                       setState(() {
@@ -160,7 +160,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     });
                     Fluo.instance.showConnectWithEmailFlow(
                       context: context,
-                      theme: widget.theme,
+                      theme: widget.fluoTheme,
                       onExit: () {
                         Future.delayed(const Duration(milliseconds: 300), () {
                           setState(() => _googleButtonForWebReady = true);
@@ -177,10 +177,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 ),
               if (showMobileButton)
                 _connectButton(
-                  icon: widget.theme.connectButtonIconMobile,
+                  icon: widget.fluoTheme.connectButtonIconMobile,
                   title: FluoLocalizations.of(context)!.continueWithMobile,
-                  buttonStyle: widget.theme.connectButtonStyle,
-                  textStyle: widget.theme.connectButtonTextStyle,
+                  buttonStyle: widget.fluoTheme.connectButtonStyle,
+                  textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
                       setState(() {
@@ -189,7 +189,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     });
                     Fluo.instance.showConnectWithMobileFlow(
                       context: context,
-                      theme: widget.theme,
+                      theme: widget.fluoTheme,
                       onExit: () {
                         Future.delayed(const Duration(milliseconds: 300), () {
                           setState(() => _googleButtonForWebReady = true);
@@ -211,15 +211,15 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 ),
               if (showGoogleButton && !kIsWeb)
                 _connectButton(
-                  icon: widget.theme.connectButtonIconGoogle,
+                  icon: widget.fluoTheme.connectButtonIconGoogle,
                   title: FluoLocalizations.of(context)!.continueWithGoogle,
-                  buttonStyle: widget.theme.connectButtonStyleGoogle,
-                  textStyle: widget.theme.connectButtonTextStyleGoogle,
+                  buttonStyle: widget.fluoTheme.connectButtonStyleGoogle,
+                  textStyle: widget.fluoTheme.connectButtonTextStyleGoogle,
                   loading: _creatingSessionWithGoogle,
                   onPressed: () async {
                     await Fluo.instance.showConnectWithGoogleFlow(
                       context: context,
-                      theme: widget.theme,
+                      theme: widget.fluoTheme,
                       onBeforeSessionCreation: () {
                         setState(() => _creatingSessionWithGoogle = true);
                       },
@@ -231,15 +231,15 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                 ),
               if (showAppleButton)
                 _connectButton(
-                  icon: widget.theme.connectButtonIconApple,
+                  icon: widget.fluoTheme.connectButtonIconApple,
                   title: FluoLocalizations.of(context)!.continueWithApple,
-                  buttonStyle: widget.theme.connectButtonStyleApple,
-                  textStyle: widget.theme.connectButtonTextStyleApple,
+                  buttonStyle: widget.fluoTheme.connectButtonStyleApple,
+                  textStyle: widget.fluoTheme.connectButtonTextStyleApple,
                   loading: _creatingSessionWithApple,
                   onPressed: () async {
                     await Fluo.instance.showConnectWithAppleFlow(
                       context: context,
-                      theme: widget.theme,
+                      theme: widget.fluoTheme,
                       onBeforeSessionCreation: () {
                         setState(() => _creatingSessionWithApple = true);
                       },
@@ -252,36 +252,36 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             ],
           ),
           Padding(
-            padding: widget.theme.legalTextPadding,
+            padding: widget.fluoTheme.legalTextPadding,
             child: StyledText(
               text: FluoLocalizations.of(context)!.acceptTerms,
               textAlign: TextAlign.center,
-              style: widget.theme.legalTextStyle,
+              style: widget.fluoTheme.legalTextStyle,
               tags: {
                 'terms': StyledTextActionTag(
                   (text, attrs) => openWebPage(
                     context: context,
-                    theme: widget.theme,
+                    theme: widget.fluoTheme,
                     title: FluoLocalizations.of(context)!.termsAndConditions,
                     url: Fluo.instance.appConfig.termsUrl,
                   ),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
-                    decorationColor: widget.theme.legalTextStyle.color,
+                    decorationColor: widget.fluoTheme.legalTextStyle.color,
                   ),
                 ),
                 'privacy': StyledTextActionTag(
                   (text, attrs) => openWebPage(
                     context: context,
-                    theme: widget.theme,
+                    theme: widget.fluoTheme,
                     title: FluoLocalizations.of(context)!.privacyPolicy,
                     url: Fluo.instance.appConfig.privacyUrl,
                   ),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
-                    decorationColor: widget.theme.legalTextStyle.color,
+                    decorationColor: widget.fluoTheme.legalTextStyle.color,
                   ),
                 ),
               },
@@ -338,10 +338,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     if (googleButtonForWeb == null) {
       _initGoogleButtonForWeb();
       googleButtonForWeb = _connectButton(
-        icon: widget.theme.connectButtonIconGoogle,
+        icon: widget.fluoTheme.connectButtonIconGoogle,
         title: FluoLocalizations.of(context)!.continueWithGoogle,
-        buttonStyle: widget.theme.connectButtonStyleGoogle,
-        textStyle: widget.theme.connectButtonTextStyleGoogle,
+        buttonStyle: widget.fluoTheme.connectButtonStyleGoogle,
+        textStyle: widget.fluoTheme.connectButtonTextStyleGoogle,
         onPressed: () {},
       );
     }
@@ -364,7 +364,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       }
       Fluo.instance.createSession(
         context: buildContext,
-        theme: widget.theme,
+        theme: widget.fluoTheme,
         googleIdToken: googleIdToken,
         onUserReady: () {
           widget.onUserReady?.call();

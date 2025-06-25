@@ -1,4 +1,4 @@
-import 'package:fluo/theme.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class Webview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return Column(
       children: [
         Padding(
@@ -33,11 +33,11 @@ class Webview extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: theme.modalTitleTextStyle,
+                style: fluoTheme.modalTitleTextStyle,
               ),
               RoundButton(
                 onPressed: onClosePressed,
-                color: theme.primaryColor,
+                color: fluoTheme.primaryColor,
                 iconData: Icons.close_rounded,
               ),
             ],

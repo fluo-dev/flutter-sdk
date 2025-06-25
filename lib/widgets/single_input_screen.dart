@@ -1,4 +1,4 @@
-import 'package:fluo/theme.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/widgets/next_button.dart';
 import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/material.dart';
@@ -28,23 +28,23 @@ class SingleInputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: theme.screenPadding,
+          padding: fluoTheme.screenPadding,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RoundButton(
                 onPressed: onBackButtonPressed,
-                color: theme.primaryColor,
+                color: fluoTheme.primaryColor,
               ),
               const SizedBox(height: 30.0),
               Text(
                 inputTitle,
-                style: theme.titleStyle,
+                style: fluoTheme.titleStyle,
               ),
               const SizedBox(height: 20.0),
               inputWidget,
@@ -54,7 +54,7 @@ class SingleInputScreen extends StatelessWidget {
                 if (errorText != null)
                   Text(
                     errorText!,
-                    style: theme.inputErrorStyle,
+                    style: fluoTheme.inputErrorStyle,
                   ),
                 if (errorText == null && helperWidget != null) ...{
                   helperWidget!

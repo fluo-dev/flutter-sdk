@@ -2,9 +2,9 @@ import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/api/models/session.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -56,7 +56,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterCode,
       inputWidget: Pinput(
@@ -66,12 +66,12 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
         autofocus: true,
         enabled: !_loading,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        defaultPinTheme: theme.codeInputThemeDefault,
-        focusedPinTheme: theme.codeInputThemeFocused,
-        submittedPinTheme: theme.codeInputThemeSubmitted,
-        followingPinTheme: theme.codeInputThemeFollowing,
-        disabledPinTheme: theme.codeInputThemeDisabled,
-        errorPinTheme: theme.codeInputThemeError,
+        defaultPinTheme: fluoTheme.codeInputThemeDefault,
+        focusedPinTheme: fluoTheme.codeInputThemeFocused,
+        submittedPinTheme: fluoTheme.codeInputThemeSubmitted,
+        followingPinTheme: fluoTheme.codeInputThemeFollowing,
+        disabledPinTheme: fluoTheme.codeInputThemeDisabled,
+        errorPinTheme: fluoTheme.codeInputThemeError,
         onCompleted: (_) => _onNext(),
       ),
       onBackButtonPressed: widget.onBackButtonPressed,

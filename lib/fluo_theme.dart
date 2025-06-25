@@ -1,22 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class FluoTheme {
-  factory FluoTheme() {
-    if (kIsWeb) {
-      return FluoTheme.web(
-        primaryColor: Colors.black,
-        inversePrimaryColor: Colors.white,
-      );
-    }
-    return FluoTheme.native(
-      primaryColor: Colors.black,
-      inversePrimaryColor: Colors.white,
-    );
-  }
-
   factory FluoTheme.native({
+    ThemeData? appTheme,
     Color? primaryColor,
     Color? inversePrimaryColor,
     Color? accentColor,
@@ -36,7 +23,7 @@ class FluoTheme {
     EdgeInsets? legalTextPadding,
     TextStyle? modalTitleTextStyle,
     TextStyle? titleStyle,
-    InputDecoration? inputDecoration,
+    InputDecorationTheme? inputDecorationTheme,
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
@@ -54,41 +41,54 @@ class FluoTheme {
     PinTheme? codeInputThemeDisabled,
     PinTheme? codeInputThemeError,
   }) {
-    primaryColor ??= Colors.black;
+    primaryColor ??= appTheme?.colorScheme.primary ?? Colors.black;
 
-    inversePrimaryColor ??= Colors.white;
+    inversePrimaryColor ??=
+        appTheme?.colorScheme.inversePrimary ?? Colors.white;
 
-    accentColor ??= Colors.black;
+    accentColor ??= appTheme?.colorScheme.primary ?? Colors.black;
 
     screenPadding ??= const EdgeInsets.all(20.0);
 
-    connectButtonStyle ??= TextButton.styleFrom(
-      splashFactory: NoSplash.splashFactory,
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
-      minimumSize: const Size.fromHeight(54),
-      enabledMouseCursor: SystemMouseCursors.click,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(
-          width: 1.5,
-        ),
-      ),
-    );
+    connectButtonStyle ??= appTheme?.filledButtonTheme.style ??
+        ButtonStyle(
+          splashFactory: NoSplash.splashFactory,
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            return states.contains(WidgetState.pressed)
+                ? Colors.grey.shade300
+                : Colors.grey.shade200;
+          }),
+          foregroundColor: WidgetStateProperty.all(Colors.black),
+          minimumSize: WidgetStateProperty.all(const Size.fromHeight(54)),
+          mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide.none,
+          )),
+        );
 
     connectButtonStyleGoogle ??= connectButtonStyle;
 
-    connectButtonStyleApple ??= connectButtonStyle;
-
-    connectButtonTextStyle ??= TextStyle(
-      fontSize: 18,
-      color: primaryColor,
-      fontWeight: FontWeight.w700,
+    connectButtonStyleApple ??= connectButtonStyle.copyWith(
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        return states.contains(WidgetState.pressed)
+            ? Colors.black87
+            : Colors.black;
+      }),
     );
+
+    connectButtonTextStyle ??= appTheme?.textTheme.titleMedium ??
+        TextStyle(
+          fontSize: 17,
+          color: primaryColor,
+          fontWeight: FontWeight.w600,
+        );
 
     connectButtonTextStyleGoogle ??= connectButtonTextStyle;
 
-    connectButtonTextStyleApple ??= connectButtonTextStyle;
+    connectButtonTextStyleApple ??= connectButtonTextStyle.copyWith(
+      color: Colors.white,
+    );
 
     connectButtonIconSize ??= 20.0;
 
@@ -115,74 +115,82 @@ class FluoTheme {
       width: connectButtonIconSize,
     );
 
-    legalTextStyle ??= TextStyle(
-      fontSize: 14,
-      color: primaryColor.withAlpha((255 * 0.6).toInt()),
-    );
+    legalTextStyle ??= appTheme?.textTheme.bodySmall ??
+        TextStyle(
+          fontSize: 14,
+          color: primaryColor.withAlpha(
+            (255 * 0.6).toInt(),
+          ),
+        );
 
     legalTextPadding ??= const EdgeInsets.symmetric(
       vertical: 30.0,
       horizontal: 50.0,
     );
 
-    modalTitleTextStyle ??= TextStyle(
-      fontSize: 17,
-      fontWeight: FontWeight.w600,
-      color: primaryColor,
-    );
+    modalTitleTextStyle ??= appTheme?.textTheme.titleMedium ??
+        TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          color: primaryColor,
+        );
 
-    titleStyle ??= TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-      color: primaryColor,
-    );
+    titleStyle ??= appTheme?.textTheme.headlineSmall ??
+        TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: primaryColor,
+        );
 
-    inputDecoration ??= InputDecoration(
-      fillColor: inversePrimaryColor.withAlpha(255 ~/ 2),
-      filled: true,
-      isDense: true,
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 15.0,
-        horizontal: 20.0,
-      ),
-      hintStyle: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: primaryColor.withAlpha(255 ~/ 3), // THEME
-      ),
-      border: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      suffixIconConstraints: const BoxConstraints(
-        maxHeight: 32,
-        maxWidth: 32 + 10 + 15,
-      ),
-    );
+    inputTextStyle ??= appTheme?.textTheme.titleLarge ??
+        const TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+        );
 
-    inputTextStyle ??= const TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-    );
+    inputDecorationTheme ??= appTheme?.inputDecorationTheme.copyWith(
+          hintStyle: appTheme.inputDecorationTheme.hintStyle ??
+              inputTextStyle.copyWith(
+                color: primaryColor.withAlpha(255 ~/ 3),
+              ),
+        ) ??
+        InputDecorationTheme(
+          fillColor: inversePrimaryColor.withAlpha(255 ~/ 2),
+          filled: true,
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 15.0,
+            horizontal: 20.0,
+          ),
+          hintStyle: inputTextStyle.copyWith(
+            color: primaryColor.withAlpha(255 ~/ 3),
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        );
 
-    inputErrorStyle ??= TextStyle(
-      fontSize: 15,
-      color: Colors.red.shade500,
-    );
+    inputErrorStyle ??= appTheme?.inputDecorationTheme.errorStyle ??
+        TextStyle(
+          fontSize: 15,
+          color: Colors.red.shade500,
+        );
 
     inputTextAlignVertical ??= TextAlignVertical.center;
 
-    nextButtonStyle ??= TextButton.styleFrom(
-      splashFactory: NoSplash.splashFactory,
-      minimumSize: const Size.fromHeight(54),
-      enabledMouseCursor: SystemMouseCursors.click,
-      textStyle: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    );
+    nextButtonStyle ??= appTheme?.filledButtonTheme.style ??
+        TextButton.styleFrom(
+          splashFactory: NoSplash.splashFactory,
+          minimumSize: const Size.fromHeight(54),
+          enabledMouseCursor: SystemMouseCursors.click,
+          textStyle: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        );
 
     nextButtonProgressIndicatorSize ??= const Size(16.0, 16.0);
 
@@ -252,7 +260,7 @@ class FluoTheme {
       legalTextPadding,
       modalTitleTextStyle,
       titleStyle,
-      inputDecoration,
+      inputDecorationTheme,
       inputTextStyle,
       inputErrorStyle,
       inputTextAlignVertical,
@@ -292,7 +300,7 @@ class FluoTheme {
     EdgeInsets? legalTextPadding,
     TextStyle? modalTitleTextStyle,
     TextStyle? titleStyle,
-    InputDecoration? inputDecoration,
+    InputDecorationTheme? inputDecorationTheme,
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
@@ -354,8 +362,9 @@ class FluoTheme {
 
     connectButtonTextStyle ??= TextStyle(
       fontSize: 14,
-      color: Colors.grey.shade900,
-      fontWeight: FontWeight.w500,
+      color: Colors.grey.shade800,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 1.0,
     );
 
     connectButtonTextStyleGoogle ??= connectButtonTextStyle;
@@ -402,15 +411,17 @@ class FluoTheme {
       fontSize: 16,
       fontWeight: FontWeight.w600,
       color: primaryColor,
+      letterSpacing: 0.5,
     );
 
     titleStyle ??= TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w600,
       color: primaryColor,
+      letterSpacing: 0.5,
     );
 
-    inputDecoration ??= InputDecoration(
+    inputDecorationTheme ??= InputDecorationTheme(
       isDense: true,
       contentPadding: const EdgeInsets.symmetric(
         vertical: 15.0,
@@ -547,7 +558,7 @@ class FluoTheme {
       legalTextPadding,
       modalTitleTextStyle,
       titleStyle,
-      inputDecoration,
+      inputDecorationTheme,
       inputTextStyle,
       inputErrorStyle,
       inputTextAlignVertical,
@@ -587,7 +598,7 @@ class FluoTheme {
     this.legalTextPadding,
     this.modalTitleTextStyle,
     this.titleStyle,
-    this.inputDecoration,
+    this.inputDecorationTheme,
     this.inputTextStyle,
     this.inputErrorStyle,
     this.inputTextAlignVertical,
@@ -631,7 +642,7 @@ class FluoTheme {
 
   final TextStyle titleStyle;
 
-  final InputDecoration inputDecoration;
+  final InputDecorationTheme inputDecorationTheme;
   final TextStyle inputTextStyle;
   final TextStyle inputErrorStyle;
   final TextAlignVertical inputTextAlignVertical;

@@ -1,9 +1,9 @@
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/managers/session_manager.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
@@ -57,26 +57,31 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterLastName,
-      inputWidget: TextField(
-        controller: _lastNameController,
-        style: theme.inputTextStyle,
-        textAlignVertical: theme.inputTextAlignVertical,
-        decoration: theme.inputDecoration.copyWith(
-          hintText: FluoLocalizations.of(context)!.enterLastNamePlaceholder,
-          suffixIcon: ClearSuffixButton(controller: _lastNameController),
+      inputWidget: Theme(
+        data: Theme.of(context).copyWith(
+          inputDecorationTheme: fluoTheme.inputDecorationTheme,
         ),
-        onSubmitted: (_) => _onNext(),
-        autofocus: true,
-        autocorrect: false,
-        textCapitalization: TextCapitalization.words,
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.text,
-        autofillHints: const [
-          AutofillHints.familyName,
-        ],
+        child: TextField(
+          controller: _lastNameController,
+          style: fluoTheme.inputTextStyle,
+          textAlignVertical: fluoTheme.inputTextAlignVertical,
+          decoration: InputDecoration(
+            hintText: FluoLocalizations.of(context)!.enterLastNamePlaceholder,
+            suffix: ClearSuffixButton(controller: _lastNameController),
+          ),
+          onSubmitted: (_) => _onNext(),
+          autofocus: true,
+          autocorrect: false,
+          textCapitalization: TextCapitalization.words,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.text,
+          autofillHints: const [
+            AutofillHints.familyName,
+          ],
+        ),
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,

@@ -1,5 +1,5 @@
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
-import 'package:fluo/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,17 +17,17 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return FilledButton(
-      style: theme.nextButtonStyle,
+      style: fluoTheme.nextButtonStyle,
       onPressed: enabled ? _onPressedIfNotLoading : null,
       child: loading
           ? SizedBox(
-              width: theme.nextButtonProgressIndicatorSize.width,
-              height: theme.nextButtonProgressIndicatorSize.height,
+              width: fluoTheme.nextButtonProgressIndicatorSize.width,
+              height: fluoTheme.nextButtonProgressIndicatorSize.height,
               child: CircularProgressIndicator(
-                color: theme.nextButtonProgressIndicatorColor,
-                strokeWidth: theme.nextButtonProgressIndicatorStrokeWidth,
+                color: fluoTheme.nextButtonProgressIndicatorColor,
+                strokeWidth: fluoTheme.nextButtonProgressIndicatorStrokeWidth,
               ),
             )
           : Text(FluoLocalizations.of(context)!.next),

@@ -1,7 +1,7 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:device_region/device_region.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/managers/country_manager.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/countries_list.dart';
 import 'package:flutter/foundation.dart';
@@ -85,34 +85,39 @@ class _MobileInputState extends State<MobileInput> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<FluoTheme>();
-    return TextField(
-      controller: widget.controller,
-      focusNode: widget.focusNode,
-      style: theme.inputTextStyle,
-      textAlignVertical: theme.inputTextAlignVertical,
-      decoration: theme.inputDecoration.copyWith(
-        hintText: _selectedCountry?.exampleNumberMobileNational,
-        prefixIcon: GestureDetector(
-          onTap: () => _showCountrySelector(),
-          child: _countrySelectorButton(theme),
-        ),
-        suffixIcon: ClearSuffixButton(controller: widget.controller),
+    final fluoTheme = context.read<FluoTheme>();
+    return Theme(
+      data: Theme.of(context).copyWith(
+        inputDecorationTheme: fluoTheme.inputDecorationTheme,
       ),
-      inputFormatters: [
-        if (_selectedCountry != null) ...[
-          AutofillHintsFormatter(_selectedCountry!),
-          CountryManager.getMobileNationalFormatter(_selectedCountry!)
+      child: TextField(
+        controller: widget.controller,
+        focusNode: widget.focusNode,
+        style: fluoTheme.inputTextStyle,
+        textAlignVertical: fluoTheme.inputTextAlignVertical,
+        decoration: InputDecoration(
+          hintText: _selectedCountry?.exampleNumberMobileNational,
+          prefixIcon: GestureDetector(
+            onTap: () => _showCountrySelector(),
+            child: _countrySelectorButton(fluoTheme),
+          ),
+          suffix: ClearSuffixButton(controller: widget.controller),
+        ),
+        inputFormatters: [
+          if (_selectedCountry != null) ...[
+            AutofillHintsFormatter(_selectedCountry!),
+            CountryManager.getMobileNationalFormatter(_selectedCountry!)
+          ],
         ],
-      ],
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.phone,
-      autofillHints: const [
-        AutofillHints.telephoneNumber,
-        AutofillHints.telephoneNumberDevice,
-        AutofillHints.telephoneNumberNational,
-      ],
+        autocorrect: false,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.phone,
+        autofillHints: const [
+          AutofillHints.telephoneNumber,
+          AutofillHints.telephoneNumberDevice,
+          AutofillHints.telephoneNumberNational,
+        ],
+      ),
     );
   }
 
@@ -135,20 +140,12 @@ class _MobileInputState extends State<MobileInput> {
   }
 
   Widget _countrySelectorButton(FluoTheme theme) {
-    double flagPaddingLeft = 15.0;
-    final padding = theme.inputDecoration.contentPadding;
-    if (padding is EdgeInsets) {
-      flagPaddingLeft = padding.left;
-    } else if (padding is EdgeInsetsDirectional) {
-      flagPaddingLeft = padding.start;
-    }
-
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            left: flagPaddingLeft,
+          padding: const EdgeInsets.only(
             right: 3.0,
           ),
           child: _countryFlag(),

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
+import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
-import 'package:fluo/theme.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/single_input_screen.dart';
 import 'package:flutter/material.dart';
@@ -62,25 +62,30 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = FluoLocalizations.of(context)!;
-    final theme = context.read<FluoTheme>();
+    final fluoTheme = context.read<FluoTheme>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
-      inputWidget: TextField(
-        controller: _emailController,
-        focusNode: _focusNode,
-        style: theme.inputTextStyle,
-        textAlignVertical: theme.inputTextAlignVertical,
-        decoration: theme.inputDecoration.copyWith(
-          hintText: l10n.enterEmailPlaceholder,
-          suffixIcon: ClearSuffixButton(controller: _emailController),
+      inputWidget: Theme(
+        data: Theme.of(context).copyWith(
+          inputDecorationTheme: fluoTheme.inputDecorationTheme,
         ),
-        onSubmitted: (_) => _onNext(),
-        autocorrect: false,
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.emailAddress,
-        autofillHints: const [
-          AutofillHints.email,
-        ],
+        child: TextField(
+          controller: _emailController,
+          focusNode: _focusNode,
+          style: fluoTheme.inputTextStyle,
+          textAlignVertical: fluoTheme.inputTextAlignVertical,
+          decoration: InputDecoration(
+            hintText: l10n.enterEmailPlaceholder,
+            suffix: ClearSuffixButton(controller: _emailController),
+          ),
+          onSubmitted: (_) => _onNext(),
+          autocorrect: false,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.emailAddress,
+          autofillHints: const [
+            AutofillHints.email,
+          ],
+        ),
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
