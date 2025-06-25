@@ -153,6 +153,12 @@ class FluoTheme {
               inputTextStyle.copyWith(
                 color: primaryColor.withAlpha(255 ~/ 3),
               ),
+          suffixIconConstraints:
+              appTheme.inputDecorationTheme.suffixIconConstraints ??
+                  const BoxConstraints(
+                    maxHeight: 32,
+                    maxWidth: 32 + 10 + 15,
+                  ),
         ) ??
         InputDecorationTheme(
           fillColor: inversePrimaryColor.withAlpha(255 ~/ 2),
@@ -167,6 +173,10 @@ class FluoTheme {
           ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          suffixIconConstraints: const BoxConstraints(
+            maxHeight: 32,
+            maxWidth: 32 + 10 + 15,
           ),
         );
 

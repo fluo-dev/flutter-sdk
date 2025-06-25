@@ -50,7 +50,7 @@ class _ClearSuffixButtonState extends State<ClearSuffixButton> {
       child: GestureDetector(
         onTap: widget.controller.clear,
         child: Container(
-          margin: const EdgeInsets.only(left: 10.0),
+          margin: const EdgeInsets.only(left: 10.0, right: 15.0),
           decoration: BoxDecoration(
             color: isDark ? Colors.white24 : Colors.black.withAlpha(50),
             borderRadius: BorderRadius.circular(30),

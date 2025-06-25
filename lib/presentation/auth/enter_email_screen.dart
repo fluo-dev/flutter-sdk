@@ -76,7 +76,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
           textAlignVertical: fluoTheme.inputTextAlignVertical,
           decoration: InputDecoration(
             hintText: l10n.enterEmailPlaceholder,
-            suffix: ClearSuffixButton(controller: _emailController),
+            suffixIcon: ClearSuffixButton(controller: _emailController),
           ),
           onSubmitted: (_) => _onNext(),
           autocorrect: false,
