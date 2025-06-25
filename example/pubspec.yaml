@@ -1,89 +1,20 @@
 name: example
-description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
+display_name: Fluo Example
+description: "Example app for Fluo SDK"
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.1
+  sdk: ^3.32.0
 
 dependencies:
-  cupertino_icons: ^1.0.0
-  flutter:
-    sdk: flutter
   fluo:
     path: ../
-  provider: ^6.1.2
-  flutter_localizations:
+  flutter:
     sdk: flutter
-  intl: any
-  flutter_inappwebview: ^6.1.5
 
 dev_dependencies:
-  build_runner: ^2.4.12
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
-  generate: true
-  assets:
-    - assets/images/
-  fonts:
-    - family: Caveat
-      fonts:
-        - asset: assets/fonts/Caveat-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Caveat-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Caveat-Semibold.ttf
-          weight: 600
-        - asset: assets/fonts/Caveat-Bold.ttf
-          weight: 700
-    - family: Geist
-      fonts:
-        - asset: assets/fonts/Geist-ExtraLight.ttf
-          weight: 100
-        - asset: assets/fonts/Geist-Thin.ttf
-          weight: 200
-        - asset: assets/fonts/Geist-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Geist-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Geist-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Geist-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Geist-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Geist-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/Geist-Black.ttf
-          weight: 900
-    - family: SpaceGrotesk
-      fonts:
-        - asset: assets/fonts/SpaceGrotesk-Light.ttf
-          weight: 300
-        - asset: assets/fonts/SpaceGrotesk-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/SpaceGrotesk-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/SpaceGrotesk-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/SpaceGrotesk-Bold.ttf
-          weight: 700

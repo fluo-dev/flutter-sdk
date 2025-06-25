@@ -3,17 +3,21 @@ import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ExampleApp());
+  runApp(const ExampleApp());
 }
 
-class ExampleApp extends StatelessWidget {
-  ExampleApp({super.key});
+class ExampleApp extends StatefulWidget {
+  const ExampleApp({super.key});
 
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
 
+class _ExampleAppState extends State<ExampleApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,170 +29,76 @@ class ExampleApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      navigatorKey: _navigatorKey,
+      // Very important to add 'FluoLocalizations.localizationsDelegates'
+      // to make sure that the Fluo SDK works correctly.
       localizationsDelegates: FluoLocalizations.localizationsDelegates,
       supportedLocales: FluoLocalizations.supportedLocales,
-      home: FluoOnboarding(
-        apiKey: Config.apiKey,
-        theme: _theme(),
-        introBuilder: _introScreen,
-        onUserReady: _onUserReady,
+      home: FutureBuilder(
+        // Put your own API key here.
+        future: Fluo.init(Config.apiKey),
+        builder: (context, snapshot) {
+          if (!Fluo.isInitialized) {
+            return const Scaffold(backgroundColor: Colors.white);
+          }
+
+          if (!Fluo.instance.isUserReady()) {
+            return FluoOnboarding(
+              theme: _fluoTheme(),
+              onUserReady: () {
+                setState(() {});
+              },
+            );
+          }
+
+          return ConnectedScreen(
+            onSignOut: () async {
+              await Fluo.instance.clearSession();
+              setState(() {});
+            },
+          );
+        },
       ),
     );
   }
 
-  FluoTheme _theme() {
+  FluoTheme _fluoTheme() {
+    if (kIsWeb) {
+      return FluoTheme.web(
+        primaryColor: Colors.black,
+        inversePrimaryColor: Colors.white,
+      );
+    }
     return FluoTheme.native(
       primaryColor: Colors.black,
       inversePrimaryColor: Colors.white,
-      connectButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(Colors.grey.shade200),
-        foregroundColor: WidgetStateProperty.all(Colors.black),
-        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
-      ),
-      connectButtonStyleApple: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(Colors.black),
-        foregroundColor: WidgetStateProperty.all(Colors.white),
-        minimumSize: WidgetStateProperty.all(const Size(200, 54)),
-      ),
-      connectButtonIconApple: const Icon(
-        Icons.apple,
-        color: Colors.white,
-        size: 20,
-      ),
-      connectButtonTextStyleApple: const TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
     );
   }
+}
 
-  Widget _introScreen(
-    BuildContext context,
-    bool initializing,
-    bool signingIn,
-    double bottomContainerHeight,
-  ) {
-    if (signingIn) {
-      return Container(
-        alignment: Alignment.bottomCenter,
-        padding: const EdgeInsets.only(bottom: 100),
-        child: const CircularProgressIndicator(),
-      );
-    }
-    return Container(
-      padding: EdgeInsets.only(bottom: bottomContainerHeight + 20),
-      alignment: Alignment.center,
-      child: AnimatedOpacity(
-        opacity: initializing ? 0.0 : 1.0,
-        duration: const Duration(seconds: 2),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+class ConnectedScreen extends StatelessWidget {
+  const ConnectedScreen({
+    super.key,
+    required this.onSignOut,
+  });
+
+  final VoidCallback onSignOut;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          spacing: 20,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 0, bottom: 30),
-              child: Text(
-                '5 lines of code\nto get these',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  fontFamily: 'Caveat',
-                  height: 1.2,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 60, right: 160),
-              child: Image.asset(
-                'assets/images/arrow-down.png',
-                width: 50,
-              ),
+            const Text('You are connected'),
+            FilledButton(
+              onPressed: onSignOut,
+              child: const Text('Sign out'),
             ),
           ],
         ),
       ),
     );
-  }
-
-  void _onUserReady(Fluo fluo) {
-    _navigatorKey.currentState?.push(PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Scaffold(
-          backgroundColor: Colors.grey.shade100,
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.check_circle_rounded,
-                      size: 25,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'You are connected',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontFamily: 'Caveat',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                SizedBox(
-                  width: 290,
-                  child: Text(
-                    'Now that you got to experience Fluo, are you ready for the next step?',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey.shade600,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                const SizedBox(
-                  width: 270,
-                  child: Text(
-                    'Go to dashboard.fluo.dev',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                FilledButton(
-                  onPressed: () async {
-                    await fluo.clearSession();
-                    _navigatorKey.currentState
-                        ?.popUntil((route) => route.isFirst);
-                  },
-                  child: const Text('Sign out'),
-                ),
-                const SizedBox(height: 50),
-              ],
-            ),
-          ),
-        );
-      },
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-    ));
   }
 }
