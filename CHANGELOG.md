@@ -1,3 +1,9 @@
+## 1.0.0
+
+- Breaking change on how to use the Fluo SDK
+- Review of `FluoTheme` so that you can optionally leverage your defined `ThemeData`
+- Simplification of `FluoOnboarding`
+
 ## 0.12.1
 
 - Expose `fluo.session` to access session and user info

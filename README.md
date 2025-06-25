@@ -18,59 +18,75 @@
 flutter pub add fluo
 ```
 
-**STEP 3** — Add the `FluoOnboarding` widget in your app:
+**STEP 3** — Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
+
+```dart
+MaterialApp(
+  // ...other properties...
+  localizationsDelegates: const [
+    FluoLocalizations.delegate,
+    // ...other delegates...
+  ],
+)
+```
+
+**STEP 4** — Use the Fluo SDK:
 
 ```dart
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
-import 'package:fluo/l10n/fluo_localizations.dart';
-import 'package:fluo/theme.dart';
-import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const ExampleApp());
-}
+FutureBuilder(
+  future: Fluo.init('YOUR_API_KEY'),
+  builder: (context, snapshot) {
+    // Fluo is not initialized yet.
+    if (!Fluo.isInitialized) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+      );
+    }
 
-class ExampleApp extends StatelessWidget {
-  const ExampleApp({super.key});
+    // Fluo is initialized. Check if the user is ready.
+    if (!Fluo.instance.isUserReady()) {
+      return FluoOnboarding(
+        fluoTheme: FluoTheme.native(), // or FluoTheme.web()
+        onUserReady: () => setState(() {}), // force build
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        // Important: add this one
-        FluoLocalizations.delegate,
-        // ...other delegates...
-      ],
-      home: FluoOnboarding(
-        apiKey: 'your-api-key',
-        onUserReady: (fluo) {
-          // Here, your user is onboarded, so do your own things!
-
-          // When you need to sign the user out, you can use the
-          // fluo.clearSession() method. It's async so you can decide
-          // to use await depending on your use case.
-          fluo.clearSession();
-        },
-        onInitError: (error) {
-          // Optional - Handle network or server error
-          //   for example, you could decide to show a toast or dialog
-        }
-        introBuilder: (context, initializing, bottomContainerHeight) {
-          // Optional - Present your app on the connection screen
-          //   use 'initializing' if you want to show a loading indicator
-          //   use 'bottomContainerHeight' if you need to position content above the buttons
-        },
-        theme: FluoTheme.native(
-          // Optional - Customize the look & feel
-          primaryColor: Colors.black,
-          inversePrimaryColor: Colors.white,
-          // ...lots more to customize...
-        ),
-      ),
+    // User is ready!
+    return ConnectedScreen(
+      onSignOut: () async {
+        await Fluo.instance.clearSession();
+        setState(() {});
+      },
     );
-  }
-}
+  },
+)
+```
+
+Important methods to know about:
+
+```dart
+// Initialize the SDK
+await Fluo.init('YOUR_API_KEY');
+
+// Check if init is done
+Fluo.isInitialized
+
+// Check if user is ready (= valid session + valid user attributes)
+Fluo.instance.isUserReady()
+
+// Session management
+await Fluo.instance.clearSession()
+await Fluo.instance.refreshSession()
+await Fluo.instance.getAccessToken()
+
+// If you build your own connect screen (and don't use FluoOnboarding)
+Fluo.instance.showConnectWithEmailFlow(/* ... */)
+Fluo.instance.showConnectWithMobileFlow(/* ... */)
+Fluo.instance.showConnectWithGoogleFlow(/* ... */)
+Fluo.instance.showConnectWithAppleFlow(/* ... */)
 ```
 
 **For macOS**, make sure you have networking allowed by adding this key to both `{your-app}/macos/Runner/DebugProfile.entitlements` and `{your-app}/macos/Runner/Release.entitlements`:
@@ -85,59 +101,49 @@ class ExampleApp extends StatelessWidget {
 
 ## Integrating with Firebase
 
-Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Firebase' and follow the instructions. Once complete, when users are onboarded, Fluo forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
+Select 'Firebase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
 
 Back to your app code, to initialize correctly the Firebase session, use the `fluo.firebaseToken` as below:
 
 ```dart
-FluoOnboarding(
-  // ...other properties...
-  onUserReady: (fluo) async {
-    // 1. Initialize the Firebase client somewhere in your code
-    // 2. Use 'signInWithCustomToken' as below:
-    await FirebaseAuth.instance.signInWithCustomToken(fluo.firebaseToken!);
-  },
-)
+// 1. Initialize the Firebase client somewhere in your code
+// 2. Make sure Fluo is initialized and has a session
+// 3. Use 'signInWithCustomToken' as shown below
+if (Fluo.isInitialized) {
+  final fluoSession = Fluo.instance.session;
+  if (fluoSession != null) {
+    final firebaseToken = fluoSession.firebaseToken!;
+    await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  }
+}
 ```
 
 ## Integrating with Supabase
 
-Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Supabase' and follow the instructions. Once complete, when users are onboarded, Fluo forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste).
+Select 'Supabase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste).
 
 Back to your app code, to initialize correctly the Supabase session, use the `fluo.supabaseSession` as below:
 
 ```dart
-FluoOnboarding(
-  // ...other properties...
-  onUserReady: (fluo) async {
-    // 1. Initialize the Supabase client somewhere in your code
-    // 2. Use 'recoverSession' as below:
-    await Supabase.instance.client.auth.recoverSession(fluo.supabaseSession!);
-  },
-)
+// 1. Initialize the Supabase client somewhere in your code
+// 2. Make sure Fluo is initialized and has a session
+// 3. Use 'recoverSession' as shown below
+if (Fluo.isInitialized) {
+  final fluoSession = Fluo.instance.session;
+  if (fluoSession != null) {
+    final supabaseSession = fluoSession.supabaseSession!;
+    await Supabase.instance.client.auth.recoverSession(supabaseSession);
+  }
+}
 ```
 
 ## Integrating with any backend
 
-Create a new app from the [Fluo dashboard](https://dashboard.fluo.dev/new), select 'Custom' and follow the instructions. The general idea is to use the JWT access token provided by Fluo. Once decoded (using your secret key), it provides the user information which you can store in your database.
+Select 'Custom' when setting up your preferred backend option. The general idea is to use the JWT access token provided by Fluo. Once decoded (using your secret key), it provides the user information which you can store in your database.
 
 Here is a full example to understand how it works:
 
-[1] In the `onUserReady` callback, pass the `fluo` instance to your preferred dependency management system, so that it is accessible in other parts of your app.
-
-```dart
-import 'package:get_it/get_it.dart';
-
-FluoOnboarding(
-  apiKey: '{apiKey}',
-  onUserReady: (fluo) {
-    // Here we use GetIt as an example
-    GetIt.instance.registerSingleton<Fluo>(fluo);
-  },
-)
-```
-
-[2] Now, wherever you need it, call `fluo.getAccessToken()` to get the JWT access token generated by Fluo and send it to your backend.
+[1] Wherever you need it, call `Fluo.instance.getAccessToken()` to get the JWT access token generated by Fluo and send it to your backend.
 
 ```dart
 import 'package:http/http.dart' as http;
@@ -148,7 +154,7 @@ Future<User> getOrCreateUser() async {
   final fluo = GetIt.instance<Fluo>();
   // This method returns an access token which is valid for
   // 1 hour and auto-refreshed using a single-use refresh token
-  final accessToken = await fluo.getAccessToken();
+  final accessToken = await Fluo.instance.getAccessToken();
   final response = await http.get(
     Uri.parse('https://your-backend.com/api/user/me'),
     headers: {
@@ -159,7 +165,7 @@ Future<User> getOrCreateUser() async {
 }
 ```
 
-[3] In your backend, decode the access token to get the JWT payload. The payload contains the user id (sub) and email. Depending on your configuration, it may also contain the first name and last name.
+[2] In your backend, decode the access token to get the JWT payload. The payload contains the user id (sub) and email. Depending on your configuration, it may also contain the first name and last name.
 
 ```js
 const jwt = require("jsonwebtoken")
@@ -195,7 +201,7 @@ app.get("/api/user/me", async (req, res) => {
 })
 ```
 
-[4] If you need to go further, here is a complete example of the payload. For example, for increased security, you might want to verify that the token has not expired.
+[3] If you need to go further, here is a complete example of the payload. For example, for increased security, you might want to verify that the token has not expired.
 
 ```js
 {
@@ -218,7 +224,7 @@ Pass a `FluoTheme` to the `FluoOnboarding` component.
 ```dart
 FluoOnboarding(
   // ...other properties...
-  theme: FluoTheme.native(/* paramaters */),
+  fluoTheme: FluoTheme.native(/* paramaters */),
 )
 ```
 
@@ -227,7 +233,7 @@ FluoOnboarding(
 ```dart
 FluoOnboarding(
   // ...other properties...
-  theme: FluoTheme.web(/* paramaters */),
+  fluoTheme: FluoTheme.web(/* paramaters */),
 )
 ```
 
@@ -254,7 +260,7 @@ FluoOnboarding(
   EdgeInsets? legalTextPadding,
   TextStyle? modalTitleTextStyle,
   TextStyle? titleStyle,
-  InputDecoration? inputDecoration,
+  InputDecorationTheme? inputDecorationTheme,
   TextStyle? inputTextStyle,
   TextStyle? inputErrorStyle,
   TextAlignVertical? inputTextAlignVertical,
@@ -272,4 +278,8 @@ FluoOnboarding(
   PinTheme? codeInputThemeDisabled,
   PinTheme? codeInputThemeError,
 }
+```
+
+```
+
 ```
