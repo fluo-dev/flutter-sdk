@@ -3,6 +3,7 @@
 # Fluo
 
 - [Getting started](#getting-started)
+- [Using the SDK](#using-the-sdk)
 - [Integrating with Firebase](#integrating-with-firebase)
 - [Integrating with Supabase](#integrating-with-supabase)
 - [Integrating with any backend](#integrating-with-any-backend)
@@ -65,7 +66,19 @@ FutureBuilder(
 )
 ```
 
-Important methods to know about:
+**For macOS**, make sure you have networking allowed by adding this key to both `{your-app}/macos/Runner/DebugProfile.entitlements` and `{your-app}/macos/Runner/Release.entitlements`:
+
+```xml
+<dict>
+	<!-- Add this key set to true -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+</dict>
+```
+
+## Using the SDK
+
+Below are the most important methods to know:
 
 ```dart
 // Initialize the SDK
@@ -78,9 +91,9 @@ Fluo.isInitialized
 Fluo.instance.isUserReady()
 
 // Session management
-await Fluo.instance.clearSession()
-await Fluo.instance.refreshSession()
 await Fluo.instance.getAccessToken()
+await Fluo.instance.refreshSession()
+await Fluo.instance.clearSession()
 
 // If you build your own connect screen (and don't use FluoOnboarding)
 Fluo.instance.showConnectWithEmailFlow(/* ... */)
@@ -89,21 +102,11 @@ Fluo.instance.showConnectWithGoogleFlow(/* ... */)
 Fluo.instance.showConnectWithAppleFlow(/* ... */)
 ```
 
-**For macOS**, make sure you have networking allowed by adding this key to both `{your-app}/macos/Runner/DebugProfile.entitlements` and `{your-app}/macos/Runner/Release.entitlements`:
-
-```xml
-<dict>
-	<!-- Add this key set to true -->
-	<key>com.apple.security.network.client</key>
-	<true/>
-</dict>
-```
-
 ## Integrating with Firebase
 
 Select 'Firebase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
 
-Back to your app code, to initialize correctly the Firebase session, use the `fluo.firebaseToken` as below:
+Back to your app code, to initialize correctly the Firebase session, use the `Fluo.instance.session.firebaseToken` as below:
 
 ```dart
 // 1. Initialize the Firebase client somewhere in your code
@@ -122,7 +125,7 @@ if (Fluo.isInitialized) {
 
 Select 'Supabase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste).
 
-Back to your app code, to initialize correctly the Supabase session, use the `fluo.supabaseSession` as below:
+Back to your app code, to initialize correctly the Supabase session, use the `Fluo.instance.session.supabaseSession` as below:
 
 ```dart
 // 1. Initialize the Supabase client somewhere in your code
@@ -278,8 +281,4 @@ FluoOnboarding(
   PinTheme? codeInputThemeDisabled,
   PinTheme? codeInputThemeError,
 }
-```
-
-```
-
 ```
