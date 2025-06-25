@@ -20,7 +20,7 @@ class EnterCodeScreen extends StatefulWidget {
   });
 
   final PartialSession partialSession;
-  final Function() onBackButtonPressed;
+  final VoidCallback onBackButtonPressed;
   final Function(Session session) onCodeVerified;
 
   @override

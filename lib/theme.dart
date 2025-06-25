@@ -120,10 +120,9 @@ class FluoTheme {
       color: primaryColor.withAlpha((255 * 0.6).toInt()),
     );
 
-    legalTextPadding ??= const EdgeInsets.only(
-      top: 30.0,
-      right: 50.0,
-      left: 50.0,
+    legalTextPadding ??= const EdgeInsets.symmetric(
+      vertical: 30.0,
+      horizontal: 50.0,
     );
 
     modalTitleTextStyle ??= TextStyle(

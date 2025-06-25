@@ -17,7 +17,7 @@ class EnterMobileScreen extends StatefulWidget {
     required this.onMobileSubmitted,
   });
 
-  final Function() onBackButtonPressed;
+  final VoidCallback onBackButtonPressed;
   final Function(PartialSession partialSession) onMobileSubmitted;
 
   @override

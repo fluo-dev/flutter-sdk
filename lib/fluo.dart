@@ -23,6 +23,8 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 class Fluo {
   Fluo._(this._apiClient, this._sessionManager, this._appConfig);
 
+  static Fluo? _instance;
+
   final ApiClient _apiClient;
 
   final SessionManager _sessionManager;
@@ -31,10 +33,9 @@ class Fluo {
 
   AppConfig get appConfig => _appConfig;
 
-  /// [Fluo] is the class that provides the interface for managing the
-  /// user session. This method is async because it tries to load a potential
+  /// This method is async because it tries to load a potential
   /// session object from the secure storage and load the app configuration.
-  static Future<Fluo> init(String apiKey) async {
+  static Future<void> init(String apiKey) async {
     final apiClient = ApiClient(apiKey);
 
     SessionManager sessionManager;
@@ -55,8 +56,18 @@ class Fluo {
       throw Exception('Failed to load app config: $e');
     }
 
-    return Fluo._(apiClient, sessionManager, appConfig);
+    _instance = Fluo._(apiClient, sessionManager, appConfig);
   }
+
+  static Fluo get instance {
+    if (_instance == null) {
+      throw Exception(
+          'Fluo has not been initialized. Call Fluo.init(apiKey) first.');
+    }
+    return _instance!;
+  }
+
+  static bool get isInitialized => _instance != null;
 
   /// Returns the current session.
   Session? get session => _sessionManager.session;
@@ -84,8 +95,8 @@ class Fluo {
     await _sessionManager.clearSession();
   }
 
-  /// Returns whether the current user is complete.
-  bool isUserComplete() {
+  /// Returns whether the current user is ready.
+  bool isUserReady() {
     final session = _sessionManager.session;
     if (session == null) {
       return false;
@@ -163,8 +174,8 @@ class Fluo {
   void showConnectWithEmailFlow({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onExit,
-    required Function() onUserReady,
+    required VoidCallback onExit,
+    required VoidCallback onUserReady,
   }) {
     _showNavigator(
       context: context,
@@ -177,7 +188,7 @@ class Fluo {
         },
         onUserAuthenticated: () {
           Navigator.of(context).pop();
-          if (isUserComplete()) {
+          if (isUserReady()) {
             onUserReady();
           } else {
             showRegisterFlow(
@@ -199,8 +210,8 @@ class Fluo {
   void showConnectWithMobileFlow({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onExit,
-    required Function() onUserReady,
+    required VoidCallback onExit,
+    required VoidCallback onUserReady,
   }) {
     _showNavigator(
       context: context,
@@ -213,7 +224,7 @@ class Fluo {
         },
         onUserAuthenticated: () {
           Navigator.of(context).pop();
-          if (isUserComplete()) {
+          if (isUserReady()) {
             onUserReady();
           } else {
             showRegisterFlow(
@@ -255,10 +266,20 @@ class Fluo {
   /// This is a modal dialog which takes care of signing in the user's google
   /// account and creating the fluo session.
   ///
+  /// Parameters:
+  /// - [onBeforeSessionCreation]: Called after Google authentication is successful
+  ///   but before creating the Fluo session. This provides an opportunity to show
+  ///   a loading dialog while Fluo processes the authentication.
+  /// - [onUserReady]: Called when the Fluo session is successfully created and
+  ///   all registration parameters (like first name and last name) have been
+  ///   collected and verified.
+  ///
   Future<bool> showConnectWithGoogleFlow({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onUserReady,
+    required VoidCallback onBeforeSessionCreation,
+    required VoidCallback onUserReady,
+    List<String> scopes = const ['email'],
   }) async {
     final clientId = getGoogleClientId();
     if (clientId.isEmpty) {
@@ -268,7 +289,7 @@ class Fluo {
 
     final googleSignIn = GoogleSignIn(
       clientId: clientId,
-      scopes: ['email'],
+      scopes: scopes.contains('email') ? scopes : [...scopes, 'email'],
     );
 
     final googleAccount = await googleSignIn.signIn();
@@ -287,6 +308,8 @@ class Fluo {
       return false;
     }
 
+    onBeforeSessionCreation();
+
     await createSession(
       context: context,
       theme: theme,
@@ -302,10 +325,19 @@ class Fluo {
   /// This is a modal dialog which takes care of signing in the user's apple
   /// account and creating the fluo session.
   ///
+  /// Parameters:
+  /// - [onBeforeSessionCreation]: Called after Apple authentication is successful
+  ///   but before creating the Fluo session. This provides an opportunity to show
+  ///   a loading dialog while Fluo processes the authentication.
+  /// - [onUserReady]: Called when the Fluo session is successfully created and
+  ///   all registration parameters (like first name and last name) have been
+  ///   collected and verified.
+  ///
   Future<bool> showConnectWithAppleFlow({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onUserReady,
+    required VoidCallback onBeforeSessionCreation,
+    required VoidCallback onUserReady,
   }) async {
     try {
       final credential = await SignInWithApple.getAppleIDCredential(
@@ -318,6 +350,8 @@ class Fluo {
       if (!context.mounted) {
         return false;
       }
+
+      onBeforeSessionCreation();
 
       await createSession(
         context: context,
@@ -345,7 +379,7 @@ class Fluo {
   Future<void> createSession({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onUserReady,
+    required VoidCallback onUserReady,
     String? googleIdToken,
     String? appleIdToken,
     String? firstName,
@@ -360,7 +394,7 @@ class Fluo {
 
     await _sessionManager.setSession(session);
 
-    if (isUserComplete()) {
+    if (isUserReady()) {
       onUserReady();
     } else if (context.mounted) {
       showRegisterFlow(
@@ -379,7 +413,7 @@ class Fluo {
   void showRegisterFlow({
     required BuildContext context,
     required FluoTheme theme,
-    required Function() onUserReady,
+    required VoidCallback onUserReady,
   }) {
     _showNavigator(
       context: context,

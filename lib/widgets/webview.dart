@@ -16,7 +16,7 @@ class Webview extends StatelessWidget {
 
   final String title;
   final String url;
-  final Function() onClosePressed;
+  final VoidCallback onClosePressed;
 
   @override
   Widget build(BuildContext context) {

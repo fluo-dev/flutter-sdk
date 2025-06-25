@@ -13,7 +13,7 @@ class RegisterNavigator extends StatefulWidget {
     required this.onUserReady,
   });
 
-  final Function() onUserReady;
+  final VoidCallback onUserReady;
 
   @override
   State<RegisterNavigator> createState() => RegisterNavigatorState();
@@ -58,7 +58,7 @@ class RegisterNavigatorState extends State<RegisterNavigator> {
     final steps = _config.registrationSteps;
     final stepIndex = _stepIndexForRouteName(routeName);
 
-    Function()? onBackButtonPressed;
+    VoidCallback? onBackButtonPressed;
     if (stepIndex > 0) {
       onBackButtonPressed = () => _navigator().pop();
     }

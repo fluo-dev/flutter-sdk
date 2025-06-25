@@ -19,8 +19,8 @@ class SingleInputScreen extends StatelessWidget {
 
   final String inputTitle;
   final Widget inputWidget;
-  final Function()? onBackButtonPressed;
-  final Function()? onNextButtonPressed;
+  final VoidCallback? onBackButtonPressed;
+  final VoidCallback? onNextButtonPressed;
   final bool nextButtonEnabled;
   final Widget? helperWidget;
   final String? errorText;

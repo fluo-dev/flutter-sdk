@@ -20,7 +20,7 @@ class EnterEmailScreen extends StatefulWidget {
     required this.onEmailSubmitted,
   });
 
-  final Function() onBackButtonPressed;
+  final VoidCallback onBackButtonPressed;
   final Function(PartialSession partialSession) onEmailSubmitted;
 
   @override

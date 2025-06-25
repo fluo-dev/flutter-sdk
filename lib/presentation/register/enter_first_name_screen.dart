@@ -16,8 +16,8 @@ class EnterFirstNameScreen extends StatefulWidget {
     required this.onFirstNameSubmitted,
   });
 
-  final Function()? onBackButtonPressed;
-  final Function() onFirstNameSubmitted;
+  final VoidCallback? onBackButtonPressed;
+  final VoidCallback onFirstNameSubmitted;
 
   @override
   State<EnterFirstNameScreen> createState() => _EnterFirstNameScreenState();

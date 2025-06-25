@@ -11,7 +11,7 @@ class NextButton extends StatelessWidget {
     this.enabled = true,
   });
 
-  final Function() onPressed;
+  final VoidCallback onPressed;
   final bool loading;
   final bool enabled;
 

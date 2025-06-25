@@ -8,7 +8,7 @@ class RoundButton extends StatefulWidget {
     this.iconData = Icons.arrow_back_rounded,
   });
 
-  final Function()? onPressed;
+  final VoidCallback? onPressed;
   final Color color;
   final IconData iconData;
 

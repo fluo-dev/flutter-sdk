@@ -19,8 +19,8 @@ class AuthNavigator extends StatefulWidget {
   static const routeEnterCode = '/enter-code';
 
   final String initialRoute;
-  final Function() onExit;
-  final Function() onUserAuthenticated;
+  final VoidCallback onExit;
+  final VoidCallback onUserAuthenticated;
 
   @override
   State<AuthNavigator> createState() => AuthNavigatorState();
