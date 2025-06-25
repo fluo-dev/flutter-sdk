@@ -3,7 +3,7 @@
 # Fluo
 
 - [Getting started](#getting-started)
-- [Using the SDK](#using-the-sdk)
+- [More about the SDK](#more-about-the-sdk)
 - [Integrating with Firebase](#integrating-with-firebase)
 - [Integrating with Supabase](#integrating-with-supabase)
 - [Integrating with any backend](#integrating-with-any-backend)
@@ -11,15 +11,13 @@
 
 ## Getting started
 
-**STEP 1** — Get an api key from the [Fluo dashboard](https://dashboard.fluo.dev/signup)
-
-**STEP 2** — Add the package to your dependencies:
+**STEP 1** — Add the package to your dependencies:
 
 ```bash
 flutter pub add fluo
 ```
 
-**STEP 3** — Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
+**STEP 2** — Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
 
 ```dart
 MaterialApp(
@@ -31,20 +29,19 @@ MaterialApp(
 )
 ```
 
-**STEP 4** — Use the Fluo SDK:
+**STEP 3** — Use the Fluo SDK:
 
 ```dart
 import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_onboarding.dart';
 
 FutureBuilder(
+  // Get your api key from https://dashboard.fluo.dev (it's free)
   future: Fluo.init('YOUR_API_KEY'),
   builder: (context, snapshot) {
-    // Fluo is not initialized yet.
+    // Check if Fluo is initialized.
     if (!Fluo.isInitialized) {
-      return const Scaffold(
-        backgroundColor: Colors.white,
-      );
+      return const Scaffold();
     }
 
     // Fluo is initialized. Check if the user is ready.
@@ -76,7 +73,7 @@ FutureBuilder(
 </dict>
 ```
 
-## Using the SDK
+## More about the SDK
 
 Below are the most important methods to know:
 
