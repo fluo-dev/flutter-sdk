@@ -101,7 +101,10 @@ Fluo.instance.showConnectWithAppleFlow(/* ... */)
 
 ## Integrating with Firebase
 
-Select 'Firebase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Firebase Authentication service and (2) a `users` table created automatically in the Firestore Database. As such, make sure the Firestore Database is initialized.
+Select 'Firebase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to:
+
+1. the Firebase Authentication service
+2. a `users` table created automatically in the Firestore Database (make sure the Firestore Database is initialized)
 
 Back to your app code, to initialize correctly the Firebase session, use the `Fluo.instance.session.firebaseToken` as below:
 
@@ -120,7 +123,10 @@ if (Fluo.isInitialized) {
 
 ## Integrating with Supabase
 
-Select 'Supabase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to (1) the Supabase Authentication service and (2) a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste).
+Select 'Supabase' when setting up your preferred backend option. Once complete, when users are onboarded, Fluo forwards their information to:
+
+1. the Supabase Authentication service
+2. a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste)
 
 Back to your app code, to initialize correctly the Supabase session, use the `Fluo.instance.session.supabaseSession` as below:
 
