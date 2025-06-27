@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Improve `FluoTheme` default values for `nextButtonProgressIndicatorSize` and `nextButtonProgressIndicatorColor`
+
 ## 1.0.0
 
 - Breaking change on how to use the Fluo SDK
