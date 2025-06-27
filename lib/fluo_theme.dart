@@ -189,22 +189,29 @@ class FluoTheme {
     inputTextAlignVertical ??= TextAlignVertical.center;
 
     nextButtonStyle ??= appTheme?.filledButtonTheme.style ??
-        TextButton.styleFrom(
+        ButtonStyle(
           splashFactory: NoSplash.splashFactory,
-          minimumSize: const Size.fromHeight(54),
-          enabledMouseCursor: SystemMouseCursors.click,
-          textStyle: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-          ),
-          shape: RoundedRectangleBorder(
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            return states.contains(WidgetState.pressed)
+                ? Colors.grey.shade300
+                : Colors.grey.shade200;
+          }),
+          foregroundColor: WidgetStateProperty.all(Colors.black),
+          minimumSize: WidgetStateProperty.all(const Size.fromHeight(54)),
+          mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-          ),
+            side: BorderSide.none,
+          )),
         );
 
-    nextButtonProgressIndicatorSize ??= const Size(16.0, 16.0);
+    final focusedState = <WidgetState>{WidgetState.focused};
+    final textStyle = nextButtonStyle.textStyle?.resolve(focusedState);
+    final fontSize = textStyle?.fontSize ?? 17;
+    nextButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
 
-    nextButtonProgressIndicatorColor ??= inversePrimaryColor;
+    final textColor = nextButtonStyle.foregroundColor?.resolve(focusedState);
+    nextButtonProgressIndicatorColor ??= textColor ?? Colors.black;
 
     nextButtonProgressIndicatorStrokeWidth ??= 2.0;
 
@@ -500,9 +507,13 @@ class FluoTheme {
       )),
     );
 
-    nextButtonProgressIndicatorSize ??= const Size(13.0, 13.0);
+    final focusedState = <WidgetState>{WidgetState.focused};
+    final textStyle = nextButtonStyle.textStyle?.resolve(focusedState);
+    final fontSize = textStyle?.fontSize ?? 17;
+    nextButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
 
-    nextButtonProgressIndicatorColor ??= inversePrimaryColor;
+    final textColor = nextButtonStyle.foregroundColor?.resolve(focusedState);
+    nextButtonProgressIndicatorColor ??= textColor ?? Colors.black;
 
     nextButtonProgressIndicatorStrokeWidth ??= 1.5;
 
