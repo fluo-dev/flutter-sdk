@@ -2,6 +2,7 @@
 
 - Fix crash in enter code screen when clearing an invalid code
 - Improve screen transition when user is ready
+- Fix next button native theme (the font size)
 
 ## 2.0.0
 
