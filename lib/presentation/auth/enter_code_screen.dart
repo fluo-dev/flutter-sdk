@@ -31,28 +31,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
   final TextEditingController _codeController = TextEditingController();
   String? _errorText;
   bool _loading = false;
-  bool _isCodeComplete = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _codeController.addListener(() {
-      if (_isCodeComplete && _errorText != null) {
-        _codeController.setText('');
-      }
-      setState(() {
-        _isCodeComplete = _codeController.text.length == 6;
-        _errorText = null;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _codeController.dispose();
-    super.dispose();
-  }
+  bool _isComplete = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +39,8 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterCode,
       inputWidget: Pinput(
-        length: 6,
         controller: _codeController,
+        length: 6,
         showCursor: true,
         autofocus: true,
         enabled: !_loading,
@@ -73,10 +52,21 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
         disabledPinTheme: fluoTheme.codeInputThemeDisabled,
         errorPinTheme: fluoTheme.codeInputThemeError,
         onCompleted: (_) => _onNext(),
+        onTap: () {
+          if (_isComplete && _errorText != null) {
+            _codeController.setText('');
+          }
+        },
+        onChanged: (value) {
+          setState(() {
+            _isComplete = value.length == 6;
+            _errorText = null;
+          });
+        },
       ),
       onBackButtonPressed: widget.onBackButtonPressed,
       onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isCodeComplete,
+      nextButtonEnabled: _isComplete,
       helperWidget: _helperWidget(),
       errorText: _errorText,
       loading: _loading,

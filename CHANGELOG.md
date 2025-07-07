@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Fix crash in enter code screen when clearing an invalid code
+
 ## 2.0.0
 
 - Use `Fluo.instance.session.user` to access user data. The JWT access token does not contain user data anymore. The first and last names inputs were not updating the access token correctly, and it would not be right to update the access token every time a user data is changed, so I changed things.
