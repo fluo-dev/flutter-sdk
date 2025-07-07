@@ -1,3 +1,7 @@
+## 1.2.0
+
+- [web only] Fix connect buttons not showing when Google not selected
+
 ## 1.0.1
 
 - Improve `FluoTheme` default values for `nextButtonProgressIndicatorSize` and `nextButtonProgressIndicatorColor`

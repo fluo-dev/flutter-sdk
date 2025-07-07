@@ -140,13 +140,27 @@ class _MobileInputState extends State<MobileInput> {
   }
 
   Widget _countrySelectorButton(FluoTheme theme) {
+    double? leftPadding;
+
+    final contentPadding = theme.inputDecorationTheme.contentPadding;
+    if (contentPadding != null) {
+      if (contentPadding is EdgeInsetsDirectional) {
+        leftPadding = contentPadding.start;
+      } else if (contentPadding is EdgeInsets) {
+        leftPadding = contentPadding.left;
+      }
+    }
+
+    leftPadding ??= 0.0;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             right: 3.0,
+            left: leftPadding,
           ),
           child: _countryFlag(),
         ),
