@@ -37,10 +37,16 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   final Map<String, bool> _authMethods = {};
   double _bottomContainerHeight = 0.0;
   bool _connectContainerVisible = false;
-  Widget? _googleButtonForWeb;
-  bool _showGoogleButtonForWeb = false; // used to prevent clicks
   bool _creatingSessionWithGoogle = false;
   bool _creatingSessionWithApple = false;
+
+  // Specific handling of the Google button for web.
+  // When it's being rendered, it appears with an ugly flash.
+  // Also, having a dialog on top does not prevent clicks on the button,
+  // so we hide the button until it is ready.
+  Widget? _googleWebButton;
+  bool _googleWebButtonReady = false;
+  bool _googleWebButtonVisible = true;
 
   @override
   void initState() {
@@ -120,7 +126,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   bool _showConnectContainer() {
     final showGoogleButton = _authMethods[AuthMethodId.google] ?? false;
     if (showGoogleButton && kIsWeb) {
-      return _connectContainerVisible && _showGoogleButtonForWeb;
+      return _connectContainerVisible && _googleWebButtonReady;
     }
     return _connectContainerVisible;
   }
@@ -154,18 +160,25 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
-                      setState(() => _showGoogleButtonForWeb = false);
+                      setState(() {
+                        _googleWebButtonVisible = false;
+                        _googleWebButtonReady = false;
+                      });
                     });
                     Fluo.instance.showConnectWithEmailFlow(
                       context: context,
                       theme: widget.fluoTheme,
                       onExit: () {
+                        setState(() => _googleWebButtonVisible = true);
                         Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _showGoogleButtonForWeb = true);
+                          setState(() => _googleWebButtonReady = true);
                         });
                       },
                       onUserReady: () {
-                        setState(() => _showGoogleButtonForWeb = true);
+                        setState(() => _googleWebButtonVisible = true);
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          setState(() => _googleWebButtonReady = true);
+                        });
                         widget.onUserReady?.call();
                       },
                     );
@@ -179,18 +192,25 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
-                      setState(() => _showGoogleButtonForWeb = false);
+                      setState(() {
+                        _googleWebButtonVisible = false;
+                        _googleWebButtonReady = false;
+                      });
                     });
                     Fluo.instance.showConnectWithMobileFlow(
                       context: context,
                       theme: widget.fluoTheme,
                       onExit: () {
+                        setState(() => _googleWebButtonVisible = true);
                         Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _showGoogleButtonForWeb = true);
+                          setState(() => _googleWebButtonReady = true);
                         });
                       },
                       onUserReady: () {
-                        setState(() => _showGoogleButtonForWeb = true);
+                        setState(() => _googleWebButtonVisible = true);
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          setState(() => _googleWebButtonReady = true);
+                        });
                         widget.onUserReady?.call();
                       },
                     );
@@ -199,7 +219,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               if (googleSelected && kIsWeb)
                 SizedBox(
                   height: 40.0, // because GSIButtonSize.large is 40px tall
-                  child: _connectButtonForGoogleWeb(),
+                  child: Opacity(
+                    opacity: _googleWebButtonVisible ? 1.0 : 0.0,
+                    child: _connectButtonForGoogleWeb(),
+                  ),
                 ),
               if (googleSelected && !kIsWeb)
                 _connectButton(
@@ -326,10 +349,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   }
 
   Widget _connectButtonForGoogleWeb() {
-    var googleButtonForWeb = _googleButtonForWeb;
-    if (googleButtonForWeb == null) {
-      _initGoogleButtonForWeb();
-      googleButtonForWeb = _connectButton(
+    var googleWebButton = _googleWebButton;
+    if (googleWebButton == null) {
+      _initGoogleWebButton();
+      googleWebButton = _connectButton(
         icon: widget.fluoTheme.connectButtonIconGoogle,
         title: FluoLocalizations.of(context)!.continueWithGoogle,
         buttonStyle: widget.fluoTheme.connectButtonStyleGoogle,
@@ -337,10 +360,10 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         onPressed: () {},
       );
     }
-    return googleButtonForWeb;
+    return googleWebButton;
   }
 
-  Future<void> _initGoogleButtonForWeb() async {
+  Future<void> _initGoogleWebButton() async {
     final googleSignInPlugin = GoogleSignInPlugin();
     await googleSignInPlugin.init(
       clientId: Fluo.instance.getGoogleClientId(),
@@ -369,7 +392,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       locale = FluoLocalizations.of(buildContext)!.localeName;
     }
 
-    final googleButtonForWeb = googleSignInPlugin.renderButton(
+    final googleWebButton = googleSignInPlugin.renderButton(
       configuration: GSIButtonConfiguration(
         theme: GSIButtonTheme.outline,
         type: GSIButtonType.standard,
@@ -382,12 +405,12 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       ),
     );
 
-    setState(() => _googleButtonForWeb = googleButtonForWeb);
+    setState(() => _googleWebButton = googleWebButton);
 
     // The button is rendered asynchronously using a FutureBuilder,
     // so we need to wait a little to avoid seeing a flash of the button.
     Future.delayed(const Duration(milliseconds: 300), () {
-      setState(() => _showGoogleButtonForWeb = true);
+      setState(() => _googleWebButtonReady = true);
     });
   }
 }
