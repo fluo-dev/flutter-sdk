@@ -34,16 +34,27 @@ class FluoOnboarding extends StatefulWidget {
 
 class _FluoOnboardingState extends State<FluoOnboarding> {
   final GlobalKey _bottomContainerKey = GlobalKey();
+  final Map<String, bool> _authMethods = {};
   double _bottomContainerHeight = 0.0;
   bool _connectContainerVisible = false;
   Widget? _googleButtonForWeb;
-  bool _googleButtonForWebReady = false; // used to prevent clicks
+  bool _showGoogleButtonForWeb = false; // used to prevent clicks
   bool _creatingSessionWithGoogle = false;
   bool _creatingSessionWithApple = false;
 
   @override
   void initState() {
     super.initState();
+
+    for (final method in Fluo.instance.appConfig.authMethods) {
+      if (method.id == AuthMethodId.apple) {
+        // Sign in with Apple is only available on iOS
+        _authMethods[method.id] = method.selected && !kIsWeb && Platform.isIOS;
+      } else {
+        _authMethods[method.id] = method.selected;
+      }
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Check for existing session first
       if (Fluo.instance.hasSession()) {
@@ -107,37 +118,26 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
   }
 
   bool _showConnectContainer() {
-    if (kIsWeb) {
-      return _connectContainerVisible && _googleButtonForWebReady;
+    final showGoogleButton = _authMethods[AuthMethodId.google] ?? false;
+    if (showGoogleButton && kIsWeb) {
+      return _connectContainerVisible && _showGoogleButtonForWeb;
     }
     return _connectContainerVisible;
   }
 
   Widget _connectContainer() {
-    bool showEmailButton = false;
-    bool showMobileButton = false;
-    bool showGoogleButton = false;
-    bool showAppleButton = false;
+    final emailSelected = _authMethods[AuthMethodId.email] ?? false;
+    final mobileSelected = _authMethods[AuthMethodId.mobile] ?? false;
+    final googleSelected = _authMethods[AuthMethodId.google] ?? false;
+    final appleSelected = _authMethods[AuthMethodId.apple] ?? false;
 
-    for (final method in Fluo.instance.appConfig.authMethods) {
-      if (method.id == AuthMethodId.email) {
-        showEmailButton = method.selected;
-      } else if (method.id == AuthMethodId.mobile) {
-        showMobileButton = method.selected;
-      } else if (method.id == AuthMethodId.google) {
-        showGoogleButton = method.selected;
-      } else if (method.id == AuthMethodId.apple && !kIsWeb && Platform.isIOS) {
-        showAppleButton = method.selected;
-      }
-    }
-
-    if (showMobileButton) {
+    if (mobileSelected) {
       // Load countries from libphonenumber
       CountryManager.init();
     }
 
     return AnimatedOpacity(
-      opacity: _showConnectContainer() ? 1.0 : 0.0,
+      opacity: _showConnectContainer() ? 1.0 : 0.01,
       duration: const Duration(milliseconds: 300),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +146,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
             spacing: 15.0,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (showEmailButton)
+              if (emailSelected)
                 _connectButton(
                   icon: widget.fluoTheme.connectButtonIconEmail,
                   title: FluoLocalizations.of(context)!.continueWithEmail,
@@ -154,28 +154,24 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
-                      setState(() {
-                        _googleButtonForWebReady = false;
-                      });
+                      setState(() => _showGoogleButtonForWeb = false);
                     });
                     Fluo.instance.showConnectWithEmailFlow(
                       context: context,
                       theme: widget.fluoTheme,
                       onExit: () {
                         Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _googleButtonForWebReady = true);
+                          setState(() => _showGoogleButtonForWeb = true);
                         });
                       },
                       onUserReady: () {
-                        setState(() {
-                          _googleButtonForWebReady = true;
-                        });
+                        setState(() => _showGoogleButtonForWeb = true);
                         widget.onUserReady?.call();
                       },
                     );
                   },
                 ),
-              if (showMobileButton)
+              if (mobileSelected)
                 _connectButton(
                   icon: widget.fluoTheme.connectButtonIconMobile,
                   title: FluoLocalizations.of(context)!.continueWithMobile,
@@ -183,33 +179,29 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   textStyle: widget.fluoTheme.connectButtonTextStyle,
                   onPressed: () {
                     Future.delayed(const Duration(milliseconds: 300), () {
-                      setState(() {
-                        _googleButtonForWebReady = false;
-                      });
+                      setState(() => _showGoogleButtonForWeb = false);
                     });
                     Fluo.instance.showConnectWithMobileFlow(
                       context: context,
                       theme: widget.fluoTheme,
                       onExit: () {
                         Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _googleButtonForWebReady = true);
+                          setState(() => _showGoogleButtonForWeb = true);
                         });
                       },
                       onUserReady: () {
-                        setState(() {
-                          _googleButtonForWebReady = true;
-                        });
+                        setState(() => _showGoogleButtonForWeb = true);
                         widget.onUserReady?.call();
                       },
                     );
                   },
                 ),
-              if (showGoogleButton && kIsWeb)
+              if (googleSelected && kIsWeb)
                 SizedBox(
                   height: 40.0, // because GSIButtonSize.large is 40px tall
                   child: _connectButtonForGoogleWeb(),
                 ),
-              if (showGoogleButton && !kIsWeb)
+              if (googleSelected && !kIsWeb)
                 _connectButton(
                   icon: widget.fluoTheme.connectButtonIconGoogle,
                   title: FluoLocalizations.of(context)!.continueWithGoogle,
@@ -229,7 +221,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                     );
                   },
                 ),
-              if (showAppleButton)
+              if (appleSelected)
                 _connectButton(
                   icon: widget.fluoTheme.connectButtonIconApple,
                   title: FluoLocalizations.of(context)!.continueWithApple,
@@ -345,7 +337,6 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         onPressed: () {},
       );
     }
-
     return googleButtonForWeb;
   }
 
@@ -396,7 +387,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     // The button is rendered asynchronously using a FutureBuilder,
     // so we need to wait a little to avoid seeing a flash of the button.
     Future.delayed(const Duration(milliseconds: 300), () {
-      setState(() => _googleButtonForWebReady = true);
+      setState(() => _showGoogleButtonForWeb = true);
     });
   }
 }
