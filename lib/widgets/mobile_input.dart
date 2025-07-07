@@ -101,7 +101,7 @@ class _MobileInputState extends State<MobileInput> {
             onTap: () => _showCountrySelector(),
             child: _countrySelectorButton(fluoTheme),
           ),
-          suffix: ClearSuffixButton(controller: widget.controller),
+          suffixIcon: ClearSuffixButton(controller: widget.controller),
         ),
         inputFormatters: [
           if (_selectedCountry != null) ...[

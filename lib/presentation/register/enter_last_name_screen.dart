@@ -70,7 +70,7 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
           textAlignVertical: fluoTheme.inputTextAlignVertical,
           decoration: InputDecoration(
             hintText: FluoLocalizations.of(context)!.enterLastNamePlaceholder,
-            suffix: ClearSuffixButton(controller: _lastNameController),
+            suffixIcon: ClearSuffixButton(controller: _lastNameController),
           ),
           onSubmitted: (_) => _onNext(),
           autofocus: true,

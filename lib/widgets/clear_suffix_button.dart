@@ -37,29 +37,41 @@ class _ClearSuffixButtonState extends State<ClearSuffixButton> {
   @override
   Widget build(BuildContext context) {
     if (_isEmpty) {
-      return Container(width: 0.0);
+      return const SizedBox.shrink();
     }
 
-    final theme = Theme.of(context);
     final fluoTheme = context.read<FluoTheme>();
-    final isDark = theme.brightness == Brightness.dark;
-    final surfaceColor = theme.colorScheme.surface;
+    final inputDecorationTheme = fluoTheme.inputDecorationTheme;
+    final inputTextStyle = fluoTheme.inputTextStyle;
+
+    double? rightPadding;
+    final contentPadding = inputDecorationTheme.contentPadding;
+    if (contentPadding != null) {
+      if (contentPadding is EdgeInsetsDirectional) {
+        rightPadding = contentPadding.end;
+      } else if (contentPadding is EdgeInsets) {
+        rightPadding = contentPadding.right;
+      }
+    }
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.controller.clear,
         child: Container(
-          margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+          margin: EdgeInsets.only(
+            left: 10.0,
+            right: rightPadding ?? 0.0,
+          ),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white24 : Colors.black.withAlpha(50),
+            color: inputDecorationTheme.hintStyle?.color?.withAlpha(40),
             borderRadius: BorderRadius.circular(30),
           ),
           padding: const EdgeInsets.all(2.0),
           child: Icon(
             Icons.close_rounded,
-            color: surfaceColor,
-            size: fluoTheme.inputTextStyle.fontSize,
+            color: fluoTheme.inversePrimaryColor,
+            size: inputTextStyle.fontSize,
           ),
         ),
       ),

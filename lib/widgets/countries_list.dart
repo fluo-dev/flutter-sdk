@@ -116,14 +116,14 @@ class _CountriesListState extends State<CountriesList> {
               textAlignVertical: fluoTheme.inputTextAlignVertical,
               decoration: InputDecoration(
                 hintText: FluoLocalizations.of(context)!.searchCountry,
-                prefix: const Padding(
+                prefixIcon: const Padding(
                   padding: EdgeInsets.only(left: 5.0),
                   child: Icon(
                     Icons.search,
                     size: 22.0,
                   ),
                 ),
-                suffix: ClearSuffixButton(controller: _searchController),
+                suffixIcon: ClearSuffixButton(controller: _searchController),
               ),
               onChanged: _filterCountries,
               autocorrect: false,

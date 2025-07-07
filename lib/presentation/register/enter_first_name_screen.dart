@@ -70,7 +70,7 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
           textAlignVertical: fluoTheme.inputTextAlignVertical,
           decoration: InputDecoration(
             hintText: FluoLocalizations.of(context)!.enterFirstNamePlaceholder,
-            suffix: ClearSuffixButton(controller: _firstNameController),
+            suffixIcon: ClearSuffixButton(controller: _firstNameController),
           ),
           onSubmitted: (_) => _onNext(),
           autofocus: true,

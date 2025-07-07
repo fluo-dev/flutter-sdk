@@ -476,9 +476,10 @@ class FluoTheme {
       ),
     );
 
-    inputTextStyle ??= const TextStyle(
+    inputTextStyle ??= TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w500,
+      color: primaryColor,
     );
 
     inputErrorStyle ??= TextStyle(

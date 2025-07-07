@@ -1,6 +1,7 @@
 ## 1.2.0
 
 - [web only] Fix connect buttons not showing when Google not selected
+- Fix left padding on mobile input country flag
 
 ## 1.0.1
 
