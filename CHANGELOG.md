@@ -1,6 +1,7 @@
 ## 2.0.1
 
 - Fix crash in enter code screen when clearing an invalid code
+- Improve screen transition when user is ready
 
 ## 2.0.0
 

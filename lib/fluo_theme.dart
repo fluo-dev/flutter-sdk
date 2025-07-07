@@ -201,6 +201,12 @@ class FluoTheme {
                 ? primaryColor?.withAlpha(255 ~/ 4)
                 : primaryColor;
           }),
+          textStyle: WidgetStateProperty.all(
+            const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           minimumSize: WidgetStateProperty.all(const Size.fromHeight(54)),
           mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
