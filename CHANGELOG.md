@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Fix call to setState() when FluoOnboarding is not on screen anymore
+
 ## 2.0.1
 
 - Fix crash in enter code screen when clearing an invalid code

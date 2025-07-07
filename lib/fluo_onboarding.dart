@@ -175,10 +175,6 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                         });
                       },
                       onUserReady: () {
-                        setState(() => _googleWebButtonVisible = true);
-                        Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _googleWebButtonReady = true);
-                        });
                         widget.onUserReady?.call();
                       },
                     );
@@ -207,10 +203,6 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                         });
                       },
                       onUserReady: () {
-                        setState(() => _googleWebButtonVisible = true);
-                        Future.delayed(const Duration(milliseconds: 300), () {
-                          setState(() => _googleWebButtonReady = true);
-                        });
                         widget.onUserReady?.call();
                       },
                     );
