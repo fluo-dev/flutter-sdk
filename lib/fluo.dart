@@ -166,14 +166,15 @@ class Fluo {
       navigator: AuthNavigator(
         initialRoute: AuthNavigator.routeEnterEmail,
         onExit: () {
-          Navigator.of(context).pop();
           onExit();
+          Navigator.of(context).pop();
         },
         onUserAuthenticated: () {
-          Navigator.of(context).pop();
           if (isUserReady()) {
             onUserReady();
+            Navigator.of(context).pop();
           } else {
+            Navigator.of(context).pop();
             showRegisterFlow(
               context: context,
               theme: theme,
@@ -202,14 +203,15 @@ class Fluo {
       navigator: AuthNavigator(
         initialRoute: AuthNavigator.routeEnterMobile,
         onExit: () {
-          Navigator.of(context).pop();
           onExit();
+          Navigator.of(context).pop();
         },
         onUserAuthenticated: () {
-          Navigator.of(context).pop();
           if (isUserReady()) {
             onUserReady();
+            Navigator.of(context).pop();
           } else {
+            Navigator.of(context).pop();
             showRegisterFlow(
               context: context,
               theme: theme,
@@ -403,8 +405,8 @@ class Fluo {
       theme: theme,
       navigator: RegisterNavigator(
         onUserReady: () {
-          Navigator.of(context).pop();
           onUserReady();
+          Navigator.of(context).pop();
         },
       ),
     );
