@@ -97,10 +97,16 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
       final apiClient = context.read<ApiClient>();
       final sessionManager = context.read<SessionManager>();
       final session = await sessionManager.getSession(apiClient: apiClient);
+      final firstName = _firstNameController.text;
       await apiClient.updateUser(
         accessToken: session!.accessToken,
-        firstName: _firstNameController.text,
+        firstName: firstName,
       );
+      await sessionManager.setSession(session.copyWith(
+        user: session.user.copyWith(
+          firstName: firstName,
+        ),
+      ));
       widget.onFirstNameSubmitted();
     } on ApiError catch (apiError) {
       setState(() {

@@ -97,10 +97,16 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
       final apiClient = context.read<ApiClient>();
       final sessionManager = context.read<SessionManager>();
       final session = await sessionManager.getSession(apiClient: apiClient);
+      final lastName = _lastNameController.text;
       await apiClient.updateUser(
         accessToken: session!.accessToken,
-        lastName: _lastNameController.text,
+        lastName: lastName,
       );
+      await sessionManager.setSession(session.copyWith(
+        user: session.user.copyWith(
+          lastName: lastName,
+        ),
+      ));
       widget.onLastNameSubmitted();
     } on ApiError catch (apiError) {
       setState(() {
