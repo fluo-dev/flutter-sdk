@@ -2,6 +2,7 @@
 
 - [web only] Fix connect buttons not showing when Google not selected
 - Fix left padding on mobile input country flag
+- Fix padding and default theme of clear button on text inputs
 
 ## 1.0.1
 

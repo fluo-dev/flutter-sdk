@@ -196,7 +196,11 @@ class FluoTheme {
                 ? Colors.grey.shade300
                 : Colors.grey.shade200;
           }),
-          foregroundColor: WidgetStateProperty.all(Colors.black),
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            return states.contains(WidgetState.disabled)
+                ? primaryColor?.withAlpha(255 ~/ 4)
+                : primaryColor;
+          }),
           minimumSize: WidgetStateProperty.all(const Size.fromHeight(54)),
           mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -298,6 +302,7 @@ class FluoTheme {
   }
 
   factory FluoTheme.web({
+    ThemeData? appTheme,
     Color? primaryColor,
     Color? inversePrimaryColor,
     Color? accentColor,
@@ -335,43 +340,45 @@ class FluoTheme {
     PinTheme? codeInputThemeDisabled,
     PinTheme? codeInputThemeError,
   }) {
-    primaryColor ??= Colors.black;
+    primaryColor ??= appTheme?.colorScheme.primary ?? Colors.black;
 
-    inversePrimaryColor ??= Colors.white;
+    inversePrimaryColor ??=
+        appTheme?.colorScheme.inversePrimary ?? Colors.white;
 
-    accentColor ??= Colors.black;
+    accentColor ??= appTheme?.colorScheme.primary ?? Colors.black;
 
     screenPadding ??= const EdgeInsets.all(20.0);
 
-    connectButtonStyle ??= ButtonStyle(
-      splashFactory: NoSplash.splashFactory,
-      backgroundColor: WidgetStateProperty.all(Colors.white),
-      foregroundColor: WidgetStateProperty.all(Colors.black),
-      fixedSize: WidgetStateProperty.all(const Size(360, 40)),
-      mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
-      elevation: WidgetStateProperty.all(0),
-      overlayColor: WidgetStateProperty.resolveWith<Color?>(
-        (Set<WidgetState> states) {
-          if (states.contains(WidgetState.hovered)) {
-            return Colors.grey.shade50;
-          }
-          return null;
-        },
-      ),
-      shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
-        (Set<WidgetState> states) {
-          return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-            side: BorderSide(
-              color: states.contains(WidgetState.hovered)
-                  ? Colors.grey.shade600
-                  : const Color(0xffdadce0),
-              width: 1.0,
-            ),
-          );
-        },
-      ),
-    );
+    connectButtonStyle ??= appTheme?.filledButtonTheme.style ??
+        ButtonStyle(
+          splashFactory: NoSplash.splashFactory,
+          backgroundColor: WidgetStateProperty.all(Colors.white),
+          foregroundColor: WidgetStateProperty.all(Colors.black),
+          fixedSize: WidgetStateProperty.all(const Size(360, 40)),
+          mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+          elevation: WidgetStateProperty.all(0),
+          overlayColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.hovered)) {
+                return Colors.grey.shade50;
+              }
+              return null;
+            },
+          ),
+          shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
+            (Set<WidgetState> states) {
+              return RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+                side: BorderSide(
+                  color: states.contains(WidgetState.hovered)
+                      ? Colors.grey.shade600
+                      : const Color(0xffdadce0),
+                  width: 1.0,
+                ),
+              );
+            },
+          ),
+        );
 
     connectButtonStyleGoogle ??= connectButtonStyle;
 
@@ -413,10 +420,11 @@ class FluoTheme {
       width: connectButtonIconSize,
     );
 
-    legalTextStyle ??= TextStyle(
-      fontSize: 13,
-      color: primaryColor.withAlpha((255 * 0.6).toInt()),
-    );
+    legalTextStyle ??= appTheme?.textTheme.bodySmall ??
+        TextStyle(
+          fontSize: 13,
+          color: primaryColor.withAlpha((255 * 0.6).toInt()),
+        );
 
     legalTextPadding ??= const EdgeInsets.only(
       top: 30.0,
@@ -424,89 +432,118 @@ class FluoTheme {
       left: 30.0,
     );
 
-    modalTitleTextStyle ??= TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: primaryColor,
-      letterSpacing: 0.5,
-    );
+    modalTitleTextStyle ??= appTheme?.textTheme.titleMedium ??
+        TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: primaryColor,
+          letterSpacing: 0.5,
+        );
 
-    titleStyle ??= TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: primaryColor,
-      letterSpacing: 0.5,
-    );
+    titleStyle ??= appTheme?.textTheme.headlineSmall ??
+        TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: primaryColor,
+          letterSpacing: 0.5,
+        );
 
-    inputDecorationTheme ??= InputDecorationTheme(
-      isDense: true,
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 15.0,
-        horizontal: 12.0,
-      ),
-      hintStyle: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-        color: primaryColor.withAlpha(255 ~/ 3),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: accentColor.withAlpha(255 ~/ 8),
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(4),
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: accentColor,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(4),
-        ),
-      ),
-      border: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(4),
-        ),
-      ),
-      suffixIconConstraints: const BoxConstraints(
-        maxHeight: 32,
-        maxWidth: 32 + 10 + 15,
-      ),
-    );
+    inputDecorationTheme ??= appTheme?.inputDecorationTheme ??
+        InputDecorationTheme(
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 15.0,
+            horizontal: 12.0,
+          ),
+          hintStyle: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: primaryColor.withAlpha(255 ~/ 3),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: accentColor.withAlpha(255 ~/ 8),
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(4),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: accentColor,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(4),
+            ),
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(4),
+            ),
+          ),
+          suffixIconConstraints: const BoxConstraints(
+            maxHeight: 32,
+            maxWidth: 32 + 10 + 15,
+          ),
+        );
 
-    inputTextStyle ??= TextStyle(
-      fontSize: 15,
-      fontWeight: FontWeight.w500,
-      color: primaryColor,
-    );
+    inputTextStyle ??= appTheme?.textTheme.titleLarge ??
+        const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        );
 
-    inputErrorStyle ??= TextStyle(
-      fontSize: 13,
-      color: Colors.red.shade500,
-    );
+    inputErrorStyle ??= appTheme?.inputDecorationTheme.errorStyle ??
+        TextStyle(
+          fontSize: 13,
+          color: Colors.red.shade500,
+        );
 
     inputTextAlignVertical ??= TextAlignVertical.center;
 
-    nextButtonStyle ??= ButtonStyle(
-      splashFactory: NoSplash.splashFactory,
-      backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
-        if (states.contains(WidgetState.disabled)) {
-          return accentColor!.withAlpha(255 ~/ 8);
-        }
-        return accentColor!;
-      }),
-      minimumSize: WidgetStateProperty.all(const Size.fromHeight(54)),
-      mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-      )),
-      shape: WidgetStateProperty.all(RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      )),
-    );
+    nextButtonStyle ??= appTheme?.filledButtonTheme.style ??
+        ButtonStyle(
+          splashFactory: NoSplash.splashFactory,
+          elevation: WidgetStateProperty.all(0),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            return states.contains(WidgetState.disabled)
+                ? Colors.grey.shade100
+                : Colors.white;
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            return states.contains(WidgetState.disabled)
+                ? primaryColor?.withAlpha(255 ~/ 4)
+                : primaryColor;
+          }),
+          minimumSize: WidgetStateProperty.all(const Size.fromHeight(50)),
+          mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+          textStyle: WidgetStateProperty.all(
+            const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          overlayColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) {
+              return states.contains(WidgetState.hovered)
+                  ? Colors.grey.shade50
+                  : null;
+            },
+          ),
+          shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
+            (Set<WidgetState> states) {
+              return RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+                side: BorderSide(
+                  color: states.contains(WidgetState.hovered)
+                      ? Colors.grey.shade600
+                      : const Color(0xffdadce0),
+                  width: 1.0,
+                ),
+              );
+            },
+          ),
+        );
 
     final focusedState = <WidgetState>{WidgetState.focused};
     final textStyle = nextButtonStyle.textStyle?.resolve(focusedState);
@@ -526,7 +563,7 @@ class FluoTheme {
     countryItemHighlightColor ??= primaryColor.withAlpha(255 ~/ 16);
 
     countryTextStyle ??= const TextStyle(
-      fontSize: 17.0,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
     );
 
