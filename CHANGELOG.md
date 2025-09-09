@@ -1,3 +1,9 @@
+## 3.0.0
+
+- Fix bug that was hiding the connect container when sliding email input from the left edge (iOS style)
+- Rename "Next" button to "Continue" for better UX consistency
+- This implies changes in some arguments of `FluoTheme`
+
 ## 2.0.2
 
 - Fix call to setState() when FluoOnboarding is not on screen anymore
