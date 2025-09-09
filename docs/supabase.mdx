@@ -1,0 +1,30 @@
+---
+title: Supabase Integration
+description: Use Fluo with Supabase Auth and the users table.
+---
+
+### Overview
+
+Select Supabase in the Fluo dashboard. During user onboarding, Fluo sends user info to:
+
+1. Supabase Authentication
+2. A `users` table you create in Supabase (simple copy-paste)
+
+### Initialize the Supabase session
+
+Use `supabaseSession` to recover the session on the client.
+
+```dart
+if (Fluo.isInitialized) {
+  final fluoSession = Fluo.instance.session;
+  if (fluoSession != null) {
+    final supabaseSession = fluoSession.supabaseSession!;
+    await Supabase.instance.client.auth.recoverSession(supabaseSession);
+  }
+}
+```
+
+### Tips
+
+- Ensure the Supabase client is initialized in your app.
+- Create the `users` table with the recommended columns.

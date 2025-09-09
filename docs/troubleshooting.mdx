@@ -1,0 +1,21 @@
+---
+title: Troubleshooting
+description: Resolve common issues.
+---
+
+### `Fluo.isInitialized` stays false
+
+- Check your API key and network connectivity.
+- Await the init future in a `FutureBuilder`.
+
+### macOS – network errors
+
+- Add `com.apple.security.network.client` to entitlements (see Installation).
+
+### Backend token expired
+
+- Use `await Fluo.instance.getAccessToken()` to guarantee a refreshed token.
+
+### Firebase/Supabase not initializing
+
+- Recover or sign in the provider session after `Fluo.isInitialized` and when a Fluo session exists.

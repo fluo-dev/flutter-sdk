@@ -1,0 +1,43 @@
+---
+title: Quickstart
+description: Integrate Fluo in minutes with a complete example.
+---
+
+### Minimal example
+
+```dart
+import 'package:fluo/fluo.dart';
+import 'package:fluo/fluo_onboarding.dart';
+
+FutureBuilder(
+  // Get your API key from https://dashboard.fluo.dev (free)
+  future: Fluo.init('YOUR_API_KEY'),
+  builder: (context, snapshot) {
+    // Check initialization
+    if (!Fluo.isInitialized) {
+      return const Scaffold();
+    }
+
+    // If the user isn't ready yet (session/attributes)
+    if (!Fluo.instance.isUserReady()) {
+      return FluoOnboarding(
+        fluoTheme: FluoTheme.native(), // or FluoTheme.web()
+        onUserReady: () => setState(() {}),
+      );
+    }
+
+    // User is ready
+    return ConnectedScreen(
+      onSignOut: () async {
+        await Fluo.instance.clearSession();
+        setState(() {});
+      },
+    );
+  },
+)
+```
+
+### Next steps
+
+- Choose your backend: [Firebase](/firebase), [Supabase](/supabase), [Custom (JWT)](/custom-backend)
+- Customize the UI: [Theming](/theming)

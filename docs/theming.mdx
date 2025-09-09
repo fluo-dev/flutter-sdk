@@ -1,0 +1,63 @@
+---
+title: Theming
+description: Customize the look and feel with FluoTheme.
+---
+
+### Choose a base
+
+- Native apps: `FluoTheme.native()`
+- Web: `FluoTheme.web()`
+
+```dart
+FluoOnboarding(
+  fluoTheme: FluoTheme.native(
+    primaryColor: Colors.black,
+    accentColor: Colors.white,
+  ),
+)
+```
+
+### Parameters
+
+Key parameters (non-exhaustive): colors, padding, button styles, `InputDecorationTheme`, PIN input themes, etc.
+
+```dart
+{
+  Color? primaryColor,
+  Color? inversePrimaryColor,
+  Color? accentColor,
+  EdgeInsets? screenPadding,
+  ButtonStyle? connectButtonStyle,
+  ButtonStyle? connectButtonStyleGoogle,
+  ButtonStyle? connectButtonStyleApple,
+  TextStyle? connectButtonTextStyle,
+  TextStyle? connectButtonTextStyleGoogle,
+  TextStyle? connectButtonTextStyleApple,
+  double? connectButtonIconSize,
+  Widget? connectButtonIconEmail,
+  Widget? connectButtonIconMobile,
+  Widget? connectButtonIconGoogle,
+  Widget? connectButtonIconApple,
+  TextStyle? legalTextStyle,
+  EdgeInsets? legalTextPadding,
+  TextStyle? modalTitleTextStyle,
+  TextStyle? titleStyle,
+  InputDecorationTheme? inputDecorationTheme,
+  TextStyle? inputTextStyle,
+  TextStyle? inputErrorStyle,
+  TextAlignVertical? inputTextAlignVertical,
+  ButtonStyle? continueButtonStyle,
+  Size? continueButtonProgressIndicatorSize,
+  Color? continueButtonProgressIndicatorColor,
+  double? continueButtonProgressIndicatorStrokeWidth,
+  EdgeInsets? countryItemPadding,
+  Color? countryItemHighlightColor,
+  TextStyle? countryTextStyle,
+  PinTheme? codeInputThemeDefault,
+  PinTheme? codeInputThemeFocused,
+  PinTheme? codeInputThemeSubmitted,
+  PinTheme? codeInputThemeFollowing,
+  PinTheme? codeInputThemeDisabled,
+  PinTheme? codeInputThemeError,
+}
+```

@@ -1,0 +1,71 @@
+---
+title: Custom backend (JWT)
+description: Use Fluo with any backend via JWTs.
+---
+
+### Concept
+
+Use `Fluo.instance.getAccessToken()` to obtain a JWT (auto-refreshed if expired). Send it to your backend to identify the user via the `sub` claim.
+
+### Client example (Dart)
+
+```dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<User> getOrCreateUser() async {
+  final accessToken = await Fluo.instance.getAccessToken();
+  final response = await http.post(
+    Uri.parse('https://your-backend.com/api/user/me'),
+    headers: {
+      'authorization': 'Bearer $accessToken',
+    },
+    body: jsonEncode(Fluo.instance.session.user),
+  );
+  return User.fromJson(jsonDecode(response.body));
+}
+```
+
+### Server example (Node.js)
+
+```js
+const jwt = require("jsonwebtoken")
+const SECRET_KEY = "YOUR_SECRET_KEY" // dashboard.fluo.dev/backend
+
+app.post("/api/user/me", async (req, res) => {
+  const accessToken = req.headers["authorization"].split(" ")[1]
+  const payload = jwt.verify(accessToken, SECRET_KEY)
+  const userId = payload.sub
+
+  let user = await User.findOne({ id: userId })
+  if (!user) {
+    const { email, mobileE164, mobileIso2, firstName, lastName } = req.body
+    user = await User.create({
+      id: userId,
+      email,
+      mobileE164,
+      mobileIso2,
+      firstName,
+      lastName,
+    })
+  }
+
+  return res.status(200).json(user)
+})
+```
+
+### JWT payload
+
+```json
+{
+  "sub": "2rztxukf57pnjz9",
+  "iat": 1744039599,
+  "exp": 1744043199,
+  "iss": "fluo.dev"
+}
+```
+
+### Best practices
+
+- Validate `exp` and `iss` on the server.
+- Use HTTPS and store the secret securely.

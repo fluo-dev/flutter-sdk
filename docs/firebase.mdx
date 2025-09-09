@@ -1,0 +1,30 @@
+---
+title: Firebase Integration
+description: Use Fluo with Firebase Authentication and Firestore.
+---
+
+### Overview
+
+Select Firebase in the Fluo dashboard. During user onboarding, Fluo sends user info to:
+
+1. Firebase Authentication
+2. A `users` collection in Firestore (ensure Firestore is initialized)
+
+### Initialize the Firebase session
+
+Retrieve the `firebaseToken` from the Fluo session and call `signInWithCustomToken`.
+
+```dart
+if (Fluo.isInitialized) {
+  final fluoSession = Fluo.instance.session;
+  if (fluoSession != null) {
+    final firebaseToken = fluoSession.firebaseToken!;
+    await FirebaseAuth.instance.signInWithCustomToken(firebaseToken);
+  }
+}
+```
+
+### Tips
+
+- Ensure Firestore is configured and accessible.
+- Call Firebase sign-in after `Fluo.isInitialized` and when a Fluo session exists.

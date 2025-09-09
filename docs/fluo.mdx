@@ -1,0 +1,42 @@
+---
+title: API – Fluo
+description: Référence des méthodes principales de Fluo.
+---
+
+### Initialisation
+
+```dart
+await Fluo.init('YOUR_API_KEY');
+```
+
+### État
+
+```dart
+final initialized = Fluo.isInitialized;
+final isReady = Fluo.instance.isUserReady();
+final hasSession = Fluo.instance.hasSession();
+```
+
+### Tokens et session
+
+```dart
+final accessToken = await Fluo.instance.getAccessToken();
+await Fluo.instance.refreshSession();
+await Fluo.instance.clearSession();
+```
+
+### Données utilisateur
+
+```dart
+final user = Fluo.instance.session.user;
+final userId = user.id; // ex: jzi8w7bdou4m0kq
+```
+
+### Flows manuels
+
+```dart
+Fluo.instance.showConnectWithEmailFlow(/* ... */);
+Fluo.instance.showConnectWithMobileFlow(/* ... */);
+Fluo.instance.showConnectWithGoogleFlow(/* ... */);
+Fluo.instance.showConnectWithAppleFlow(/* ... */);
+```

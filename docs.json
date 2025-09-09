@@ -1,0 +1,54 @@
+{
+  "name": "Fluo",
+  "description": "Authentication SDK for Flutter with complete UI flows.",
+  "theme": {
+    "primaryDark": "#FFFFFF",
+    "primaryLight": "#000000"
+  },
+  "header": {
+    "links": [
+      {
+        "href": "https://fluo.dev",
+        "title": "fluo.dev"
+      }
+    ]
+  },
+  "social": {
+    "x": "jordanbonnet",
+    "github": "fluo-dev/flutter-sdk",
+    "linkedin": "jordanbonnet"
+  },
+  "sidebar": [
+    {
+      "group": "Overview",
+      "pages": [
+        { "title": "Welcome", "href": "/", "icon": "rocket" },
+        { "title": "Installation", "href": "/installation", "icon": "download" },
+        { "title": "Quickstart", "href": "/quickstart", "icon": "zap" }
+      ]
+    },
+    {
+      "group": "Backend integrations",
+      "pages": [
+        { "title": "Firebase", "href": "/firebase", "icon": "fire" },
+        { "title": "Supabase", "href": "/supabase", "icon": "database" },
+        { "title": "Custom backend (JWT)", "href": "/custom-backend", "icon": "key" }
+      ]
+    },
+    {
+      "group": "Advanced",
+      "pages": [
+        { "title": "Theming", "href": "/theming", "icon": "palette" },
+        { "title": "Fluo", "href": "/fluo", "icon": "book-open" }
+      ]
+    },
+    {
+      "group": "Help",
+      "pages": [
+        { "title": "Troubleshooting", "href": "/troubleshooting", "icon": "bug" },
+        { "title": "Changelog", "href": "/changelog", "icon": "history" },
+        { "title": "Migration", "href": "/migration", "icon": "shuffle" }
+      ]
+    }
+  ]
+}
