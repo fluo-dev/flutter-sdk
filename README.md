@@ -1,6 +1,7 @@
-<img src="https://fluo.dev/img/fluo-github-header.png" alt="fluo introduction">
-
 # Fluo
+
+> **📝 Looking for the full documentation?
+> [Check out the new Fluo SDK docs →](https://docs.page/fluo-dev/flutter-sdk)**
 
 - [Getting started](#getting-started)
 - [More about the SDK](#more-about-the-sdk)
