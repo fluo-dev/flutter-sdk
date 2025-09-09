@@ -23,7 +23,7 @@ class FluoTheme {
     EdgeInsets? legalTextPadding,
     TextStyle? modalTitleTextStyle,
     TextStyle? titleStyle,
-    InputDecorationTheme? inputDecorationTheme,
+    InputDecorationThemeData? inputDecorationTheme,
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
@@ -160,7 +160,7 @@ class FluoTheme {
                     maxWidth: 32 + 10 + 15,
                   ),
         ) ??
-        InputDecorationTheme(
+        InputDecorationThemeData(
           fillColor: inversePrimaryColor.withAlpha(255 ~/ 2),
           filled: true,
           isDense: true,
@@ -328,7 +328,7 @@ class FluoTheme {
     EdgeInsets? legalTextPadding,
     TextStyle? modalTitleTextStyle,
     TextStyle? titleStyle,
-    InputDecorationTheme? inputDecorationTheme,
+    InputDecorationThemeData? inputDecorationTheme,
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
@@ -455,7 +455,7 @@ class FluoTheme {
         );
 
     inputDecorationTheme ??= appTheme?.inputDecorationTheme ??
-        InputDecorationTheme(
+        InputDecorationThemeData(
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(
             vertical: 15.0,
@@ -707,7 +707,7 @@ class FluoTheme {
 
   final TextStyle titleStyle;
 
-  final InputDecorationTheme inputDecorationTheme;
+  final InputDecorationThemeData inputDecorationTheme;
   final TextStyle inputTextStyle;
   final TextStyle inputErrorStyle;
   final TextAlignVertical inputTextAlignVertical;
