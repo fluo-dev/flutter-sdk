@@ -16,11 +16,11 @@ final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
 class EnterEmailScreen extends StatefulWidget {
   const EnterEmailScreen({
     super.key,
-    required this.onBackButtonPressed,
+    required this.onBack,
     required this.onEmailSubmitted,
   });
 
-  final VoidCallback onBackButtonPressed;
+  final VoidCallback onBack;
   final Function(PartialSession partialSession) onEmailSubmitted;
 
   @override
@@ -78,7 +78,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
             hintText: l10n.enterEmailPlaceholder,
             suffixIcon: ClearSuffixButton(controller: _emailController),
           ),
-          onSubmitted: (_) => _onNext(),
+          onSubmitted: (_) => _onContinue(),
           autocorrect: false,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
@@ -87,16 +87,16 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
           ],
         ),
       ),
-      onBackButtonPressed: widget.onBackButtonPressed,
-      onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isEmailValid,
+      onBack: widget.onBack,
+      onContinue: _onContinue,
+      continueButtonEnabled: _isEmailValid,
       helperWidget: Text(l10n.enterEmailHelper),
       errorText: _errorText,
       loading: _loading,
     );
   }
 
-  void _onNext() async {
+  void _onContinue() async {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();

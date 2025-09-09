@@ -43,5 +43,6 @@
     }
   },
   "enterEmailHelper": "Um código de verificação será enviado para verificar o seu endereço de e-mail. Certifique-se de verificar a sua caixa de entrada.",
-  "enterMobileHelper": "Um código de verificação será enviado para verificar o seu número de telemóvel. Certifique-se de ter acesso às mensagens."
+  "enterMobileHelper": "Um código de verificação será enviado para verificar o seu número de telemóvel. Certifique-se de ter acesso às mensagens.",
+  "continueAction": "Continuar"
 }

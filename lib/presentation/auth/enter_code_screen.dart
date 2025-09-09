@@ -15,12 +15,12 @@ class EnterCodeScreen extends StatefulWidget {
   const EnterCodeScreen({
     super.key,
     required this.partialSession,
-    required this.onBackButtonPressed,
+    required this.onBack,
     required this.onCodeVerified,
   });
 
   final PartialSession partialSession;
-  final VoidCallback onBackButtonPressed;
+  final VoidCallback onBack;
   final Function(Session session) onCodeVerified;
 
   @override
@@ -51,7 +51,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
         followingPinTheme: fluoTheme.codeInputThemeFollowing,
         disabledPinTheme: fluoTheme.codeInputThemeDisabled,
         errorPinTheme: fluoTheme.codeInputThemeError,
-        onCompleted: (_) => _onNext(),
+        onCompleted: (_) => _onContinue(),
         onTap: () {
           if (_isComplete && _errorText != null) {
             _codeController.setText('');
@@ -64,9 +64,9 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
           });
         },
       ),
-      onBackButtonPressed: widget.onBackButtonPressed,
-      onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isComplete,
+      onBack: widget.onBack,
+      onContinue: _onContinue,
+      continueButtonEnabled: _isComplete,
       helperWidget: _helperWidget(),
       errorText: _errorText,
       loading: _loading,
@@ -99,7 +99,7 @@ class _EnterEmailScreenState extends State<EnterCodeScreen> {
     );
   }
 
-  void _onNext() async {
+  void _onContinue() async {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();

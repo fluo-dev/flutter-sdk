@@ -104,4 +104,7 @@ class FluoLocalizationsAr extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'سيتم إرسال رمز تحقق للتحقق من رقم هاتفك المحمول. يرجى التأكد من إمكانية الوصول إلى الرسائل.';
+
+  @override
+  String get continueAction => 'متابعة';
 }

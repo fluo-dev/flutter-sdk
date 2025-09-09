@@ -106,4 +106,7 @@ class FluoLocalizationsDe extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Ein Bestätigungscode wird gesendet, um Ihre Mobilfunknummer zu verifizieren. Bitte stellen Sie sicher, dass Sie Zugriff auf Ihre Nachrichten haben.';
+
+  @override
+  String get continueAction => 'Fortfahren';
 }

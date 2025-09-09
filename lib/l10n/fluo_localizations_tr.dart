@@ -104,4 +104,7 @@ class FluoLocalizationsTr extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek. Mesajlara erişiminiz olduğundan emin olun.';
+
+  @override
+  String get continueAction => 'Devam et';
 }

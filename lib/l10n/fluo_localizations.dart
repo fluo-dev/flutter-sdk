@@ -308,6 +308,12 @@ abstract class FluoLocalizations {
   /// In en, this message translates to:
   /// **'A verification code will be sent to verify your mobile number. Make sure to have access to messages.'**
   String get enterMobileHelper;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
 }
 
 class _FluoLocalizationsDelegate

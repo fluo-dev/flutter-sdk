@@ -58,9 +58,9 @@ class RegisterNavigatorState extends State<RegisterNavigator> {
     final steps = _config.registrationSteps;
     final stepIndex = _stepIndexForRouteName(routeName);
 
-    VoidCallback? onBackButtonPressed;
+    VoidCallback? onBack;
     if (stepIndex > 0) {
-      onBackButtonPressed = () => _navigator().pop();
+      onBack = () => _navigator().pop();
     }
 
     onStepComplete() {
@@ -77,12 +77,12 @@ class RegisterNavigatorState extends State<RegisterNavigator> {
     final step = steps[stepIndex];
     if (step.id == 'firstName' && step.selected) {
       screen = EnterFirstNameScreen(
-        onBackButtonPressed: onBackButtonPressed,
+        onBack: onBack,
         onFirstNameSubmitted: onStepComplete,
       );
     } else if (step.id == 'lastName' && step.selected) {
       screen = EnterLastNameScreen(
-        onBackButtonPressed: onBackButtonPressed,
+        onBack: onBack,
         onLastNameSubmitted: onStepComplete,
       );
     }

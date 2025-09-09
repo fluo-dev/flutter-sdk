@@ -104,4 +104,7 @@ class FluoLocalizationsHi extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'आपके मोबाइल नंबर को सत्यापित करने के लिए एक सत्यापन कोड भेजा जाएगा। कृपया सुनिश्चित करें कि आपके पास संदेशों तक पहुंच है।';
+
+  @override
+  String get continueAction => 'जारी रखें';
 }

@@ -43,5 +43,6 @@
     }
   },
   "enterEmailHelper": "Un codice di verifica verrà inviato per verificare il tuo indirizzo email. Assicurati di controllare la tua casella di posta in arrivo.",
-  "enterMobileHelper": "Un codice di verifica verrà inviato per verificare il tuo numero di cellulare. Assicurati di avere accesso ai messaggi."
+  "enterMobileHelper": "Un codice di verifica verrà inviato per verificare il tuo numero di cellulare. Assicurati di avere accesso ai messaggi.",
+  "continueAction": "Continua"
 }

@@ -104,4 +104,7 @@ class FluoLocalizationsFa extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'یک کد تأیید برای تأیید شماره موبایل شما ارسال خواهد شد. لطفاً مطمئن شوید که به پیام‌ها دسترسی دارید.';
+
+  @override
+  String get continueAction => 'ادامه';
 }

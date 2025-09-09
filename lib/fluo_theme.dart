@@ -27,10 +27,10 @@ class FluoTheme {
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
-    ButtonStyle? nextButtonStyle,
-    Size? nextButtonProgressIndicatorSize,
-    Color? nextButtonProgressIndicatorColor,
-    double? nextButtonProgressIndicatorStrokeWidth,
+    ButtonStyle? continueButtonStyle,
+    Size? continueButtonProgressIndicatorSize,
+    Color? continueButtonProgressIndicatorColor,
+    double? continueButtonProgressIndicatorStrokeWidth,
     EdgeInsets? countryItemPadding,
     Color? countryItemHighlightColor,
     TextStyle? countryTextStyle,
@@ -188,7 +188,7 @@ class FluoTheme {
 
     inputTextAlignVertical ??= TextAlignVertical.center;
 
-    nextButtonStyle ??= appTheme?.filledButtonTheme.style ??
+    continueButtonStyle ??= appTheme?.filledButtonTheme.style ??
         ButtonStyle(
           splashFactory: NoSplash.splashFactory,
           backgroundColor: WidgetStateProperty.resolveWith((states) {
@@ -216,14 +216,15 @@ class FluoTheme {
         );
 
     final focusedState = <WidgetState>{WidgetState.focused};
-    final textStyle = nextButtonStyle.textStyle?.resolve(focusedState);
+    final textStyle = continueButtonStyle.textStyle?.resolve(focusedState);
     final fontSize = textStyle?.fontSize ?? 17;
-    nextButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
+    continueButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
 
-    final textColor = nextButtonStyle.foregroundColor?.resolve(focusedState);
-    nextButtonProgressIndicatorColor ??= textColor ?? Colors.black;
+    final textColor =
+        continueButtonStyle.foregroundColor?.resolve(focusedState);
+    continueButtonProgressIndicatorColor ??= textColor ?? Colors.black;
 
-    nextButtonProgressIndicatorStrokeWidth ??= 2.0;
+    continueButtonProgressIndicatorStrokeWidth ??= 2.0;
 
     countryItemPadding ??= const EdgeInsets.symmetric(
       horizontal: 20.0,
@@ -291,10 +292,10 @@ class FluoTheme {
       inputTextStyle,
       inputErrorStyle,
       inputTextAlignVertical,
-      nextButtonStyle,
-      nextButtonProgressIndicatorSize,
-      nextButtonProgressIndicatorColor,
-      nextButtonProgressIndicatorStrokeWidth,
+      continueButtonStyle,
+      continueButtonProgressIndicatorSize,
+      continueButtonProgressIndicatorColor,
+      continueButtonProgressIndicatorStrokeWidth,
       countryItemPadding,
       countryItemHighlightColor,
       countryTextStyle,
@@ -332,10 +333,10 @@ class FluoTheme {
     TextStyle? inputTextStyle,
     TextStyle? inputErrorStyle,
     TextAlignVertical? inputTextAlignVertical,
-    ButtonStyle? nextButtonStyle,
-    Size? nextButtonProgressIndicatorSize,
-    Color? nextButtonProgressIndicatorColor,
-    double? nextButtonProgressIndicatorStrokeWidth,
+    ButtonStyle? continueButtonStyle,
+    Size? continueButtonProgressIndicatorSize,
+    Color? continueButtonProgressIndicatorColor,
+    double? continueButtonProgressIndicatorStrokeWidth,
     EdgeInsets? countryItemPadding,
     Color? countryItemHighlightColor,
     TextStyle? countryTextStyle,
@@ -507,7 +508,7 @@ class FluoTheme {
 
     inputTextAlignVertical ??= TextAlignVertical.center;
 
-    nextButtonStyle ??= appTheme?.filledButtonTheme.style ??
+    continueButtonStyle ??= appTheme?.filledButtonTheme.style ??
         ButtonStyle(
           splashFactory: NoSplash.splashFactory,
           elevation: WidgetStateProperty.all(0),
@@ -552,14 +553,15 @@ class FluoTheme {
         );
 
     final focusedState = <WidgetState>{WidgetState.focused};
-    final textStyle = nextButtonStyle.textStyle?.resolve(focusedState);
+    final textStyle = continueButtonStyle.textStyle?.resolve(focusedState);
     final fontSize = textStyle?.fontSize ?? 17;
-    nextButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
+    continueButtonProgressIndicatorSize ??= Size(fontSize, fontSize);
 
-    final textColor = nextButtonStyle.foregroundColor?.resolve(focusedState);
-    nextButtonProgressIndicatorColor ??= textColor ?? Colors.black;
+    final textColor =
+        continueButtonStyle.foregroundColor?.resolve(focusedState);
+    continueButtonProgressIndicatorColor ??= textColor ?? Colors.black;
 
-    nextButtonProgressIndicatorStrokeWidth ??= 1.5;
+    continueButtonProgressIndicatorStrokeWidth ??= 1.5;
 
     countryItemPadding ??= const EdgeInsets.symmetric(
       horizontal: 12.0,
@@ -627,10 +629,10 @@ class FluoTheme {
       inputTextStyle,
       inputErrorStyle,
       inputTextAlignVertical,
-      nextButtonStyle,
-      nextButtonProgressIndicatorSize,
-      nextButtonProgressIndicatorColor,
-      nextButtonProgressIndicatorStrokeWidth,
+      continueButtonStyle,
+      continueButtonProgressIndicatorSize,
+      continueButtonProgressIndicatorColor,
+      continueButtonProgressIndicatorStrokeWidth,
       countryItemPadding,
       countryItemHighlightColor,
       countryTextStyle,
@@ -667,10 +669,10 @@ class FluoTheme {
     this.inputTextStyle,
     this.inputErrorStyle,
     this.inputTextAlignVertical,
-    this.nextButtonStyle,
-    this.nextButtonProgressIndicatorSize,
-    this.nextButtonProgressIndicatorColor,
-    this.nextButtonProgressIndicatorStrokeWidth,
+    this.continueButtonStyle,
+    this.continueButtonProgressIndicatorSize,
+    this.continueButtonProgressIndicatorColor,
+    this.continueButtonProgressIndicatorStrokeWidth,
     this.countryItemPadding,
     this.countryItemHighlightColor,
     this.countryTextStyle,
@@ -712,10 +714,10 @@ class FluoTheme {
   final TextStyle inputErrorStyle;
   final TextAlignVertical inputTextAlignVertical;
 
-  final ButtonStyle nextButtonStyle;
-  final Size nextButtonProgressIndicatorSize;
-  final Color nextButtonProgressIndicatorColor;
-  final double nextButtonProgressIndicatorStrokeWidth;
+  final ButtonStyle continueButtonStyle;
+  final Size continueButtonProgressIndicatorSize;
+  final Color continueButtonProgressIndicatorColor;
+  final double continueButtonProgressIndicatorStrokeWidth;
 
   final EdgeInsets countryItemPadding;
   final Color countryItemHighlightColor;

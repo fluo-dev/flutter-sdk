@@ -105,4 +105,7 @@ class FluoLocalizationsNl extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Er wordt een verificatiecode verzonden om uw mobiele nummer te verifiëren. Zorg ervoor dat u toegang heeft tot berichten.';
+
+  @override
+  String get continueAction => 'Doorgaan';
 }

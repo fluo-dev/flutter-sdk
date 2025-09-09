@@ -104,4 +104,7 @@ class FluoLocalizationsRu extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Будет отправлен код подтверждения для проверки вашего номера телефона. Убедитесь, что у вас есть доступ к сообщениям.';
+
+  @override
+  String get continueAction => 'Продолжить';
 }

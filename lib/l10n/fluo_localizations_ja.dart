@@ -103,4 +103,7 @@ class FluoLocalizationsJa extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       '携帯電話番号の確認のため、認証コードが送信されます。メッセージにアクセスできることをご確認ください。';
+
+  @override
+  String get continueAction => '続行';
 }

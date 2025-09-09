@@ -105,6 +105,9 @@ class FluoLocalizationsPt extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Um código de verificação será enviado para verificar o seu número de telemóvel. Certifique-se de ter acesso às mensagens.';
+
+  @override
+  String get continueAction => 'Continuar';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -207,4 +210,7 @@ class FluoLocalizationsPtBr extends FluoLocalizationsPt {
   @override
   String get enterMobileHelper =>
       'Um código de verificação será enviado para verificar seu número de celular. Certifique-se de ter acesso às mensagens.';
+
+  @override
+  String get continueAction => 'Continuar';
 }

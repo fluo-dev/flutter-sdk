@@ -43,5 +43,6 @@
     }
   },
   "enterEmailHelper": "将发送验证码以验证您的电子邮箱地址。请确保查看您的收件箱。",
-  "enterMobileHelper": "将发送验证码以验证您的手机号码。请确保您能收到短信。"
+  "enterMobileHelper": "将发送验证码以验证您的手机号码。请确保您能收到短信。",
+  "continueAction": "继续"
 } 

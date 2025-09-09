@@ -12,11 +12,11 @@ import 'package:provider/provider.dart';
 class EnterFirstNameScreen extends StatefulWidget {
   const EnterFirstNameScreen({
     super.key,
-    required this.onBackButtonPressed,
+    required this.onBack,
     required this.onFirstNameSubmitted,
   });
 
-  final VoidCallback? onBackButtonPressed;
+  final VoidCallback? onBack;
   final VoidCallback onFirstNameSubmitted;
 
   @override
@@ -72,7 +72,7 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
             hintText: FluoLocalizations.of(context)!.enterFirstNamePlaceholder,
             suffixIcon: ClearSuffixButton(controller: _firstNameController),
           ),
-          onSubmitted: (_) => _onNext(),
+          onSubmitted: (_) => _onContinue(),
           autofocus: true,
           autocorrect: false,
           textCapitalization: TextCapitalization.words,
@@ -83,15 +83,15 @@ class _EnterFirstNameScreenState extends State<EnterFirstNameScreen> {
           ],
         ),
       ),
-      onBackButtonPressed: widget.onBackButtonPressed,
-      onNextButtonPressed: _onNext,
-      nextButtonEnabled: _isFirstNameValid,
+      onBack: widget.onBack,
+      onContinue: _onContinue,
+      continueButtonEnabled: _isFirstNameValid,
       errorText: _errorText,
       loading: _loading,
     );
   }
 
-  void _onNext() async {
+  void _onContinue() async {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();

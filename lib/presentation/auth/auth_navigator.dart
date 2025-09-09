@@ -49,7 +49,7 @@ class AuthNavigatorState extends State<AuthNavigator> {
 
     if (settings.name == AuthNavigator.routeEnterEmail) {
       page = EnterEmailScreen(
-        onBackButtonPressed: () {
+        onBack: () {
           widget.onExit();
         },
         onEmailSubmitted: (partialSession) {
@@ -59,7 +59,7 @@ class AuthNavigatorState extends State<AuthNavigator> {
       );
     } else if (settings.name == AuthNavigator.routeEnterMobile) {
       page = EnterMobileScreen(
-        onBackButtonPressed: () {
+        onBack: () {
           widget.onExit();
         },
         onMobileSubmitted: (partialSession) {
@@ -70,7 +70,7 @@ class AuthNavigatorState extends State<AuthNavigator> {
     } else if (settings.name == AuthNavigator.routeEnterCode) {
       page = EnterCodeScreen(
         partialSession: _partialSession!,
-        onBackButtonPressed: _navigator().pop,
+        onBack: _navigator().pop,
         onCodeVerified: (session) async {
           await context.read<SessionManager>().setSession(session);
           widget.onUserAuthenticated();

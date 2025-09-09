@@ -104,4 +104,7 @@ class FluoLocalizationsEn extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'A verification code will be sent to verify your mobile number. Make sure to have access to messages.';
+
+  @override
+  String get continueAction => 'Continue';
 }

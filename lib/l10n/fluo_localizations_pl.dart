@@ -106,4 +106,7 @@ class FluoLocalizationsPl extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Zostanie wysłany kod weryfikacyjny w celu potwierdzenia Twojego numeru telefonu. Upewnij się, że masz dostęp do wiadomości.';
+
+  @override
+  String get continueAction => 'Kontynuuj';
 }

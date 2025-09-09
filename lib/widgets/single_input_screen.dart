@@ -1,5 +1,5 @@
 import 'package:fluo/fluo_theme.dart';
-import 'package:fluo/widgets/next_button.dart';
+import 'package:fluo/widgets/continue_button.dart';
 import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +9,9 @@ class SingleInputScreen extends StatelessWidget {
     super.key,
     required this.inputTitle,
     required this.inputWidget,
-    this.onBackButtonPressed,
-    this.onNextButtonPressed,
-    this.nextButtonEnabled = true,
+    this.onBack,
+    this.onContinue,
+    this.continueButtonEnabled = true,
     this.helperWidget,
     this.errorText,
     this.loading = false,
@@ -19,9 +19,9 @@ class SingleInputScreen extends StatelessWidget {
 
   final String inputTitle;
   final Widget inputWidget;
-  final VoidCallback? onBackButtonPressed;
-  final VoidCallback? onNextButtonPressed;
-  final bool nextButtonEnabled;
+  final VoidCallback? onBack;
+  final VoidCallback? onContinue;
+  final bool continueButtonEnabled;
   final Widget? helperWidget;
   final String? errorText;
   final bool loading;
@@ -29,49 +29,57 @@ class SingleInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fluoTheme = context.read<FluoTheme>();
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: fluoTheme.screenPadding,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RoundButton(
-                onPressed: onBackButtonPressed,
-                color: fluoTheme.primaryColor,
-              ),
-              const SizedBox(height: 30.0),
-              Text(
-                inputTitle,
-                style: fluoTheme.titleStyle,
-              ),
-              const SizedBox(height: 20.0),
-              inputWidget,
-              const SizedBox(height: 10.0),
-              if (errorText != null || helperWidget != null) ...{
-                const SizedBox(height: 10.0),
-                if (errorText != null)
-                  Text(
-                    errorText!,
-                    style: fluoTheme.inputErrorStyle,
-                  ),
-                if (errorText == null && helperWidget != null) ...{
-                  helperWidget!
-                },
-              },
-              if (errorText != null || helperWidget != null) ...{
-                const SizedBox(height: 20.0),
-              },
-              const Spacer(),
-              if (onNextButtonPressed != null) ...{
-                NextButton(
-                  onPressed: onNextButtonPressed!,
-                  loading: loading,
-                  enabled: nextButtonEnabled,
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          onBack?.call();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: fluoTheme.screenPadding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RoundButton(
+                  onPressed: onBack,
+                  color: fluoTheme.primaryColor,
                 ),
-              },
-            ],
+                const SizedBox(height: 30.0),
+                Text(
+                  inputTitle,
+                  style: fluoTheme.titleStyle,
+                ),
+                const SizedBox(height: 20.0),
+                inputWidget,
+                const SizedBox(height: 10.0),
+                if (errorText != null || helperWidget != null) ...{
+                  const SizedBox(height: 10.0),
+                  if (errorText != null)
+                    Text(
+                      errorText!,
+                      style: fluoTheme.inputErrorStyle,
+                    ),
+                  if (errorText == null && helperWidget != null) ...{
+                    helperWidget!
+                  },
+                },
+                if (errorText != null || helperWidget != null) ...{
+                  const SizedBox(height: 20.0),
+                },
+                const Spacer(),
+                if (onContinue != null) ...{
+                  ContinueButton(
+                    onPressed: onContinue!,
+                    loading: loading,
+                    enabled: continueButtonEnabled,
+                  ),
+                },
+              ],
+            ),
           ),
         ),
       ),

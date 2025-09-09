@@ -43,5 +43,6 @@
     }
   },
   "enterEmailHelper": "Ein Bestätigungscode wird gesendet, um Ihre E-Mail-Adresse zu verifizieren. Bitte überprüfen Sie Ihren Posteingang.",
-  "enterMobileHelper": "Ein Bestätigungscode wird gesendet, um Ihre Mobilfunknummer zu verifizieren. Bitte stellen Sie sicher, dass Sie Zugriff auf Ihre Nachrichten haben."
+  "enterMobileHelper": "Ein Bestätigungscode wird gesendet, um Ihre Mobilfunknummer zu verifizieren. Bitte stellen Sie sicher, dass Sie Zugriff auf Ihre Nachrichten haben.",
+  "continueAction": "Fortfahren"
 }

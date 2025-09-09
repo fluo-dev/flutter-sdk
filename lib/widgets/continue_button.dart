@@ -3,8 +3,8 @@ import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NextButton extends StatelessWidget {
-  const NextButton({
+class ContinueButton extends StatelessWidget {
+  const ContinueButton({
     super.key,
     required this.onPressed,
     this.loading = false,
@@ -19,18 +19,19 @@ class NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final fluoTheme = context.read<FluoTheme>();
     return FilledButton(
-      style: fluoTheme.nextButtonStyle,
+      style: fluoTheme.continueButtonStyle,
       onPressed: enabled ? _onPressedIfNotLoading : null,
       child: loading
           ? SizedBox(
-              width: fluoTheme.nextButtonProgressIndicatorSize.width,
-              height: fluoTheme.nextButtonProgressIndicatorSize.height,
+              width: fluoTheme.continueButtonProgressIndicatorSize.width,
+              height: fluoTheme.continueButtonProgressIndicatorSize.height,
               child: CircularProgressIndicator(
-                color: fluoTheme.nextButtonProgressIndicatorColor,
-                strokeWidth: fluoTheme.nextButtonProgressIndicatorStrokeWidth,
+                color: fluoTheme.continueButtonProgressIndicatorColor,
+                strokeWidth:
+                    fluoTheme.continueButtonProgressIndicatorStrokeWidth,
               ),
             )
-          : Text(FluoLocalizations.of(context)!.next),
+          : Text(FluoLocalizations.of(context)!.continueAction),
     );
   }
 

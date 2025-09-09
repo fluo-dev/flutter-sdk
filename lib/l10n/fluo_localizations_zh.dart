@@ -102,4 +102,7 @@ class FluoLocalizationsZh extends FluoLocalizations {
 
   @override
   String get enterMobileHelper => '将发送验证码以验证您的手机号码。请确保您能收到短信。';
+
+  @override
+  String get continueAction => '继续';
 }

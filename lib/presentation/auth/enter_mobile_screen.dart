@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 class EnterMobileScreen extends StatefulWidget {
   const EnterMobileScreen({
     super.key,
-    required this.onBackButtonPressed,
+    required this.onBack,
     required this.onMobileSubmitted,
   });
 
-  final VoidCallback onBackButtonPressed;
+  final VoidCallback onBack;
   final Function(PartialSession partialSession) onMobileSubmitted;
 
   @override
@@ -72,16 +72,16 @@ class _EnterMobileScreenState extends State<EnterMobileScreen> {
           });
         },
       ),
-      onBackButtonPressed: widget.onBackButtonPressed,
-      onNextButtonPressed: _onNext,
-      nextButtonEnabled: _mobileE164 != null,
+      onBack: widget.onBack,
+      onContinue: _onContinue,
+      continueButtonEnabled: _mobileE164 != null,
       helperWidget: Text(l10n.enterMobileHelper),
       errorText: _errorText,
       loading: _loading,
     );
   }
 
-  void _onNext() async {
+  void _onContinue() async {
     try {
       setState(() => _loading = true);
       final apiClient = context.read<ApiClient>();

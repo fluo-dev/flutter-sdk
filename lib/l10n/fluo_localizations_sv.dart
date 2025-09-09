@@ -104,4 +104,7 @@ class FluoLocalizationsSv extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'En verifieringskod kommer att skickas för att verifiera ditt mobilnummer. Se till att du har tillgång till meddelanden.';
+
+  @override
+  String get continueAction => 'Fortsätt';
 }

@@ -43,5 +43,6 @@
     }
   },
   "enterEmailHelper": "E-posta adresinizi doğrulamak için bir doğrulama kodu gönderilecek. Gelen kutunuzu kontrol ettiğinizden emin olun.",
-  "enterMobileHelper": "Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek. Mesajlara erişiminiz olduğundan emin olun."
+  "enterMobileHelper": "Cep telefonu numaranızı doğrulamak için bir doğrulama kodu gönderilecek. Mesajlara erişiminiz olduğundan emin olun.",
+  "continueAction": "Devam et"
 } 

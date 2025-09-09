@@ -107,4 +107,7 @@ class FluoLocalizationsFr extends FluoLocalizations {
   @override
   String get enterMobileHelper =>
       'Un code de vérification sera envoyé pour vérifier votre numéro de mobile. Assurez-vous d\'avoir accès à vos messages.';
+
+  @override
+  String get continueAction => 'Continuer';
 }
