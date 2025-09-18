@@ -149,6 +149,15 @@ class Fluo {
     return session?.accessToken;
   }
 
+  /// Deletes the user info stored in the Fluo backend.
+  ///
+  /// Usually, you should call `clearSession` right after.
+  Future<void> deleteUser(String accessToken) async {
+    await _apiClient.deleteUser(
+      accessToken: accessToken,
+    );
+  }
+
   /// Shows the connect with email flow.
   ///
   /// This is a modal dialog which takes care of collecting the user's email,

@@ -1,3 +1,7 @@
+## 3.1.0
+
+- Add method to delete user info: `await Fluo.instance.deleteUser()`
+
 ## 3.0.0
 
 - Fix bug that was hiding the connect container when sliding email input from the left edge (iOS style)

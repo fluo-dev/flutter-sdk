@@ -183,6 +183,20 @@ class ApiClient {
     }
   }
 
+  Future<void> deleteUser({
+    required String accessToken,
+  }) async {
+    final response = await _delete(
+      path: '/users/me',
+      accessToken: accessToken,
+    );
+
+    if (response.statusCode >= 400) {
+      final json = jsonDecode(response.body);
+      return Future.error(ApiError.fromJson(json));
+    }
+  }
+
   // Request helpers
 
   Future<http.Response> _get({
@@ -216,6 +230,16 @@ class ApiClient {
       Uri.parse('$baseUrl$path'),
       headers: _headers(accessToken),
       body: jsonEncode(body),
+    );
+  }
+
+  Future<http.Response> _delete({
+    required String path,
+    String? accessToken,
+  }) {
+    return http.delete(
+      Uri.parse('$baseUrl$path'),
+      headers: _headers(accessToken),
     );
   }
 
