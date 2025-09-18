@@ -29,13 +29,19 @@ MaterialApp(
 
 ### macOS (network)
 
-Add this key to `{app}/macos/Runner/DebugProfile.entitlements` and `{app}/macos/Runner/Release.entitlements`:
+Add these keys to:
+
+- `{app}/macos/Runner/DebugProfile.entitlements`
+- `{app}/macos/Runner/Release.entitlements`:
 
 ```xml
 <dict>
+  <!-- other keys -->
   <key>com.apple.security.network.client</key>
   <true/>
-  <!-- other keys -->
-
+  <key>keychain-access-groups</key>
+  <array>
+    <string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
+  </array>
 </dict>
 ```
