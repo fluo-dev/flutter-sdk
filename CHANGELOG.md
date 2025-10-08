@@ -1,3 +1,7 @@
+## 3.2.1
+
+- Fix warnings on dependencies with only one version
+
 ## 3.2.0
 
 - Enable Google Sign-in for macOS
