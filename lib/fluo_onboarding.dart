@@ -54,8 +54,9 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
 
     for (final method in Fluo.instance.appConfig.authMethods) {
       if (method.id == AuthMethodId.apple) {
-        // Sign in with Apple is only available on iOS
-        _authMethods[method.id] = method.selected && !kIsWeb && Platform.isIOS;
+        // Sign in with Apple is only available on iOS and macOS
+        final iOSorMacOS = Platform.isIOS || Platform.isMacOS;
+        _authMethods[method.id] = method.selected && !kIsWeb && iOSorMacOS;
       } else {
         _authMethods[method.id] = method.selected;
       }

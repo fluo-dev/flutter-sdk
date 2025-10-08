@@ -246,7 +246,7 @@ class Fluo {
     if (kIsWeb) {
       return googleClientId.web;
     }
-    if (Platform.isIOS) {
+    if (Platform.isIOS || Platform.isMacOS) {
       return googleClientId.ios;
     }
     if (Platform.isAndroid) {
