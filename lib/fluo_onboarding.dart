@@ -5,10 +5,10 @@ import 'package:fluo/fluo.dart';
 import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/managers/country_manager.dart';
-import 'package:fluo/widgets/webview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'stubs/google_sign_in_web_stub.dart'
     if (dart.library.html) 'package:google_sign_in_web/google_sign_in_web.dart';
@@ -266,12 +266,12 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
               style: widget.fluoTheme.legalTextStyle,
               tags: {
                 'terms': StyledTextActionTag(
-                  (text, attrs) => openWebPage(
-                    context: context,
-                    theme: widget.fluoTheme,
-                    title: FluoLocalizations.of(context)!.termsAndConditions,
-                    url: Fluo.instance.appConfig.termsUrl,
-                  ),
+                  (text, attrs) async {
+                    final uri = Uri.parse(Fluo.instance.appConfig.termsUrl);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  },
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
@@ -279,12 +279,12 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
                   ),
                 ),
                 'privacy': StyledTextActionTag(
-                  (text, attrs) => openWebPage(
-                    context: context,
-                    theme: widget.fluoTheme,
-                    title: FluoLocalizations.of(context)!.privacyPolicy,
-                    url: Fluo.instance.appConfig.privacyUrl,
-                  ),
+                  (text, attrs) async {
+                    final uri = Uri.parse(Fluo.instance.appConfig.privacyUrl);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  },
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline,
