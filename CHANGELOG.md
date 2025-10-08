@@ -1,3 +1,9 @@
+## 3.2.0
+
+- Enable Google Sign-in for macOS
+- Enable Apple Sign-in for macOS
+- Remove internal webviews for terms and privacy urls
+
 ## 3.1.0
 
 - Add method to delete user info: `await Fluo.instance.deleteUser()`
