@@ -1,11 +1,15 @@
+## 3.2.2
+
+- [macOS] Show email flow in a contained box
+
 ## 3.2.1
 
 - Fix warnings on dependencies with only one version
 
 ## 3.2.0
 
-- Enable Google Sign-in for macOS
-- Enable Apple Sign-in for macOS
+- [macOS] Enable Google Sign-in for macOS
+- [macOS] Enable Apple Sign-in for macOS
 - Remove internal webviews for terms and privacy urls
 
 ## 3.1.0

@@ -433,16 +433,16 @@ class Fluo {
       pageBuilder: (context, animation, secondaryAnimation) {
         return LayoutBuilder(
           builder: (context, constraints) {
-            final isWide = constraints.maxWidth > 500;
+            final showBox = Platform.isMacOS || constraints.maxWidth > 500;
             return Center(
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: isWide ? 400 : double.infinity,
-                  maxHeight: isWide ? 370 : double.infinity,
+                  maxWidth: showBox ? 400 : double.infinity,
+                  maxHeight: showBox ? 370 : double.infinity,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(isWide ? 8 : 0),
+                  borderRadius: BorderRadius.circular(showBox ? 8 : 0),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: MultiProvider(
