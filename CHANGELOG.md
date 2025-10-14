@@ -1,3 +1,7 @@
+## 3.3.0
+
+- Add `webAuthenticationOptions` for Sign in with Apple
+
 ## 3.2.2
 
 - [macOS] Show email flow in a contained box
