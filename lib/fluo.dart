@@ -9,6 +9,8 @@ import 'dart:io';
 
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/app_config.dart';
+import 'package:fluo/api/models/apple_web_options.dart';
+import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/api/models/session.dart';
 import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/managers/session_manager.dart';
@@ -241,7 +243,7 @@ class Fluo {
   /// - The Google client ID for the current platform.
   String getGoogleClientId() {
     final googleClientId = appConfig.authMethods
-        .firstWhere((method) => method.id == 'google')
+        .firstWhere((method) => method.id == AuthMethodId.google)
         .googleClientId!;
     if (kIsWeb) {
       return googleClientId.web;
@@ -253,6 +255,16 @@ class Fluo {
       return googleClientId.android;
     }
     return '';
+  }
+
+  AppleWebOptions? getAppleWebOptions() {
+    if (Platform.isIOS) {
+      return null;
+    }
+
+    return appConfig.authMethods
+        .firstWhere((method) => method.id == AuthMethodId.apple)
+        .appleWebOptions;
   }
 
   /// Shows the Google Sign-in flow.
@@ -334,11 +346,20 @@ class Fluo {
     required VoidCallback onUserReady,
   }) async {
     try {
+      WebAuthenticationOptions? webAuthOptions;
+      final webConfig = getAppleWebOptions();
+      if (webConfig != null) {
+        webAuthOptions = WebAuthenticationOptions(
+          clientId: webConfig.clientId,
+          redirectUri: Uri.parse(webConfig.redirectUri),
+        );
+      }
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
         ],
+        webAuthenticationOptions: webAuthOptions,
       );
 
       if (!context.mounted) {

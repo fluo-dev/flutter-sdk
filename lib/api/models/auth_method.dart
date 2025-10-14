@@ -1,3 +1,4 @@
+import 'package:fluo/api/models/apple_web_options.dart';
 import 'package:fluo/api/models/google_client_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,6 +18,7 @@ class AuthMethod with _$AuthMethod {
     required String id,
     required bool selected,
     GoogleClientId? googleClientId,
+    AppleWebOptions? appleWebOptions,
   }) = _AuthMethod;
 
   factory AuthMethod.fromJson(Map<String, dynamic> json) =>

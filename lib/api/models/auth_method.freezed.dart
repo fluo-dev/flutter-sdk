@@ -23,6 +23,7 @@ mixin _$AuthMethod {
   String get id => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
   GoogleClientId? get googleClientId => throw _privateConstructorUsedError;
+  AppleWebOptions? get appleWebOptions => throw _privateConstructorUsedError;
 
   /// Serializes this AuthMethod to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,9 +41,14 @@ abstract class $AuthMethodCopyWith<$Res> {
           AuthMethod value, $Res Function(AuthMethod) then) =
       _$AuthMethodCopyWithImpl<$Res, AuthMethod>;
   @useResult
-  $Res call({String id, bool selected, GoogleClientId? googleClientId});
+  $Res call(
+      {String id,
+      bool selected,
+      GoogleClientId? googleClientId,
+      AppleWebOptions? appleWebOptions});
 
   $GoogleClientIdCopyWith<$Res>? get googleClientId;
+  $AppleWebOptionsCopyWith<$Res>? get appleWebOptions;
 }
 
 /// @nodoc
@@ -63,6 +69,7 @@ class _$AuthMethodCopyWithImpl<$Res, $Val extends AuthMethod>
     Object? id = null,
     Object? selected = null,
     Object? googleClientId = freezed,
+    Object? appleWebOptions = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,6 +84,10 @@ class _$AuthMethodCopyWithImpl<$Res, $Val extends AuthMethod>
           ? _value.googleClientId
           : googleClientId // ignore: cast_nullable_to_non_nullable
               as GoogleClientId?,
+      appleWebOptions: freezed == appleWebOptions
+          ? _value.appleWebOptions
+          : appleWebOptions // ignore: cast_nullable_to_non_nullable
+              as AppleWebOptions?,
     ) as $Val);
   }
 
@@ -93,6 +104,20 @@ class _$AuthMethodCopyWithImpl<$Res, $Val extends AuthMethod>
       return _then(_value.copyWith(googleClientId: value) as $Val);
     });
   }
+
+  /// Create a copy of AuthMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AppleWebOptionsCopyWith<$Res>? get appleWebOptions {
+    if (_value.appleWebOptions == null) {
+      return null;
+    }
+
+    return $AppleWebOptionsCopyWith<$Res>(_value.appleWebOptions!, (value) {
+      return _then(_value.copyWith(appleWebOptions: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -103,10 +128,16 @@ abstract class _$$AuthMethodImplCopyWith<$Res>
       __$$AuthMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, bool selected, GoogleClientId? googleClientId});
+  $Res call(
+      {String id,
+      bool selected,
+      GoogleClientId? googleClientId,
+      AppleWebOptions? appleWebOptions});
 
   @override
   $GoogleClientIdCopyWith<$Res>? get googleClientId;
+  @override
+  $AppleWebOptionsCopyWith<$Res>? get appleWebOptions;
 }
 
 /// @nodoc
@@ -125,6 +156,7 @@ class __$$AuthMethodImplCopyWithImpl<$Res>
     Object? id = null,
     Object? selected = null,
     Object? googleClientId = freezed,
+    Object? appleWebOptions = freezed,
   }) {
     return _then(_$AuthMethodImpl(
       id: null == id
@@ -139,6 +171,10 @@ class __$$AuthMethodImplCopyWithImpl<$Res>
           ? _value.googleClientId
           : googleClientId // ignore: cast_nullable_to_non_nullable
               as GoogleClientId?,
+      appleWebOptions: freezed == appleWebOptions
+          ? _value.appleWebOptions
+          : appleWebOptions // ignore: cast_nullable_to_non_nullable
+              as AppleWebOptions?,
     ));
   }
 }
@@ -147,7 +183,10 @@ class __$$AuthMethodImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AuthMethodImpl implements _AuthMethod {
   const _$AuthMethodImpl(
-      {required this.id, required this.selected, this.googleClientId});
+      {required this.id,
+      required this.selected,
+      this.googleClientId,
+      this.appleWebOptions});
 
   factory _$AuthMethodImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthMethodImplFromJson(json);
@@ -158,10 +197,12 @@ class _$AuthMethodImpl implements _AuthMethod {
   final bool selected;
   @override
   final GoogleClientId? googleClientId;
+  @override
+  final AppleWebOptions? appleWebOptions;
 
   @override
   String toString() {
-    return 'AuthMethod(id: $id, selected: $selected, googleClientId: $googleClientId)';
+    return 'AuthMethod(id: $id, selected: $selected, googleClientId: $googleClientId, appleWebOptions: $appleWebOptions)';
   }
 
   @override
@@ -173,12 +214,15 @@ class _$AuthMethodImpl implements _AuthMethod {
             (identical(other.selected, selected) ||
                 other.selected == selected) &&
             (identical(other.googleClientId, googleClientId) ||
-                other.googleClientId == googleClientId));
+                other.googleClientId == googleClientId) &&
+            (identical(other.appleWebOptions, appleWebOptions) ||
+                other.appleWebOptions == appleWebOptions));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, selected, googleClientId);
+  int get hashCode =>
+      Object.hash(runtimeType, id, selected, googleClientId, appleWebOptions);
 
   /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
@@ -200,7 +244,8 @@ abstract class _AuthMethod implements AuthMethod {
   const factory _AuthMethod(
       {required final String id,
       required final bool selected,
-      final GoogleClientId? googleClientId}) = _$AuthMethodImpl;
+      final GoogleClientId? googleClientId,
+      final AppleWebOptions? appleWebOptions}) = _$AuthMethodImpl;
 
   factory _AuthMethod.fromJson(Map<String, dynamic> json) =
       _$AuthMethodImpl.fromJson;
@@ -211,6 +256,8 @@ abstract class _AuthMethod implements AuthMethod {
   bool get selected;
   @override
   GoogleClientId? get googleClientId;
+  @override
+  AppleWebOptions? get appleWebOptions;
 
   /// Create a copy of AuthMethod
   /// with the given fields replaced by the non-null parameter values.
