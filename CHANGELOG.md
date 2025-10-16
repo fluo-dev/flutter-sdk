@@ -1,3 +1,7 @@
+## 3.3.1
+
+- [web] Fix crash when using `Platform.isIOS`
+
 ## 3.3.0
 
 - Add `webAuthenticationOptions` for Sign in with Apple
