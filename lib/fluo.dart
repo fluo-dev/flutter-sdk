@@ -258,7 +258,7 @@ class Fluo {
   }
 
   AppleWebOptions? getAppleWebOptions() {
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return null;
     }
 
@@ -454,7 +454,8 @@ class Fluo {
       pageBuilder: (context, animation, secondaryAnimation) {
         return LayoutBuilder(
           builder: (context, constraints) {
-            final showBox = Platform.isMacOS || constraints.maxWidth > 500;
+            final isSafeMacOS = !kIsWeb && Platform.isMacOS;
+            final showBox = constraints.maxWidth > 500 || isSafeMacOS;
             return Center(
               child: Container(
                 constraints: BoxConstraints(

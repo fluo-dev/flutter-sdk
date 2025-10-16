@@ -1,3 +1,7 @@
+## 3.3.2
+
+- [web] Fix more crashes due to `Platform.isXXX`
+
 ## 3.3.1
 
 - [web] Fix crash when using `Platform.isIOS`
