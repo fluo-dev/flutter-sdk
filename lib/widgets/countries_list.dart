@@ -34,9 +34,11 @@ class CountryItem extends StatelessWidget {
           children: [
             CountryFlag.fromCountryCode(
               country.countryCode,
-              height: 18.0,
-              width: 24.0,
-              shape: const RoundedRectangle(3.0),
+              theme: const ImageTheme(
+                width: 24.0,
+                height: 18.0,
+                shape: RoundedRectangle(3.0),
+              ),
             ),
             const SizedBox(width: 20.0),
             Expanded(

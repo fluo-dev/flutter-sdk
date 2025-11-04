@@ -199,7 +199,9 @@ class _MobileInputState extends State<MobileInput> {
             ? const SizedBox.shrink()
             : CountryFlag.fromCountryCode(
                 _selectedCountry!.countryCode,
-                shape: const RoundedRectangle(3.0),
+                theme: const ImageTheme(
+                  shape: RoundedRectangle(3.0),
+                ),
                 key: ValueKey(_selectedCountry!.countryCode),
               ),
       ),
