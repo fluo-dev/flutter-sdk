@@ -1,15 +1,26 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class AppleWebOptions {
+  const AppleWebOptions({
+    required this.clientId,
+    required this.redirectUri,
+  });
 
-part 'apple_web_options.freezed.dart';
-part 'apple_web_options.g.dart';
+  factory AppleWebOptions.fromJson(Map<String, dynamic> json) {
+    return AppleWebOptions(
+      clientId: json['clientId'] as String,
+      redirectUri: json['redirectUri'] as String,
+    );
+  }
 
-@Freezed()
-class AppleWebOptions with _$AppleWebOptions {
-  const factory AppleWebOptions({
-    required String clientId,
-    required String redirectUri,
-  }) = _AppleWebOptions;
+  final String clientId;
+  final String redirectUri;
 
-  factory AppleWebOptions.fromJson(Map<String, dynamic> json) =>
-      _$AppleWebOptionsFromJson(json);
+  AppleWebOptions copyWith({
+    String? clientId,
+    String? redirectUri,
+  }) {
+    return AppleWebOptions(
+      clientId: clientId ?? this.clientId,
+      redirectUri: redirectUri ?? this.redirectUri,
+    );
+  }
 }

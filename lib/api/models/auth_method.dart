@@ -1,9 +1,5 @@
 import 'package:fluo/api/models/apple_web_options.dart';
 import 'package:fluo/api/models/google_client_id.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'auth_method.freezed.dart';
-part 'auth_method.g.dart';
 
 abstract class AuthMethodId {
   static const String email = 'email';
@@ -12,15 +8,45 @@ abstract class AuthMethodId {
   static const String apple = 'apple';
 }
 
-@Freezed()
-class AuthMethod with _$AuthMethod {
-  const factory AuthMethod({
-    required String id,
-    required bool selected,
+class AuthMethod {
+  const AuthMethod({
+    required this.id,
+    required this.selected,
+    this.googleClientId,
+    this.appleWebOptions,
+  });
+
+  factory AuthMethod.fromJson(Map<String, dynamic> json) {
+    return AuthMethod(
+      id: json['id'] as String,
+      selected: json['selected'] as bool,
+      googleClientId: json['googleClientId'] != null
+          ? GoogleClientId.fromJson(
+              json['googleClientId'] as Map<String, dynamic>)
+          : null,
+      appleWebOptions: json['appleWebOptions'] != null
+          ? AppleWebOptions.fromJson(
+              json['appleWebOptions'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  final String id;
+  final bool selected;
+  final GoogleClientId? googleClientId;
+  final AppleWebOptions? appleWebOptions;
+
+  AuthMethod copyWith({
+    String? id,
+    bool? selected,
     GoogleClientId? googleClientId,
     AppleWebOptions? appleWebOptions,
-  }) = _AuthMethod;
-
-  factory AuthMethod.fromJson(Map<String, dynamic> json) =>
-      _$AuthMethodFromJson(json);
+  }) {
+    return AuthMethod(
+      id: id ?? this.id,
+      selected: selected ?? this.selected,
+      googleClientId: googleClientId ?? this.googleClientId,
+      appleWebOptions: appleWebOptions ?? this.appleWebOptions,
+    );
+  }
 }

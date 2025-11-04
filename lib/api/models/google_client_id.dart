@@ -1,16 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class GoogleClientId {
+  const GoogleClientId({
+    required this.ios,
+    required this.android,
+    required this.web,
+  });
 
-part 'google_client_id.freezed.dart';
-part 'google_client_id.g.dart';
+  factory GoogleClientId.fromJson(Map<String, dynamic> json) {
+    return GoogleClientId(
+      ios: json['ios'] as String,
+      android: json['android'] as String,
+      web: json['web'] as String,
+    );
+  }
 
-@Freezed()
-class GoogleClientId with _$GoogleClientId {
-  const factory GoogleClientId({
-    required String ios,
-    required String android,
-    required String web,
-  }) = _GoogleClientId;
+  final String ios;
+  final String android;
+  final String web;
 
-  factory GoogleClientId.fromJson(Map<String, dynamic> json) =>
-      _$GoogleClientIdFromJson(json);
+  GoogleClientId copyWith({
+    String? ios,
+    String? android,
+    String? web,
+  }) {
+    return GoogleClientId(
+      ios: ios ?? this.ios,
+      android: android ?? this.android,
+      web: web ?? this.web,
+    );
+  }
 }
