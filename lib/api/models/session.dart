@@ -34,6 +34,19 @@ class Session {
   final String? supabaseSession;
   final User user;
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'accessToken': accessToken,
+      'expiresAt': expiresAt,
+      'refreshToken': refreshToken,
+      'firebaseToken': firebaseToken,
+      'supabaseToken': supabaseToken,
+      'supabaseSession': supabaseSession,
+      'user': user.toJson(),
+    };
+  }
+
   Session copyWith({
     String? id,
     String? accessToken,

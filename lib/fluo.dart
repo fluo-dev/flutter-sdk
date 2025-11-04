@@ -3,7 +3,7 @@
 /// This library allows developers to integrate Fluo authentication and user management
 /// features into their Flutter apps. It handles session management, social sign-ins,
 /// and provides access to user data.
-library fluo;
+library;
 
 import 'dart:io';
 

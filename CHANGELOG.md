@@ -1,3 +1,8 @@
+## 3.3.3
+
+- Remove `freezed` from the dependencies
+- Upgrade most dependencies in pubspec
+
 ## 3.3.2
 
 - [web] Fix more crashes due to `Platform.isXXX`
