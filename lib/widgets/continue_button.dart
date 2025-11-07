@@ -35,7 +35,7 @@ class ContinueButton extends StatelessWidget {
     );
   }
 
-  _onPressedIfNotLoading() {
+  void _onPressedIfNotLoading() {
     if (!loading) {
       onPressed();
     }
