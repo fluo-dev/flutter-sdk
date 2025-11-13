@@ -12,7 +12,7 @@ class FluoFeaturesScreenStyle {
     ),
     this.titleTextStyle,
     this.featureTextStyle,
-    this.featuresAxisAlignment = MainAxisAlignment.center,
+    this.checkmarkSize = 30,
     this.checkmarkColor = Colors.black,
     this.checkmarkBackgroundColor = const Color(0xfff0f0f0),
     this.continueButtonStyle,
@@ -23,7 +23,7 @@ class FluoFeaturesScreenStyle {
   final EdgeInsets padding;
   final TextStyle? titleTextStyle;
   final TextStyle? featureTextStyle;
-  final MainAxisAlignment featuresAxisAlignment;
+  final double checkmarkSize;
   final Color checkmarkColor;
   final Color checkmarkBackgroundColor;
   final ButtonStyle? continueButtonStyle;
@@ -53,6 +53,7 @@ class FluoFeaturesScreen extends StatelessWidget {
           width: style.contentWidth,
           child: Column(
             spacing: 15,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
               Text(
@@ -65,9 +66,9 @@ class FluoFeaturesScreen extends StatelessWidget {
                   spacing: 15,
                   children: [
                     Container(
-                      width: 30,
-                      height: 30,
-                      padding: EdgeInsets.all(5),
+                      width: style.checkmarkSize,
+                      height: style.checkmarkSize,
+                      padding: EdgeInsets.all(style.checkmarkSize * 0.1),
                       decoration: BoxDecoration(
                         color: style.checkmarkBackgroundColor,
                         shape: BoxShape.circle,
@@ -75,7 +76,7 @@ class FluoFeaturesScreen extends StatelessWidget {
                       child: Icon(
                         Icons.check_rounded,
                         color: style.checkmarkColor,
-                        size: 20,
+                        size: style.checkmarkSize * 0.8,
                       ),
                     ),
                     Text(

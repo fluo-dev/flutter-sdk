@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class Fluo {
-  Fluo._(this._apiClient, this._sessionManager, this._appConfig);
+  Fluo._(this._apiClient, this._sessionManager);
 
   static Fluo? _instance;
 
@@ -31,34 +31,28 @@ class Fluo {
 
   final SessionManager _sessionManager;
 
-  final AppConfig _appConfig;
+  AppConfig? _appConfig;
 
-  AppConfig get appConfig => _appConfig;
-
-  /// This method is async because it tries to load a potential
-  /// session object from the secure storage and load the app configuration.
-  static Future<void> init(String apiKey) async {
+  static Future<void> initBasic(String apiKey) async {
     final apiClient = ApiClient(apiKey);
 
     SessionManager sessionManager;
     try {
       sessionManager = await SessionManager.init();
-      await sessionManager.getSession(
-        apiClient: apiClient,
-        forceRefresh: true,
-      );
     } catch (e) {
       throw Exception('Failed to initialize session: $e');
     }
 
-    AppConfig appConfig;
-    try {
-      appConfig = await apiClient.getAppConfig();
-    } catch (e) {
-      throw Exception('Failed to load app config: $e');
-    }
+    _instance = Fluo._(apiClient, sessionManager);
+  }
 
-    _instance = Fluo._(apiClient, sessionManager, appConfig);
+  /// This method is async because it tries to load a potential
+  /// session object from the secure storage and load the app configuration.
+  @Deprecated('migrate to initBasic() for better control')
+  static Future<void> init(String apiKey) async {
+    await Fluo.initBasic(apiKey);
+    await Fluo.instance.loadAppConfig();
+    await Fluo.instance.refreshSession();
   }
 
   static Fluo get instance {
@@ -70,6 +64,29 @@ class Fluo {
   }
 
   static bool get isInitialized => _instance != null;
+
+  /// Returns the current application configuration.
+  ///
+  /// Throws a [StateError] if the application configuration has not been loaded yet.
+  /// Make sure to call [loadAppConfig()] before accessing this getter.
+  AppConfig get appConfig {
+    if (_appConfig == null) {
+      throw StateError('loadAppConfig() needs to be called before');
+    }
+    return _appConfig!;
+  }
+
+  /// Loads the application configuration from the backend and
+  /// updates the current app configuration.
+  ///
+  /// Throws an [Exception] if unable to load the app configuration.
+  Future<void> loadAppConfig() async {
+    try {
+      _appConfig = await _apiClient.getAppConfig();
+    } catch (e) {
+      throw Exception('Failed to load app config: $e');
+    }
+  }
 
   /// Returns the current session.
   Session? get session => _sessionManager.session;
@@ -104,7 +121,7 @@ class Fluo {
       return false;
     }
 
-    final steps = _appConfig.registrationSteps;
+    final steps = appConfig.registrationSteps;
     for (var i = 0; i < steps.length; ++i) {
       final step = steps[i];
       if (step.id == 'firstName' && step.selected) {
@@ -261,7 +278,6 @@ class Fluo {
     if (!kIsWeb && Platform.isIOS) {
       return null;
     }
-
     return appConfig.authMethods
         .firstWhere((method) => method.id == AuthMethodId.apple)
         .appleWebOptions;

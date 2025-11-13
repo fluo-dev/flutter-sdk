@@ -88,7 +88,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
       setState(() => _bottomContainerHeight = height);
 
       // That's used to fade in the connect container.
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 0), () {
         setState(() => _connectContainerVisible = true);
       });
     });
@@ -145,7 +145,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
 
     return AnimatedOpacity(
       opacity: _showConnectContainer() ? 1.0 : 0.01,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
