@@ -33,7 +33,7 @@ class Fluo {
 
   AppConfig? _appConfig;
 
-  static Future<void> initBasic(String apiKey) async {
+  static Future<void> initWithApiKey(String apiKey) async {
     final apiClient = ApiClient(apiKey);
 
     SessionManager sessionManager;
@@ -48,17 +48,16 @@ class Fluo {
 
   /// This method is async because it tries to load a potential
   /// session object from the secure storage and load the app configuration.
-  @Deprecated('migrate to initBasic() for better control')
+  @Deprecated('migrate to initWithApiKey() for better control')
   static Future<void> init(String apiKey) async {
-    await Fluo.initBasic(apiKey);
+    await Fluo.initWithApiKey(apiKey);
     await Fluo.instance.loadAppConfig();
     await Fluo.instance.refreshSession();
   }
 
   static Fluo get instance {
     if (_instance == null) {
-      throw Exception(
-          'Fluo has not been initialized. Call Fluo.init(apiKey) first.');
+      throw Exception('Fluo has not been initialized.');
     }
     return _instance!;
   }
@@ -75,6 +74,8 @@ class Fluo {
     }
     return _appConfig!;
   }
+
+  bool get appConfigLoaded => _appConfig != null;
 
   /// Loads the application configuration from the backend and
   /// updates the current app configuration.
