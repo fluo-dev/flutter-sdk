@@ -1,9 +1,10 @@
 # Fluo
 
-> **📝 Looking for the full documentation?
-> [Check out the new Fluo SDK docs →](https://docs.page/fluo-dev/flutter-sdk)**
+**[Check out the new Fluo SDK docs →](https://docs.page/fluo-dev/flutter-sdk)**
 
 - [Getting started](#getting-started)
+- [Requirements for Android](#requirements-for-android)
+- [Requirements for macOS](#requirements-for-macos)
 - [More about the SDK](#more-about-the-sdk)
 - [Integrating with Firebase](#integrating-with-firebase)
 - [Integrating with Supabase](#integrating-with-supabase)
@@ -66,7 +67,33 @@ FutureBuilder(
 )
 ```
 
-**For macOS**, make sure you have networking allowed by adding this key to both `{your-app}/macos/Runner/DebugProfile.entitlements` and `{your-app}/macos/Runner/Release.entitlements`:
+## Requirements for Android
+
+**For Android**, make sure you have these `queries` in `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{your_package}">
+
+    <!-- Add this below for Android 11+ (API 30+) -->
+    <queries>
+        <!-- Allow checking for https / http handlers -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+        <!-- Allow checking for support of inAppBrowserView / Custom Tabs -->
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
+
+</manifest>
+```
+
+## Requirements for macOS
+
+**For macOS**, make sure you have networking allowed by adding this key to both `macos/Runner/DebugProfile.entitlements` and `macos/Runner/Release.entitlements`:
 
 ```xml
 <dict>
