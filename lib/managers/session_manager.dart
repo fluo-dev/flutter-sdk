@@ -4,17 +4,30 @@ import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/session.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {
-  SessionManager._(Session? session) : _session = session;
+  SessionManager._(this._session, this._prefs);
 
   Session? _session;
 
+  final SharedPreferences? _prefs;
+
+  static final _secureStorage = FlutterSecureStorage();
+
   Session? get session => _session;
 
-  static Future<SessionManager> init() async {
-    final session = await _readSession();
-    return SessionManager._(session);
+  static Future<SessionManager> init({
+    bool useSecureStorage = true,
+  }) async {
+    SharedPreferences? prefs;
+    if (!useSecureStorage) {
+      prefs = await SharedPreferences.getInstance();
+    }
+
+    final session = await _readSessionFromLocalStorage(prefs);
+
+    return SessionManager._(session, prefs);
   }
 
   Future<Session?> getSession({
@@ -40,7 +53,7 @@ class SessionManager {
       return null;
     }
 
-    await _writeSession(session);
+    await _writeSessionToLocalStorage(session, _prefs);
 
     _session = session;
 
@@ -48,12 +61,12 @@ class SessionManager {
   }
 
   Future<void> setSession(Session session) async {
-    await _writeSession(session);
+    await _writeSessionToLocalStorage(session, _prefs);
     _session = session;
   }
 
   Future<void> clearSession() async {
-    await _writeSession(null);
+    await _deleteSessionFromLocalStorage(_prefs);
     _session = null;
   }
 
@@ -67,20 +80,37 @@ class SessionManager {
 
   static const _sessionKey = 'sessionKey';
 
-  static Future<void> _writeSession(Session? session) async {
-    const secureStorage = FlutterSecureStorage();
-    await secureStorage.write(
-      key: _sessionKey,
-      value: session == null ? null : jsonEncode(session),
-    );
+  static Future<void> _writeSessionToLocalStorage(
+    Session session,
+    SharedPreferences? prefs,
+  ) async {
+    final sessionJson = jsonEncode(session);
+    if (prefs != null) {
+      await prefs.setString(_sessionKey, sessionJson);
+    } else {
+      await _secureStorage.write(key: _sessionKey, value: sessionJson);
+    }
   }
 
-  static Future<Session?> _readSession() async {
-    const secureStorage = FlutterSecureStorage();
-    final json = await secureStorage.read(key: _sessionKey);
-    if (json == null) {
-      return null;
+  static Future<Session?> _readSessionFromLocalStorage(
+    SharedPreferences? prefs,
+  ) async {
+    String? json;
+    if (prefs != null) {
+      json = prefs.getString(_sessionKey);
+    } else {
+      json = await _secureStorage.read(key: _sessionKey);
     }
-    return Session.fromJson(jsonDecode(json));
+    return json == null ? null : Session.fromJson(jsonDecode(json));
+  }
+
+  static Future<void> _deleteSessionFromLocalStorage(
+    SharedPreferences? prefs,
+  ) async {
+    if (prefs != null) {
+      await prefs.remove(_sessionKey);
+    } else {
+      await _secureStorage.delete(key: _sessionKey);
+    }
   }
 }

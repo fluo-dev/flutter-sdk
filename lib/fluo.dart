@@ -33,12 +33,17 @@ class Fluo {
 
   AppConfig? _appConfig;
 
-  static Future<void> initWithApiKey(String apiKey) async {
+  static Future<void> initWithApiKey(
+    String apiKey, {
+    bool useSecureStorage = true,
+  }) async {
     final apiClient = ApiClient(apiKey);
 
     SessionManager sessionManager;
     try {
-      sessionManager = await SessionManager.init();
+      sessionManager = await SessionManager.init(
+        useSecureStorage: useSecureStorage,
+      );
     } catch (e) {
       throw Exception('Failed to initialize session: $e');
     }
