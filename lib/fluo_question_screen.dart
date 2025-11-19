@@ -52,6 +52,7 @@ class FluoQuestionScreenStyle {
     this.padding = const EdgeInsets.only(
       left: 20,
       right: 20,
+      bottom: 40,
     ),
     this.titleTextStyle,
     this.answersAxisAlignment = MainAxisAlignment.end,
@@ -93,7 +94,7 @@ class _FluoQuestionScreenState extends State<FluoQuestionScreen> {
     final style = widget.style;
     return Container(
       color: style.backgroundColor,
-      padding: style.padding,
+      padding: style.padding.copyWith(bottom: 0),
       child: Column(
         spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,22 +131,17 @@ class _FluoQuestionScreenState extends State<FluoQuestionScreen> {
             ),
           ),
           if (!widget.singleChoice)
-            SafeArea(
-              top: false,
-              left: false,
-              right: false,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: FilledButton(
-                  style: style.continueButtonStyle,
-                  onPressed: _selectedAnswerIds.isEmpty
-                      ? null
-                      : () {
-                          HapticFeedback.selectionClick();
-                          _onContinue();
-                        },
-                  child: Text(FluoLocalizations.of(context)!.continueAction),
-                ),
+            Padding(
+              padding: EdgeInsets.only(bottom: style.padding.bottom),
+              child: FilledButton(
+                style: style.continueButtonStyle,
+                onPressed: _selectedAnswerIds.isEmpty
+                    ? null
+                    : () {
+                        HapticFeedback.selectionClick();
+                        _onContinue();
+                      },
+                child: Text(FluoLocalizations.of(context)!.continueAction),
               ),
             ),
         ],

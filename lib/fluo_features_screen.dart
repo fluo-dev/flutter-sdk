@@ -9,6 +9,7 @@ class FluoFeaturesScreenStyle {
     this.padding = const EdgeInsets.only(
       left: 20,
       right: 20,
+      bottom: 40,
     ),
     this.titleTextStyle,
     this.featureTextStyle,
@@ -86,21 +87,13 @@ class FluoFeaturesScreen extends StatelessWidget {
                   ],
                 ),
               const Spacer(),
-              SafeArea(
-                top: false,
-                left: false,
-                right: false,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: FilledButton(
-                    style: style.continueButtonStyle,
-                    onPressed: () {
-                      HapticFeedback.selectionClick();
-                      onContinue();
-                    },
-                    child: Text(FluoLocalizations.of(context)!.continueAction),
-                  ),
-                ),
+              FilledButton(
+                style: style.continueButtonStyle,
+                onPressed: () {
+                  HapticFeedback.selectionClick();
+                  onContinue();
+                },
+                child: Text(FluoLocalizations.of(context)!.continueAction),
               ),
             ],
           ),

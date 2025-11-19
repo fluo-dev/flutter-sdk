@@ -11,6 +11,7 @@ class FluoRatingScreenStyle {
     this.padding = const EdgeInsets.only(
       left: 20,
       right: 20,
+      bottom: 40,
     ),
     this.verticalSpacing = 30,
     this.titleTextStyle,
@@ -197,24 +198,14 @@ class _FluoRatingScreenState extends State<FluoRatingScreen> {
                   ],
                 ),
               ),
-              SafeArea(
-                top: false,
-                left: false,
-                right: false,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 10,
-                  ),
-                  child: FilledButton(
-                    style: widget.style.continueButtonStyle,
-                    onPressed: () {
-                      HapticFeedback.selectionClick();
-                      widget.onContinue();
-                    },
-                    child: Text(
-                      widget.continueButtonTitle ?? l10n.continueAction,
-                    ),
-                  ),
+              FilledButton(
+                style: widget.style.continueButtonStyle,
+                onPressed: () {
+                  HapticFeedback.selectionClick();
+                  widget.onContinue();
+                },
+                child: Text(
+                  widget.continueButtonTitle ?? l10n.continueAction,
                 ),
               ),
             ],

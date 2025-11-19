@@ -9,6 +9,7 @@ class FluoInfoScreenStyle {
     this.padding = const EdgeInsets.only(
       left: 20,
       right: 20,
+      bottom: 40,
     ),
     this.verticalSpacing = 20,
     this.titleTextStyle,
@@ -69,21 +70,13 @@ class FluoInfoScreen extends StatelessWidget {
                   style: style.subtitleTextStyle,
                 ),
               const Spacer(),
-              SafeArea(
-                top: false,
-                left: false,
-                right: false,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: FilledButton(
-                    style: style.continueButtonStyle,
-                    onPressed: () {
-                      HapticFeedback.selectionClick();
-                      onContinue();
-                    },
-                    child: Text(continueButtonTitle ?? l10n.continueAction),
-                  ),
-                ),
+              FilledButton(
+                style: style.continueButtonStyle,
+                onPressed: () {
+                  HapticFeedback.selectionClick();
+                  onContinue();
+                },
+                child: Text(continueButtonTitle ?? l10n.continueAction),
               ),
             ],
           ),
