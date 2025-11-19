@@ -482,7 +482,7 @@ class Fluo {
               child: Container(
                 constraints: BoxConstraints(
                   maxWidth: showBox ? 400 : double.infinity,
-                  maxHeight: showBox ? 370 : double.infinity,
+                  maxHeight: showBox ? 420 : double.infinity,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
