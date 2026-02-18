@@ -6,7 +6,7 @@ This SDK and documentation are optimized for coding agents (Claude, Cursor, Copi
 
 **Example prompt:**
 
-> Create an onboarding flow for my meditation app using Fluo. I want:
+> Create an onboarding flow for my meditation app using the flutter-sdk repo of fluo.dev. I want:
 > - A welcome screen with a calming message
 > - A question asking about their experience level (new to meditation, some experience, regular practice)
 > - A question about their main goals (reduce stress, sleep better, improve focus, manage anxiety - multiple choice)
@@ -122,7 +122,7 @@ import 'package:fluo/fluo_info_screen.dart';
 
 FluoInfoScreen(
   icon: Icon(Icons.check_circle, size: 80),
-  title: 'You're all set!',
+  title: "You're all set!",
   subtitle: 'Your account has been created.',
   onContinue: () {
     navigatorKey.currentState!.pushNamed('next');
@@ -294,6 +294,8 @@ Check the source code for all available style properties.
 ## Authentication (optional)
 
 If you need authentication, add the localization delegate and use the sign-in methods.
+
+All authentication settings are configured in the [Fluo Dashboard](https://dashboard.fluo.dev/) — including Firebase/Supabase setup, Google and Apple credentials, Prelude API key for SMS, and session management.
 
 Add `FluoLocalizations.delegate` to your app:
 
