@@ -1,4 +1,4 @@
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/widgets/continue_button.dart';
 import 'package:fluo/widgets/round_button.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class SingleInputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (didPop, result) {
@@ -39,19 +39,19 @@ class SingleInputScreen extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: fluoTheme.screenPadding,
+            padding: style.padding,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RoundButton(
                   onPressed: onBack,
-                  color: fluoTheme.primaryColor,
+                  color: style.backButtonColor,
                 ),
                 const SizedBox(height: 30.0),
                 Text(
                   inputTitle,
-                  style: fluoTheme.titleStyle,
+                  style: style.titleTextStyle,
                 ),
                 const SizedBox(height: 20.0),
                 inputWidget,
@@ -61,7 +61,7 @@ class SingleInputScreen extends StatelessWidget {
                   if (errorText != null)
                     Text(
                       errorText!,
-                      style: fluoTheme.inputErrorStyle,
+                      style: style.inputErrorTextStyle,
                     ),
                   if (errorText == null && helperWidget != null) ...{
                     helperWidget!

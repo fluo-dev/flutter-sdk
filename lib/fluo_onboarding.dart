@@ -13,6 +13,27 @@ import 'package:url_launcher/url_launcher.dart';
 import 'stubs/google_sign_in_web_stub.dart'
     if (dart.library.html) 'package:google_sign_in_web/google_sign_in_web.dart';
 
+/// A pre-built onboarding screen with authentication buttons.
+///
+/// This widget is deprecated. Instead, create your own buttons that match
+/// your app's style and use [Fluo.signInWithEmail], [Fluo.signInWithGoogle],
+/// or [Fluo.signInWithApple] to handle authentication.
+///
+/// Example:
+/// ```dart
+/// ElevatedButton(
+///   onPressed: () => Fluo.instance.signInWithEmail(
+///     context: context,
+///     onExit: () {},
+///     onUserReady: () => Navigator.pushReplacementNamed(context, '/home'),
+///   ),
+///   child: Text('Continue with Email'),
+/// )
+/// ```
+@Deprecated(
+  'Create your own buttons and use Fluo.signInWithEmail/Google/Apple() instead. '
+  'This gives you full control over button styling to match your app.',
+)
 class FluoOnboarding extends StatefulWidget {
   const FluoOnboarding({
     super.key,
@@ -63,24 +84,6 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Check for existing session first
-      if (Fluo.instance.hasSession()) {
-        // Double-checking whether user is ready. Usually, it is recommended
-        // to check this before using FluoOnboarding, to avoid building a
-        // whole screen for no reason.
-        if (Fluo.instance.isUserReady()) {
-          widget.onUserReady?.call();
-        } else if (mounted) {
-          Fluo.instance.showRegisterFlow(
-            context: context,
-            theme: widget.fluoTheme,
-            onUserReady: () => widget.onUserReady?.call(),
-          );
-        }
-        // Exit early if we have a session
-        return;
-      }
-
       // Measure height to pass it to the introBuilder.
       final renderBoxContext = _bottomContainerKey.currentContext!;
       final renderBox = renderBoxContext.findRenderObject() as RenderBox;
@@ -110,7 +113,7 @@ class _FluoOnboardingState extends State<FluoOnboarding> {
         children: [
           if (introWidget != null) introWidget,
           Align(
-            alignment: kIsWeb ? Alignment.center : Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: IntrinsicHeight(
               key: _bottomContainerKey,
               child: Container(

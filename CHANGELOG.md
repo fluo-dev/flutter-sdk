@@ -1,3 +1,26 @@
+## 4.0.0
+
+**Breaking changes:**
+
+- **New focus**: Fluo is now an onboarding SDK with optional authentication (previously auth-focused)
+- **Deprecated `FluoOnboarding`**: Create your own buttons and use `signInWith*` methods instead
+- **Deprecated `FluoTheme`**: Use `FluoSignInStyle` for sign-in flows, and per-screen style classes for onboarding screens
+- **Renamed sign-in methods**:
+  - `showConnectWithEmailFlow` → `signInWithEmail`
+  - `showConnectWithMobileFlow` → `signInWithMobile`
+  - `showConnectWithGoogleFlow` → `signInWithGoogle`
+  - `showConnectWithAppleFlow` → `signInWithApple`
+- **Renamed init method**: `Fluo.init()` → `Fluo.initWithApiKey()`
+
+**New features:**
+
+- New `FluoNavigator` for building multi-step onboarding flows with progress bar
+- New template screens: `FluoQuestionScreen`, `FluoInfoScreen`, `FluoFeaturesScreen`, `FluoRatingScreen`
+- Per-screen styling with dedicated style classes
+- `stepIncrement` parameter for branching flows
+- New `FluoSignInStyle` class (simplified replacement for `FluoTheme`)
+- Documentation optimized for coding agents (Claude, Cursor, Copilot, etc.)
+
 ## 3.3.3
 
 - Remove `freezed` from the dependencies

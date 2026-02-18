@@ -14,7 +14,7 @@ class InkWellColor extends StatefulWidget {
     this.borderRadius = BorderRadiusGeometry.zero,
   });
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget child;
   final Color color;
   final Color? highlightColor;

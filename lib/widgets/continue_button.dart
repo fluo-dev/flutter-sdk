@@ -1,4 +1,4 @@
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,18 +17,17 @@ class ContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return FilledButton(
-      style: fluoTheme.continueButtonStyle,
+      style: style.continueButtonStyle,
       onPressed: enabled ? _onPressedIfNotLoading : null,
       child: loading
           ? SizedBox(
-              width: fluoTheme.continueButtonProgressIndicatorSize.width,
-              height: fluoTheme.continueButtonProgressIndicatorSize.height,
+              width: style.continueButtonProgressIndicatorSize?.width ?? 17,
+              height: style.continueButtonProgressIndicatorSize?.height ?? 17,
               child: CircularProgressIndicator(
-                color: fluoTheme.continueButtonProgressIndicatorColor,
-                strokeWidth:
-                    fluoTheme.continueButtonProgressIndicatorStrokeWidth,
+                color: style.continueButtonProgressIndicatorColor ?? Colors.black,
+                strokeWidth: style.continueButtonProgressIndicatorStrokeWidth,
               ),
             )
           : Text(FluoLocalizations.of(context)!.continueAction),

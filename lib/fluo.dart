@@ -12,6 +12,7 @@ import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/api/models/apple_web_options.dart';
 import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/api/models/session.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/fluo_theme.dart';
 import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/auth_navigator.dart';
@@ -188,15 +189,44 @@ class Fluo {
   /// This is a modal dialog which takes care of collecting the user's email,
   /// sending an otp, and validating the session.
   ///
+  @Deprecated('Use signInWithEmail instead')
   void showConnectWithEmailFlow({
     required BuildContext context,
     required FluoTheme theme,
     required VoidCallback onExit,
     required VoidCallback onUserReady,
   }) {
+    signInWithEmail(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onExit: onExit,
+      onUserReady: onUserReady,
+    );
+  }
+
+  /// Starts the email sign-in flow.
+  ///
+  /// This displays a modal dialog that collects the user's email,
+  /// sends a verification code, and validates the session.
+  ///
+  /// Parameters:
+  /// - [context]: The build context.
+  /// - [style]: Optional style configuration for the sign-in screens.
+  ///   If not provided, uses default native or web style based on platform.
+  /// - [onExit]: Called when the user dismisses the flow without completing.
+  /// - [onUserReady]: Called when the user successfully signs in and
+  ///   completes all required registration steps.
+  ///
+  void signInWithEmail({
+    required BuildContext context,
+    FluoSignInStyle? style,
+    required VoidCallback onExit,
+    required VoidCallback onUserReady,
+  }) {
+    style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
     _showNavigator(
       context: context,
-      theme: theme,
+      style: style,
       navigator: AuthNavigator(
         initialRoute: AuthNavigator.routeEnterEmail,
         onExit: () {
@@ -209,9 +239,9 @@ class Fluo {
             Navigator.of(context).pop();
           } else {
             Navigator.of(context).pop();
-            showRegisterFlow(
+            _showRegisterFlow(
               context: context,
-              theme: theme,
+              style: style!,
               onUserReady: onUserReady,
             );
           }
@@ -225,15 +255,44 @@ class Fluo {
   /// This is a modal dialog which takes care of collecting the user's mobile number,
   /// sending an otp, and validating the session.
   ///
+  @Deprecated('Use signInWithMobile instead')
   void showConnectWithMobileFlow({
     required BuildContext context,
     required FluoTheme theme,
     required VoidCallback onExit,
     required VoidCallback onUserReady,
   }) {
+    signInWithMobile(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onExit: onExit,
+      onUserReady: onUserReady,
+    );
+  }
+
+  /// Starts the mobile sign-in flow.
+  ///
+  /// This displays a modal dialog that collects the user's mobile number,
+  /// sends a verification code via SMS, and validates the session.
+  ///
+  /// Parameters:
+  /// - [context]: The build context.
+  /// - [style]: Optional style configuration for the sign-in screens.
+  ///   If not provided, uses default native or web style based on platform.
+  /// - [onExit]: Called when the user dismisses the flow without completing.
+  /// - [onUserReady]: Called when the user successfully signs in and
+  ///   completes all required registration steps.
+  ///
+  void signInWithMobile({
+    required BuildContext context,
+    FluoSignInStyle? style,
+    required VoidCallback onExit,
+    required VoidCallback onUserReady,
+  }) {
+    style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
     _showNavigator(
       context: context,
-      theme: theme,
+      style: style,
       navigator: AuthNavigator(
         initialRoute: AuthNavigator.routeEnterMobile,
         onExit: () {
@@ -246,9 +305,9 @@ class Fluo {
             Navigator.of(context).pop();
           } else {
             Navigator.of(context).pop();
-            showRegisterFlow(
+            _showRegisterFlow(
               context: context,
-              theme: theme,
+              style: style!,
               onUserReady: onUserReady,
             );
           }
@@ -294,17 +353,45 @@ class Fluo {
   /// This is a modal dialog which takes care of signing in the user's google
   /// account and creating the fluo session.
   ///
-  /// Parameters:
-  /// - [onBeforeSessionCreation]: Called after Google authentication is successful
-  ///   but before creating the Fluo session. This provides an opportunity to show
-  ///   a loading dialog while Fluo processes the authentication.
-  /// - [onUserReady]: Called when the Fluo session is successfully created and
-  ///   all registration parameters (like first name and last name) have been
-  ///   collected and verified.
-  ///
+  @Deprecated('Use signInWithGoogle instead')
   Future<bool> showConnectWithGoogleFlow({
     required BuildContext context,
     required FluoTheme theme,
+    required VoidCallback onBeforeSessionCreation,
+    required VoidCallback onUserReady,
+    List<String> scopes = const ['email'],
+  }) async {
+    return signInWithGoogle(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onBeforeSessionCreation: onBeforeSessionCreation,
+      onUserReady: onUserReady,
+      scopes: scopes,
+    );
+  }
+
+  /// Starts the Google sign-in flow.
+  ///
+  /// This uses the native Google Sign-In UI to authenticate the user
+  /// and creates a Fluo session.
+  ///
+  /// Parameters:
+  /// - [context]: The build context.
+  /// - [style]: Optional style configuration for registration screens
+  ///   (shown if user needs to complete registration after sign-in).
+  /// - [onBeforeSessionCreation]: Called after Google authentication is successful
+  ///   but before creating the Fluo session. This provides an opportunity to show
+  ///   a loading indicator while Fluo processes the authentication.
+  /// - [onUserReady]: Called when the Fluo session is successfully created and
+  ///   all registration parameters (like first name and last name) have been
+  ///   collected and verified.
+  /// - [scopes]: OAuth scopes to request. Defaults to ['email'].
+  ///
+  /// Returns `true` if sign-in was successful, `false` if the user cancelled.
+  ///
+  Future<bool> signInWithGoogle({
+    required BuildContext context,
+    FluoSignInStyle? style,
     required VoidCallback onBeforeSessionCreation,
     required VoidCallback onUserReady,
     List<String> scopes = const ['email'],
@@ -338,9 +425,10 @@ class Fluo {
 
     onBeforeSessionCreation();
 
-    await createSession(
+    style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
+    await _createSession(
       context: context,
-      theme: theme,
+      style: style,
       onUserReady: onUserReady,
       googleIdToken: googleIdToken,
     );
@@ -353,17 +441,42 @@ class Fluo {
   /// This is a modal dialog which takes care of signing in the user's apple
   /// account and creating the fluo session.
   ///
+  @Deprecated('Use signInWithApple instead')
+  Future<bool> showConnectWithAppleFlow({
+    required BuildContext context,
+    required FluoTheme theme,
+    required VoidCallback onBeforeSessionCreation,
+    required VoidCallback onUserReady,
+  }) async {
+    return signInWithApple(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onBeforeSessionCreation: onBeforeSessionCreation,
+      onUserReady: onUserReady,
+    );
+  }
+
+  /// Starts the Apple sign-in flow.
+  ///
+  /// This uses the native Apple Sign-In UI to authenticate the user
+  /// and creates a Fluo session.
+  ///
   /// Parameters:
+  /// - [context]: The build context.
+  /// - [style]: Optional style configuration for registration screens
+  ///   (shown if user needs to complete registration after sign-in).
   /// - [onBeforeSessionCreation]: Called after Apple authentication is successful
   ///   but before creating the Fluo session. This provides an opportunity to show
-  ///   a loading dialog while Fluo processes the authentication.
+  ///   a loading indicator while Fluo processes the authentication.
   /// - [onUserReady]: Called when the Fluo session is successfully created and
   ///   all registration parameters (like first name and last name) have been
   ///   collected and verified.
   ///
-  Future<bool> showConnectWithAppleFlow({
+  /// Returns `true` if sign-in was successful, `false` if the user cancelled.
+  ///
+  Future<bool> signInWithApple({
     required BuildContext context,
-    required FluoTheme theme,
+    FluoSignInStyle? style,
     required VoidCallback onBeforeSessionCreation,
     required VoidCallback onUserReady,
   }) async {
@@ -390,9 +503,10 @@ class Fluo {
 
       onBeforeSessionCreation();
 
-      await createSession(
+      style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
+      await _createSession(
         context: context,
-        theme: theme,
+        style: style,
         onUserReady: onUserReady,
         appleIdToken: credential.identityToken,
         firstName: credential.givenName,
@@ -413,9 +527,30 @@ class Fluo {
   /// Once the session is created, it will show the register flow if the user
   /// is not complete. Otherwise, it will call the [onUserReady] callback.
   ///
+  @Deprecated('This method is for internal use. Use signInWith* methods instead.')
   Future<void> createSession({
     required BuildContext context,
     required FluoTheme theme,
+    required VoidCallback onUserReady,
+    String? googleIdToken,
+    String? appleIdToken,
+    String? firstName,
+    String? lastName,
+  }) async {
+    await _createSession(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onUserReady: onUserReady,
+      googleIdToken: googleIdToken,
+      appleIdToken: appleIdToken,
+      firstName: firstName,
+      lastName: lastName,
+    );
+  }
+
+  Future<void> _createSession({
+    required BuildContext context,
+    required FluoSignInStyle style,
     required VoidCallback onUserReady,
     String? googleIdToken,
     String? appleIdToken,
@@ -434,9 +569,9 @@ class Fluo {
     if (isUserReady()) {
       onUserReady();
     } else if (context.mounted) {
-      showRegisterFlow(
+      _showRegisterFlow(
         context: context,
-        theme: theme,
+        style: style,
         onUserReady: onUserReady,
       );
     }
@@ -447,14 +582,27 @@ class Fluo {
   /// This is a modal dialog which takes care of registering an already
   /// authenticated user.
   ///
+  @Deprecated('Use signInWith* methods instead, which handle registration automatically.')
   void showRegisterFlow({
     required BuildContext context,
     required FluoTheme theme,
     required VoidCallback onUserReady,
   }) {
+    _showRegisterFlow(
+      context: context,
+      style: _convertThemeToSignInStyle(theme),
+      onUserReady: onUserReady,
+    );
+  }
+
+  void _showRegisterFlow({
+    required BuildContext context,
+    required FluoSignInStyle style,
+    required VoidCallback onUserReady,
+  }) {
     _showNavigator(
       context: context,
-      theme: theme,
+      style: style,
       navigator: RegisterNavigator(
         onUserReady: () {
           onUserReady();
@@ -466,7 +614,7 @@ class Fluo {
 
   void _showNavigator({
     required BuildContext context,
-    required FluoTheme theme,
+    required FluoSignInStyle style,
     required Widget navigator,
   }) {
     _apiClient.language = Localizations.localeOf(context).toLanguageTag();
@@ -485,7 +633,7 @@ class Fluo {
                   maxHeight: showBox ? 420 : double.infinity,
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: style.backgroundColor,
                   borderRadius: BorderRadius.circular(showBox ? 8 : 0),
                 ),
                 clipBehavior: Clip.antiAlias,
@@ -494,7 +642,7 @@ class Fluo {
                     Provider(create: (_) => _apiClient),
                     Provider(create: (_) => _sessionManager),
                     Provider(create: (_) => _appConfig),
-                    Provider(create: (_) => theme),
+                    Provider(create: (_) => style),
                   ],
                   child: navigator,
                 ),
@@ -510,6 +658,32 @@ class Fluo {
           child: child,
         );
       },
+    );
+  }
+
+  /// Converts a FluoTheme to FluoSignInStyle for backwards compatibility.
+  FluoSignInStyle _convertThemeToSignInStyle(FluoTheme theme) {
+    return FluoSignInStyle(
+      padding: theme.screenPadding,
+      backButtonColor: theme.primaryColor,
+      titleTextStyle: theme.titleStyle,
+      inputTextStyle: theme.inputTextStyle,
+      inputDecorationTheme: theme.inputDecorationTheme as InputDecorationTheme?,
+      inputTextAlignVertical: theme.inputTextAlignVertical,
+      inputErrorTextStyle: theme.inputErrorStyle,
+      codeInputThemeDefault: theme.codeInputThemeDefault,
+      codeInputThemeFocused: theme.codeInputThemeFocused,
+      codeInputThemeSubmitted: theme.codeInputThemeSubmitted,
+      codeInputThemeFollowing: theme.codeInputThemeFollowing,
+      codeInputThemeDisabled: theme.codeInputThemeDisabled,
+      codeInputThemeError: theme.codeInputThemeError,
+      continueButtonStyle: theme.continueButtonStyle,
+      continueButtonProgressIndicatorSize: theme.continueButtonProgressIndicatorSize,
+      continueButtonProgressIndicatorColor: theme.continueButtonProgressIndicatorColor,
+      continueButtonProgressIndicatorStrokeWidth: theme.continueButtonProgressIndicatorStrokeWidth,
+      countryItemPadding: theme.countryItemPadding,
+      countryItemHighlightColor: theme.countryItemHighlightColor,
+      countryTextStyle: theme.countryTextStyle,
     );
   }
 }

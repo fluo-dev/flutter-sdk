@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:country_flags/country_flags.dart';
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
@@ -21,15 +21,15 @@ class CountryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     final name = Localized.countryName(context, country.countryCode);
     return InkWell(
       onTap: onTap,
-      highlightColor: fluoTheme.countryItemHighlightColor,
+      highlightColor: style.countryItemHighlightColor,
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       child: Padding(
-        padding: fluoTheme.countryItemPadding,
+        padding: style.countryItemPadding,
         child: Row(
           children: [
             CountryFlag.fromCountryCode(
@@ -44,12 +44,12 @@ class CountryItem extends StatelessWidget {
             Expanded(
               child: Text(
                 name ?? country.countryCode,
-                style: fluoTheme.countryTextStyle,
+                style: style.countryTextStyle,
               ),
             ),
             Text(
               '+${country.phoneCode}',
-              style: fluoTheme.countryTextStyle,
+              style: style.countryTextStyle,
             ),
           ],
         ),
@@ -98,24 +98,24 @@ class _CountriesListState extends State<CountriesList> {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return Column(
       children: [
         Container(
           padding: EdgeInsets.only(
-            left: fluoTheme.screenPadding.left,
-            right: fluoTheme.screenPadding.right,
+            left: style.padding.left,
+            right: style.padding.right,
             bottom: 30.0,
           ),
           child: Theme(
             data: Theme.of(context).copyWith(
-              inputDecorationTheme: fluoTheme.inputDecorationTheme,
+              inputDecorationTheme: style.inputDecorationTheme,
             ),
             child: TextField(
               controller: _searchController,
               focusNode: _focusNode,
-              style: fluoTheme.inputTextStyle,
-              textAlignVertical: fluoTheme.inputTextAlignVertical,
+              style: style.inputTextStyle,
+              textAlignVertical: style.inputTextAlignVertical,
               decoration: InputDecoration(
                 hintText: FluoLocalizations.of(context)!.searchCountry,
                 prefixIcon: const Padding(

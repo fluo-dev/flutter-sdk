@@ -1,6 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:device_region/device_region.dart';
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/managers/country_manager.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
 import 'package:fluo/widgets/countries_list.dart';
@@ -85,21 +85,21 @@ class _MobileInputState extends State<MobileInput> {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return Theme(
       data: Theme.of(context).copyWith(
-        inputDecorationTheme: fluoTheme.inputDecorationTheme,
+        inputDecorationTheme: style.inputDecorationTheme,
       ),
       child: TextField(
         controller: widget.controller,
         focusNode: widget.focusNode,
-        style: fluoTheme.inputTextStyle,
-        textAlignVertical: fluoTheme.inputTextAlignVertical,
+        style: style.inputTextStyle,
+        textAlignVertical: style.inputTextAlignVertical,
         decoration: InputDecoration(
           hintText: _selectedCountry?.exampleNumberMobileNational,
           prefixIcon: GestureDetector(
             onTap: () => _showCountrySelector(),
-            child: _countrySelectorButton(fluoTheme),
+            child: _countrySelectorButton(style),
           ),
           suffixIcon: ClearSuffixButton(controller: widget.controller),
         ),
@@ -139,10 +139,10 @@ class _MobileInputState extends State<MobileInput> {
     return locale.countryCode ?? locale.languageCode;
   }
 
-  Widget _countrySelectorButton(FluoTheme theme) {
+  Widget _countrySelectorButton(FluoSignInStyle style) {
     double? leftPadding;
 
-    final contentPadding = theme.inputDecorationTheme.contentPadding;
+    final contentPadding = style.inputDecorationTheme?.contentPadding;
     if (contentPadding != null) {
       if (contentPadding is EdgeInsetsDirectional) {
         leftPadding = contentPadding.start;
@@ -166,7 +166,7 @@ class _MobileInputState extends State<MobileInput> {
         ),
         Icon(
           Icons.arrow_drop_down,
-          color: theme.primaryColor,
+          color: style.backButtonColor,
         ),
       ],
     );

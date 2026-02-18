@@ -1,25 +1,301 @@
 # Fluo
 
-**[Check out the new Fluo SDK docs →](https://docs.page/fluo-dev/flutter-sdk)**
+A Flutter SDK for building beautiful onboarding flows with minimal code.
 
-- [Getting started](#getting-started)
-- [Requirements for Android](#requirements-for-android)
-- [Requirements for macOS](#requirements-for-macos)
-- [More about the SDK](#more-about-the-sdk)
-- [Integrating with Firebase](#integrating-with-firebase)
-- [Integrating with Supabase](#integrating-with-supabase)
-- [Integrating with any backend](#integrating-with-any-backend)
-- [Customizing the theme](#Customizing-the-theme)
+This SDK and documentation are optimized for coding agents (Claude, Cursor, Copilot, etc.) to quickly understand and generate onboarding flows. Just describe what you want and let your agent build it.
 
-## Getting started
+**Example prompt:**
 
-Add the package to your dependencies:
+> Create an onboarding flow for my meditation app using Fluo. I want:
+> - A welcome screen with a calming message
+> - A question asking about their experience level (new to meditation, some experience, regular practice)
+> - A question about their main goals (reduce stress, sleep better, improve focus, manage anxiety - multiple choice)
+> - A question asking what time they prefer to meditate (morning, afternoon, evening)
+> - A features screen highlighting guided sessions, sleep stories, and progress tracking
+> - An info screen about enabling notifications for daily reminders
+> - A rating screen at the end
+
+## Installation
 
 ```bash
 flutter pub add fluo
 ```
 
-Add the `FluoLocalizations.delegate` to your app's `localizationsDelegates`:
+---
+
+## Step 1: Create a FluoNavigator
+
+Start with a `FluoNavigator`. It handles navigation and displays a progress bar.
+
+```dart
+import 'package:fluo/fluo_navigator.dart';
+
+class OnboardingScreen extends StatelessWidget {
+  final navigatorKey = GlobalKey<FluoNavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return FluoNavigator(
+      key: navigatorKey,
+      initialRoute: 'welcome',
+      totalSteps: 3,
+      onGenerateRoute: (settings) {
+        Widget page;
+
+        if (settings.name == 'welcome') {
+          page = Center(child: Text('Welcome!'));
+        } else {
+          page = Center(child: Text('Unknown'));
+        }
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => page,
+        );
+      },
+    );
+  }
+}
+```
+
+---
+
+## Step 2: Add a question screen
+
+Use `FluoQuestionScreen` to ask questions with selectable answers.
+
+```dart
+import 'package:fluo/fluo_question_screen.dart';
+
+if (settings.name == 'role') {
+  page = FluoQuestionScreen(
+    title: 'What describes you best?',
+    answers: [
+      FluoAnswer(
+        id: 'developer',
+        title: 'Developer',
+        icon: Icon(Icons.code, size: 16),
+      ),
+      FluoAnswer(
+        id: 'designer',
+        title: 'Designer',
+        icon: Icon(Icons.palette, size: 16),
+      ),
+      FluoAnswer(
+        id: 'other',
+        title: 'Other',
+        icon: Icon(Icons.person, size: 16),
+      ),
+    ],
+    onContinue: (answerIds) {
+      navigatorKey.currentState!.pushNamed('next_screen');
+    },
+  );
+}
+```
+
+For multiple selection, set `singleChoice: false`:
+
+```dart
+FluoQuestionScreen(
+  title: 'What are your interests?',
+  singleChoice: false,  // Shows a Continue button
+  answers: [...],
+  onContinue: (answerIds) {
+    // answerIds contains all selected answers
+  },
+)
+```
+
+---
+
+## Step 3: Other template screens
+
+Fluo provides 4 template screens. They all work similarly.
+
+### FluoInfoScreen
+
+Display information with an icon and subtitle.
+
+```dart
+import 'package:fluo/fluo_info_screen.dart';
+
+FluoInfoScreen(
+  icon: Icon(Icons.check_circle, size: 80),
+  title: 'You're all set!',
+  subtitle: 'Your account has been created.',
+  onContinue: () {
+    navigatorKey.currentState!.pushNamed('next');
+  },
+)
+```
+
+### FluoFeaturesScreen
+
+Display a list of features with checkmarks.
+
+```dart
+import 'package:fluo/fluo_features_screen.dart';
+
+FluoFeaturesScreen(
+  title: 'What you get',
+  features: [
+    'Unlimited projects',
+    'Priority support',
+    'Advanced analytics',
+  ],
+  onContinue: () {
+    navigatorKey.currentState!.pushNamed('next');
+  },
+)
+```
+
+### FluoRatingScreen
+
+Prompt users to rate your app.
+
+```dart
+import 'package:fluo/fluo_rating_screen.dart';
+
+FluoRatingScreen(
+  title: 'Enjoying the app?',
+  appStoreId: '123456789',
+  userPhoto: AssetImage('assets/reviewer.png'),
+  userName: 'John Doe',
+  userReview: 'This app changed my life!',
+  onContinue: () {
+    navigatorKey.currentState!.pushNamed('next');
+  },
+)
+```
+
+---
+
+## Step 4: Add a custom screen
+
+You can use any widget as a screen. Just make sure to call `navigatorKey.currentState!.pushNamed()` to navigate.
+
+```dart
+if (settings.name == 'custom') {
+  page = MyCustomScreen(
+    onContinue: () {
+      navigatorKey.currentState!.pushNamed('next');
+    },
+  );
+}
+```
+
+---
+
+## Step 5: Mix templates and custom screens
+
+Combine template screens and custom screens in any order.
+
+```dart
+onGenerateRoute: (settings) {
+  Widget page;
+
+  if (settings.name == 'intro') {
+    page = MyCustomIntroScreen(onContinue: () => goTo('question1'));
+  }
+
+  if (settings.name == 'question1') {
+    page = FluoQuestionScreen(
+      title: 'How did you hear about us?',
+      answers: [...],
+      onContinue: (ids) => goTo('features'),
+    );
+  }
+
+  if (settings.name == 'features') {
+    page = FluoFeaturesScreen(
+      title: 'What you get',
+      features: [...],
+      onContinue: () => goTo('custom_setup'),
+    );
+  }
+
+  if (settings.name == 'custom_setup') {
+    page = MyCustomSetupScreen(onContinue: () => goTo('done'));
+  }
+
+  return MaterialPageRoute(settings: settings, builder: (_) => page);
+}
+
+void goTo(String route) {
+  navigatorKey.currentState!.pushNamed(route);
+}
+```
+
+---
+
+## Step 6: Branching with stepIncrement
+
+Skip steps based on user answers using `stepIncrement`.
+
+```dart
+FluoQuestionScreen(
+  title: 'Are you a professional?',
+  answers: [
+    FluoAnswer(id: 'yes', title: 'Yes', icon: Icon(Icons.work)),
+    FluoAnswer(id: 'no', title: 'No', icon: Icon(Icons.person)),
+  ],
+  onContinue: (answerIds) {
+    if (answerIds.first == 'yes') {
+      // Go to professional questions (1 step)
+      navigatorKey.currentState!.pushNamed(
+        'pro_details',
+        stepIncrement: 1,
+      );
+    } else {
+      // Skip professional questions, jump ahead (3 steps)
+      navigatorKey.currentState!.pushNamed(
+        'general_info',
+        stepIncrement: 3,
+      );
+    }
+  },
+)
+```
+
+The progress bar will update accordingly based on `stepIncrement`.
+
+---
+
+## Styling
+
+Each screen has its own style class. Pass a style to customize appearance.
+
+```dart
+FluoQuestionScreen(
+  style: FluoQuestionScreenStyle(
+    backgroundColor: Colors.white,
+    titleTextStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    continueButtonStyle: FilledButton.styleFrom(backgroundColor: Colors.blue),
+  ),
+  title: '...',
+  answers: [...],
+  onContinue: (ids) {},
+)
+```
+
+Available style classes:
+- `FluoQuestionScreenStyle` + `FluoAnswerStyle`
+- `FluoInfoScreenStyle`
+- `FluoFeaturesScreenStyle`
+- `FluoRatingScreenStyle`
+- `FluoNavigatorStyle`
+- `FluoSignInStyle` (for sign-in flows)
+
+Check the source code for all available style properties.
+
+---
+
+## Authentication (optional)
+
+If you need authentication, add the localization delegate and use the sign-in methods.
+
+Add `FluoLocalizations.delegate` to your app:
 
 ```dart
 MaterialApp(
@@ -31,147 +307,87 @@ MaterialApp(
 )
 ```
 
-Use the Fluo SDK:
+Initialize Fluo and start a sign-in flow:
 
 ```dart
 import 'package:fluo/fluo.dart';
-import 'package:fluo/fluo_onboarding.dart';
 
-FutureBuilder(
-  // Get your api key from https://dashboard.fluo.dev (it's free)
-  future: Fluo.init('YOUR_API_KEY'),
-  builder: (context, snapshot) {
-    // Check if Fluo is initialized.
-    if (!Fluo.isInitialized) {
-      return const Scaffold();
-    }
+// Initialize once at app start
+await Fluo.initWithApiKey('YOUR_API_KEY');
+await Fluo.instance.loadAppConfig();
 
-    // Fluo is initialized. Check if the user is ready.
-    if (!Fluo.instance.isUserReady()) {
-      return FluoOnboarding(
-        fluoTheme: FluoTheme.native(), // or FluoTheme.web()
-        onUserReady: () => setState(() {}), // force build
-      );
-    }
+// Start a sign-in flow
+Fluo.instance.signInWithEmail(
+  context: context,
+  onExit: () => print('User cancelled'),
+  onUserReady: () => print('User signed in!'),
+);
 
-    // User is ready!
-    // An example `ConnectedScreen` widget is available in
-    // the example/lib/main.dart file.
-    return ConnectedScreen(
-      onSignOut: () async {
-        await Fluo.instance.clearSession();
-        setState(() {});
-      },
-    );
-  },
-)
+// Or use Mobile/Google/Apple
+Fluo.instance.signInWithMobile(
+  context: context,
+  onExit: () => print('User cancelled'),
+  onUserReady: () => print('User signed in!'),
+);
+
+// For mobile sign-in, Fluo uses Prelude (https://prelude.so) for SMS delivery.
+// Create an API key on Prelude and add it to your Fluo dashboard.
+
+Fluo.instance.signInWithGoogle(
+  context: context,
+  onBeforeSessionCreation: () => showLoadingDialog(),
+  onUserReady: () => hideLoadingAndContinue(),
+);
+
+// For Google sign-in, configure your Google OAuth credentials in the Fluo dashboard.
+
+Fluo.instance.signInWithApple(
+  context: context,
+  onBeforeSessionCreation: () => showLoadingDialog(),
+  onUserReady: () => hideLoadingAndContinue(),
+);
+
+// For Apple sign-in, configure your Apple Developer credentials in the Fluo dashboard.
 ```
 
-## Requirements for Android
+### macOS setup
 
-**For Android**, make sure you have these `queries` in `android/app/src/main/AndroidManifest.xml`:
-
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{your_package}">
-
-    <!-- Add this below for Android 11+ (API 30+) -->
-    <queries>
-        <!-- Allow checking for https / http handlers -->
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="https" />
-        </intent>
-        <!-- Allow checking for support of inAppBrowserView / Custom Tabs -->
-        <intent>
-            <action android:name="android.support.customtabs.action.CustomTabsService" />
-        </intent>
-    </queries>
-
-</manifest>
-```
-
-## Requirements for macOS
-
-**For macOS**, make sure you have networking allowed by adding this key to both `macos/Runner/DebugProfile.entitlements` and `macos/Runner/Release.entitlements`:
+Add this key to both `macos/Runner/DebugProfile.entitlements` and `macos/Runner/Release.entitlements`:
 
 ```xml
 <dict>
-	<!-- Add this key set to true -->
 	<key>com.apple.security.network.client</key>
 	<true/>
 </dict>
 ```
 
-## More about the SDK
-
-Below are the most important methods to know:
+### Useful methods
 
 ```dart
-// Initialize the SDK
-await Fluo.init('YOUR_API_KEY');
-
-// Check if init is done
-if (Fluo.isInitialized) {
-  // ...
-}
-
 // Check if user is ready (valid session + complete user attributes)
-if (Fluo.instance.isUserReady()) {
-  // ...
-}
+if (Fluo.instance.isUserReady()) { /* ... */ }
 
-// Only check if a session exists
-if (Fluo.instance.hasSession()) {
-  // ...
-}
+// Check if a session exists
+if (Fluo.instance.hasSession()) { /* ... */ }
 
-// Get a certified fresh access token. "Certified fresh" means that
-// if the access token has expired, Fluo will first refresh it before
-// returning it. This is an important method if you selected a "custom"
-// backend.
-String accessToken = await Fluo.instance.getAccessToken();
+// Get a fresh access token (auto-refreshes if expired)
+final accessToken = await Fluo.instance.getAccessToken();
 
-// Force refresh the session. Generally, you should not need it because
-// `Fluo.instance.getAccessToken()` handles refreshing the session.
-await Fluo.instance.refreshSession();
-
-// Clear the locally stored token. This is equivalent to a sign out.
+// Sign out
 await Fluo.instance.clearSession();
 
 // User data
-String userId = Fluo.instance.session.user.id; // "jzi8w7bdou4m0kq"
-String email = Fluo.instance.session.user.email; // "peter.parker@marvel.com"
-String mobileE164 = Fluo.instance.session.user.mobileE164; // "+14155556766"
-String mobileIso2 = Fluo.instance.session.user.mobileIso2; // "US"
-String firstName = Fluo.instance.session.user.firstName; // "Peter"
-String lastName = Fluo.instance.session.user.lastName; // "Parker"
-
-// If you build your own connect screen (and don't use FluoOnboarding)
-// When authentication is done, these flows will automatically show the
-// registration steps (you don't need to call `showRegisterFlow`).
-Fluo.instance.showConnectWithEmailFlow(/* ... */)
-Fluo.instance.showConnectWithMobileFlow(/* ... */)
-Fluo.instance.showConnectWithGoogleFlow(/* ... */)
-Fluo.instance.showConnectWithAppleFlow(/* ... */)
-
-// Force show the registration steps. Generally, you should not need it.
-Fluo.instance.showRegisterFlow(/* ... */)
+Fluo.instance.session!.user.id;        // "jzi8w7bdou4m0kq"
+Fluo.instance.session!.user.email;     // "peter.parker@marvel.com"
+Fluo.instance.session!.user.firstName; // "Peter"
+Fluo.instance.session!.user.lastName;  // "Parker"
 ```
 
-## Integrating with Firebase
+### Integrating with Firebase
 
-Select 'Firebase' for your backend. Once complete, when users are onboarded, Fluo forwards their info to:
-
-1. the Firebase Authentication service
-2. a `users` table created automatically in the Firestore Database (make sure the Firestore Database is initialized)
-
-Back to your app code, to initialize correctly the Firebase session, use the `Fluo.instance.session.firebaseToken` as below:
+Select 'Firebase' for your backend. Fluo forwards user info to Firebase Authentication and creates a `users` table in Firestore.
 
 ```dart
-// 1. Initialize the Firebase client somewhere in your code
-// 2. Make sure Fluo is initialized and has a session
-// 3. Use 'signInWithCustomToken' as shown below
 if (Fluo.isInitialized) {
   final fluoSession = Fluo.instance.session;
   if (fluoSession != null) {
@@ -181,19 +397,11 @@ if (Fluo.isInitialized) {
 }
 ```
 
-## Integrating with Supabase
+### Integrating with Supabase
 
-Select 'Supabase' for your backend. Once complete, when users are onboarded, Fluo forwards their info to:
-
-1. the Supabase Authentication service
-2. a `users` table that you will create as part of the Supabase setup (no worries, it's a simple copy-paste)
-
-Back to your app code, to initialize correctly the Supabase session, use the `Fluo.instance.session.supabaseSession` as below:
+Select 'Supabase' for your backend. Fluo forwards user info to Supabase Authentication and a `users` table.
 
 ```dart
-// 1. Initialize the Supabase client somewhere in your code
-// 2. Make sure Fluo is initialized and has a session
-// 3. Use 'recoverSession' as shown below
 if (Fluo.isInitialized) {
   final fluoSession = Fluo.instance.session;
   if (fluoSession != null) {
@@ -203,7 +411,7 @@ if (Fluo.isInitialized) {
 }
 ```
 
-## Integrating with any backend
+### Integrating with any backend
 
 Select 'Custom' for your backend. The general idea is to use the JWT access token provided by Fluo to get a unique user id via the `"sub"` JWT claim.
 
@@ -282,70 +490,5 @@ app.post("/api/user/me", async (req, res) => {
   "iat": 1744039599, // issued at
   "exp": 1744043199, // expires 1 hour after being issued
   "iss": "fluo.dev", // issuer
-}
-```
-
-## Customizing the theme
-
-Pass a `FluoTheme` to the `FluoOnboarding` component.
-
-**For iOS, Android, macOS**
-
-```dart
-FluoOnboarding(
-  // ...other properties...
-  fluoTheme: FluoTheme.native(/* parameters */),
-)
-```
-
-**For web**
-
-```dart
-FluoOnboarding(
-  // ...other properties...
-  fluoTheme: FluoTheme.web(/* parameters */),
-)
-```
-
-**Parameters**
-
-```dart
-{
-  Color? primaryColor,
-  Color? inversePrimaryColor,
-  Color? accentColor,
-  EdgeInsets? screenPadding,
-  ButtonStyle? connectButtonStyle,
-  ButtonStyle? connectButtonStyleGoogle,
-  ButtonStyle? connectButtonStyleApple,
-  TextStyle? connectButtonTextStyle,
-  TextStyle? connectButtonTextStyleGoogle,
-  TextStyle? connectButtonTextStyleApple,
-  double? connectButtonIconSize,
-  Widget? connectButtonIconEmail,
-  Widget? connectButtonIconMobile,
-  Widget? connectButtonIconGoogle,
-  Widget? connectButtonIconApple,
-  TextStyle? legalTextStyle,
-  EdgeInsets? legalTextPadding,
-  TextStyle? modalTitleTextStyle,
-  TextStyle? titleStyle,
-  InputDecorationTheme? inputDecorationTheme,
-  TextStyle? inputTextStyle,
-  TextStyle? inputErrorStyle,
-  TextAlignVertical? inputTextAlignVertical,
-  ButtonStyle? continueButtonStyle,
-  Size? continueButtonProgressIndicatorSize,
-  Color? continueButtonProgressIndicatorColor,
-  double? continueButtonProgressIndicatorStrokeWidth,
-  EdgeInsets? countryItemPadding,
-  Color? countryItemHighlightColor,
-  TextStyle? countryTextStyle,
-  PinTheme? codeInputThemeDefault,
-  PinTheme? codeInputThemeFocused,
-  PinTheme? codeInputThemeSubmitted,
-  PinTheme? codeInputThemeFollowing,
-  PinTheme? codeInputThemeDisabled,
-  PinTheme? codeInputThemeError,
 }
 ```

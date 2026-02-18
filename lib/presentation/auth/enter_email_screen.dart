@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/partial_session.dart';
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/widgets/clear_suffix_button.dart';
@@ -62,18 +62,18 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = FluoLocalizations.of(context)!;
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterEmail,
       inputWidget: Theme(
         data: Theme.of(context).copyWith(
-          inputDecorationTheme: fluoTheme.inputDecorationTheme,
+          inputDecorationTheme: style.inputDecorationTheme,
         ),
         child: TextField(
           controller: _emailController,
           focusNode: _focusNode,
-          style: fluoTheme.inputTextStyle,
-          textAlignVertical: fluoTheme.inputTextAlignVertical,
+          style: style.inputTextStyle,
+          textAlignVertical: style.inputTextAlignVertical,
           decoration: InputDecoration(
             hintText: l10n.enterEmailPlaceholder,
             suffixIcon: ClearSuffixButton(controller: _emailController),

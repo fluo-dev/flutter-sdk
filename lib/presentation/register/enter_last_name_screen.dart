@@ -1,6 +1,6 @@
 import 'package:fluo/api/api_client.dart';
 import 'package:fluo/api/models/api_error.dart';
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/l10n/fluo_localizations.dart';
 import 'package:fluo/l10n/localized.dart';
 import 'package:fluo/managers/session_manager.dart';
@@ -57,17 +57,17 @@ class _EnterLastNameScreenState extends State<EnterLastNameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final fluoTheme = context.read<FluoTheme>();
+    final style = context.read<FluoSignInStyle>();
     return SingleInputScreen(
       inputTitle: FluoLocalizations.of(context)!.enterLastName,
       inputWidget: Theme(
         data: Theme.of(context).copyWith(
-          inputDecorationTheme: fluoTheme.inputDecorationTheme,
+          inputDecorationTheme: style.inputDecorationTheme,
         ),
         child: TextField(
           controller: _lastNameController,
-          style: fluoTheme.inputTextStyle,
-          textAlignVertical: fluoTheme.inputTextAlignVertical,
+          style: style.inputTextStyle,
+          textAlignVertical: style.inputTextAlignVertical,
           decoration: InputDecoration(
             hintText: FluoLocalizations.of(context)!.enterLastNamePlaceholder,
             suffixIcon: ClearSuffixButton(controller: _lastNameController),
