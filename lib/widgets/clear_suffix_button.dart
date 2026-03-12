@@ -1,4 +1,4 @@
-import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,12 +40,12 @@ class _ClearSuffixButtonState extends State<ClearSuffixButton> {
       return const SizedBox.shrink();
     }
 
-    final fluoTheme = context.read<FluoTheme>();
-    final inputDecorationTheme = fluoTheme.inputDecorationTheme;
-    final inputTextStyle = fluoTheme.inputTextStyle;
+    final style = context.read<FluoSignInStyle>();
+    final inputDecorationTheme = style.inputDecorationTheme;
+    final inputTextStyle = style.inputTextStyle;
 
     double? rightPadding;
-    final contentPadding = inputDecorationTheme.contentPadding;
+    final contentPadding = inputDecorationTheme?.contentPadding;
     if (contentPadding != null) {
       if (contentPadding is EdgeInsetsDirectional) {
         rightPadding = contentPadding.end;
@@ -64,14 +64,14 @@ class _ClearSuffixButtonState extends State<ClearSuffixButton> {
             right: rightPadding ?? 0.0,
           ),
           decoration: BoxDecoration(
-            color: inputDecorationTheme.hintStyle?.color?.withAlpha(40),
+            color: inputDecorationTheme?.hintStyle?.color?.withAlpha(40),
             borderRadius: BorderRadius.circular(30),
           ),
           padding: const EdgeInsets.all(2.0),
           child: Icon(
             Icons.close_rounded,
-            color: fluoTheme.inversePrimaryColor,
-            size: inputTextStyle.fontSize,
+            color: style.backButtonColor,
+            size: inputTextStyle?.fontSize,
           ),
         ),
       ),

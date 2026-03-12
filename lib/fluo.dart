@@ -668,7 +668,6 @@ class Fluo {
       backButtonColor: theme.primaryColor,
       titleTextStyle: theme.titleStyle,
       inputTextStyle: theme.inputTextStyle,
-      inputDecorationTheme: theme.inputDecorationTheme as InputDecorationTheme?,
       inputTextAlignVertical: theme.inputTextAlignVertical,
       inputErrorTextStyle: theme.inputErrorStyle,
       codeInputThemeDefault: theme.codeInputThemeDefault,
