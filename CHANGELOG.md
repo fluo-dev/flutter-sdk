@@ -1,3 +1,11 @@
+## 4.0.2
+
+- Fix `signInWithMobile` crash: `CountryManager` not initialized when using the new API directly
+
+## 4.0.1
+
+- Fix `ClearSuffixButton` provider crash in email/mobile flows
+
 ## 4.0.0
 
 **Breaking changes:**

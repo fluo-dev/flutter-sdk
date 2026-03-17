@@ -1,6 +1,6 @@
 name: fluo
 description: Build beautiful onboarding flows with minimal code. Optional authentication included.
-version: 4.0.1
+version: 4.0.2
 homepage: https://fluo.dev
 repository: https://github.com/fluo-dev/flutter-sdk
 

@@ -14,6 +14,7 @@ import 'package:fluo/api/models/auth_method.dart';
 import 'package:fluo/api/models/session.dart';
 import 'package:fluo/fluo_sign_in_style.dart';
 import 'package:fluo/fluo_theme.dart';
+import 'package:fluo/managers/country_manager.dart';
 import 'package:fluo/managers/session_manager.dart';
 import 'package:fluo/presentation/auth/auth_navigator.dart';
 import 'package:fluo/presentation/register/register_navigator.dart';
@@ -289,6 +290,7 @@ class Fluo {
     required VoidCallback onExit,
     required VoidCallback onUserReady,
   }) {
+    CountryManager.init();
     style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
     _showNavigator(
       context: context,
