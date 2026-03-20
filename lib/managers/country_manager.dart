@@ -14,7 +14,7 @@ class CountryManager {
 
   static CountryManager? _instance;
 
-  static void init() async {
+  static Future<void> init() async {
     if (_instance != null) {
       return;
     }

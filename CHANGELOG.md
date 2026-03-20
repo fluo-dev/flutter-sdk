@@ -1,3 +1,7 @@
+## 4.0.3
+
+- Fix `signInWithMobile` async: properly await `CountryManager.init()` before showing the flow
+
 ## 4.0.2
 
 - Fix `signInWithMobile` crash: `CountryManager` not initialized when using the new API directly

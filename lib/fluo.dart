@@ -257,13 +257,13 @@ class Fluo {
   /// sending an otp, and validating the session.
   ///
   @Deprecated('Use signInWithMobile instead')
-  void showConnectWithMobileFlow({
+  Future<void> showConnectWithMobileFlow({
     required BuildContext context,
     required FluoTheme theme,
     required VoidCallback onExit,
     required VoidCallback onUserReady,
-  }) {
-    signInWithMobile(
+  }) async {
+    await signInWithMobile(
       context: context,
       style: _convertThemeToSignInStyle(theme),
       onExit: onExit,
@@ -284,13 +284,13 @@ class Fluo {
   /// - [onUserReady]: Called when the user successfully signs in and
   ///   completes all required registration steps.
   ///
-  void signInWithMobile({
+  Future<void> signInWithMobile({
     required BuildContext context,
     FluoSignInStyle? style,
     required VoidCallback onExit,
     required VoidCallback onUserReady,
-  }) {
-    CountryManager.init();
+  }) async {
+    await CountryManager.init();
     style ??= kIsWeb ? FluoSignInStyle.web() : FluoSignInStyle.native();
     _showNavigator(
       context: context,
