@@ -88,6 +88,7 @@ class FluoQuestionScreen extends StatefulWidget {
 
 class _FluoQuestionScreenState extends State<FluoQuestionScreen> {
   final List<String> _selectedAnswerIds = [];
+  bool _didContinue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +224,11 @@ class _FluoQuestionScreenState extends State<FluoQuestionScreen> {
   }
 
   void _onContinue() {
+    if (_didContinue) return;
+    _didContinue = true;
     widget.onContinue(_selectedAnswerIds);
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      if (mounted) _didContinue = false;
+    });
   }
 }

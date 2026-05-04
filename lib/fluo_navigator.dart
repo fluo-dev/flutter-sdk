@@ -67,38 +67,42 @@ class FluoNavigatorState extends State<FluoNavigator> {
         child: Column(
           spacing: 20,
           children: [
-            AnimatedOpacity(
-              opacity: _stepIncrements.isEmpty ? 0 : 1,
-              duration: const Duration(milliseconds: 300),
-              child: Padding(
-                padding: widget.style.topBarPadding,
-                child: Row(
-                  spacing: 20,
-                  children: [
-                    RoundButton(
-                      onPressed: pop,
-                      color: widget.style.backButtonColor,
-                    ),
-                    Expanded(
-                      child: TweenAnimationBuilder<double>(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        tween: Tween<double>(
-                          begin: 0,
-                          end: _stepIncrementsSum() / widget.totalSteps,
-                        ),
-                        builder: (context, value, _) => LinearProgressIndicator(
-                          value: value,
-                          minHeight: 6,
-                          color: widget.style.progressIndicatorColor,
-                          backgroundColor:
-                              widget.style.progressIndicatorBackgroundColor,
-                          borderRadius:
-                              widget.style.progressIndicatorBorderRadius,
+            IgnorePointer(
+              ignoring: _stepIncrements.isEmpty,
+              child: AnimatedOpacity(
+                opacity: _stepIncrements.isEmpty ? 0 : 1,
+                duration: const Duration(milliseconds: 300),
+                child: Padding(
+                  padding: widget.style.topBarPadding,
+                  child: Row(
+                    spacing: 20,
+                    children: [
+                      RoundButton(
+                        onPressed: pop,
+                        color: widget.style.backButtonColor,
+                      ),
+                      Expanded(
+                        child: TweenAnimationBuilder<double>(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          tween: Tween<double>(
+                            begin: 0,
+                            end: _stepIncrementsSum() / widget.totalSteps,
+                          ),
+                          builder: (context, value, _) =>
+                              LinearProgressIndicator(
+                            value: value,
+                            minHeight: 6,
+                            color: widget.style.progressIndicatorColor,
+                            backgroundColor:
+                                widget.style.progressIndicatorBackgroundColor,
+                            borderRadius:
+                                widget.style.progressIndicatorBorderRadius,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
