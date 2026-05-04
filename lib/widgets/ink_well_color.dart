@@ -33,23 +33,20 @@ class _InkWellColorState extends State<InkWellColor> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onHighlightChanged: (value) {
-        setState(() => _isPressed = value);
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) {
+        setState(() => _isPressed = false);
+        widget.onTap?.call();
       },
-      onTap: widget.onTap,
+      onTapCancel: () => setState(() => _isPressed = false),
       child: AnimatedScale(
         scale: _isPressed ? 0.98 : 1.0,
         duration: Duration(milliseconds: 100),
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+        child: Container(
           decoration: BoxDecoration(
-            color: _isPressed && widget.highlightColor != null
-                ? widget.highlightColor
-                : widget.color,
-            border: _isPressed && widget.highlightBorder != null
-                ? widget.highlightBorder
-                : widget.border,
+            color: widget.color,
+            border: widget.border,
             borderRadius: widget.borderRadius,
           ),
           padding: widget.padding,
