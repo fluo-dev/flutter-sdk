@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:fluo/api/models/api_error.dart';
 import 'package:fluo/api/models/app_config.dart';
 import 'package:fluo/api/models/partial_session.dart';
 import 'package:fluo/api/models/session.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 final class Error {
   static int unauthorized = 401;
@@ -12,11 +14,18 @@ final class Error {
 }
 
 class ApiClient {
-  ApiClient(this.apiKey);
+  ApiClient(this.apiKey)
+      : _client = RetryClient(
+          http.Client(),
+          retries: 3,
+          whenError: (error, _) =>
+              error is http.ClientException || error is SocketException,
+        );
 
   static const String baseUrl = 'https://fluo-pocketbase.fly.dev/api/v1';
 
   final String apiKey;
+  final http.Client _client;
 
   String language = 'en_US';
 
@@ -203,7 +212,7 @@ class ApiClient {
     required String path,
     String? accessToken,
   }) {
-    return http.get(
+    return _client.get(
       Uri.parse('$baseUrl$path'),
       headers: _headers(accessToken),
     );
@@ -214,7 +223,7 @@ class ApiClient {
     required Map<String, dynamic> body,
     String? accessToken,
   }) {
-    return http.post(
+    return _client.post(
       Uri.parse('$baseUrl$path'),
       headers: _headers(accessToken),
       body: jsonEncode(body),
@@ -226,7 +235,7 @@ class ApiClient {
     required Map<String, dynamic> body,
     String? accessToken,
   }) {
-    return http.patch(
+    return _client.patch(
       Uri.parse('$baseUrl$path'),
       headers: _headers(accessToken),
       body: jsonEncode(body),
@@ -237,7 +246,7 @@ class ApiClient {
     required String path,
     String? accessToken,
   }) {
-    return http.delete(
+    return _client.delete(
       Uri.parse('$baseUrl$path'),
       headers: _headers(accessToken),
     );
